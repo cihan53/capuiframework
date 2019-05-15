@@ -1,3 +1,4 @@
+import {toJS} from "mobx";
 import NotificationSystem from "react-mobx-notification-system";
 import ShortId from "./ShortId";
 import Lodash from "./Lodash";
@@ -7,6 +8,8 @@ import Mask from "./Mask";
 import "./capitalizeFirstLetter";
 import _Array from "./_Array";
 import findProp from "./findProp";
+import createElement from "./CreateElements";
+import CreateComponent from "./CreateComponent";
 
 
 
@@ -49,6 +52,9 @@ var Utils = {
     Array: _Array,
     capitalizeFirstLetter: e => (e.charAt(0).toUpperCase() + e.slice(1).toLowerCase()),
     findProp,
-    isDebug
+    isDebug,
+    CreateComponent,
+    createElement,
+    toJS:toJS
 };
 export default Utils;

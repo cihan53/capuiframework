@@ -7,23 +7,14 @@
 import React from "react";
 import { observer } from "mobx-react/index";
 import { AppBreadcrumb } from "@coreui/react";
-import BreadCrumbStore from "../../CapController";
 import Utils from "./Utils";
+import StoreManager from "../../StoreManager";
 
 
 @observer
 export default class BreadCrumb extends React.Component {
-  // componentWillReact( ) {
-  //   console.log("Güncellendi");
-  //
-  // }
-  //
-  // componentDidUpdate() {
-  //   console.log("bread guncellendi")
-  // }
-
   render() {
-    let p =   BreadCrumbStore.BreadCrumb  ;
+    let p =   StoreManager.get("BreadCrumbStore").BreadCrumb  ;
     return (<AppBreadcrumb key={Utils.ShortId.generate()} appRoutes={p}/>);
   }
 }

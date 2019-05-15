@@ -3,7 +3,9 @@
  * Author: Cihan Öztürk
  * Email: cihanozturk@crypttech.com
  */
-
+import React from "react";
+import {observer} from "mobx-react/index";
+import MobxReactForm from 'mobx-react-form';
 import Loadable from 'react-loadable';
 import moment from "moment";
 import classNames from "classnames";
@@ -20,20 +22,24 @@ import Alert from "./Lib/CAP/Message/Alert";
 import Confirm from "./Lib/CAP/Message/Confirm";
 import Field from "./Lib/CAP/Form/Field";
 import CapController from "./Lib/CapController";
+import JsonInput from "./Lib/CAP/Form/JsonInput";
+import ComboBox from "./Lib/CAP/Form/ComboBox";
+import DropZone from "./Lib/CAP/Form/DropZone";
 
 const BaseController = CapController;
 
 
 const CAPFrameWork = e => {
+
     return {
-        DefaultController:DefaultController,
+        DefaultController: DefaultController,
         BaseController: BaseController,
         classNames: classNames,
         PropTypes: PropTypes,
         Utils: Utils,
         Request: Request,
         Date: moment(),
-        Loadable:Loadable,
+        Loadable: Loadable,
         Formatter: {
             date: (date, format = "YYYY MM DD H:mm:ss") => moment(date).format(format),
             duration: (duration, units = "minutes", format = "H:mm:ss") => moment.duration(duration, units)
@@ -63,17 +69,21 @@ const CAPFrameWork = e => {
          *
          * @type {{Field: {}}}
          */
-        FormPanel: (props) => <FormPanel {...props}/>,
+        FormPanel: (props) => {
+            return <FormPanel ref={props.ref || null} {...props}/>
+        },
         Form: {
             JsonEditor: (props) => <JsonEditorForm {...props}/>,
-            Panel: {},
+            form: MobxReactForm,
             Field: {
                 base: {},
                 Field: Field,
                 Number: {},
                 Radio: {},
                 Checkbox: {},
-                ComboBox: {},
+                ComboBox: observer((props) => {
+                    return <ComboBox {...props}/>
+                }),
                 Date: {},
                 Display: {},
                 File: {},
@@ -82,14 +92,49 @@ const CAPFrameWork = e => {
                 HtmlEditor: {},
                 Picker: {},
                 Spinner: {},
+                JsonInput: observer((props) => <JsonInput {...props}/>),
                 Tag: {},
-                Text: (config) => <Field type={"text"} {...config}/>,
+                Text: observer((props) => <Field type={"text"} {...props}/>),
                 TextArea: {},
-                Time: {}
+                Time: {},
+                DropZone: DropZone
             }
         },
         Log: console.log
     }
 }
 
-export default {...CAPFrameWork() }
+
+const Xtypes = {
+    xpanel: CAPFrameWork().Panel,
+    xmask: CAPFrameWork().Mask,
+    xmessagebox: CAPFrameWork().MessageBox,
+    xformatter: CAPFrameWork().Formatter,
+    xgrid: CAPFrameWork().Grid,
+    xformpanel: CAPFrameWork().FormPanel,
+    xform: CAPFrameWork().Form,
+    xjsoneditor: CAPFrameWork().Form.JsonEditor,
+    xfield: Field,
+    xnumberfield: CAPFrameWork().Form.Field.Number,
+    xradiofield: CAPFrameWork().Form.Field.Radio,
+    xcheckboxfield: CAPFrameWork().Form.Field.Checkbox,
+    xcomboxfield: CAPFrameWork().Form.Field.ComboBox,
+    xdatefield: CAPFrameWork().Form.Field.Date,
+    xdisplayfield: CAPFrameWork().Form.Field.Display,
+    xfilefield: CAPFrameWork().Form.Field.File,
+    xfilebuttonfield: CAPFrameWork().Form.Field.FileButton,
+    xhiddenfield: CAPFrameWork().Form.Field.Hidden,
+    xhtmleditorfield: CAPFrameWork().Form.Field.HtmlEditor,
+    xpickerfield: CAPFrameWork().Form.Field.Picker,
+    xspinnerfield: CAPFrameWork().Form.Field.Spinner,
+    xjsoninputfield: CAPFrameWork().Form.Field.JsonInput,
+    xtagfield: CAPFrameWork().Form.Field.Tag,
+    xtextfield: CAPFrameWork().Form.Field.Text,
+    xtextareafield: CAPFrameWork().Form.Field.TextArea,
+    xtimefield: CAPFrameWork().Form.Field.Time,
+    xdropzone: CAPFrameWork().Form.Field.Dropzone
+}
+
+
+export default {...CAPFrameWork()}
+export {Xtypes}

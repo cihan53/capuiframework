@@ -103,3 +103,4 @@ class UserStore extends BaseStore {
 }
 
 export default new UserStore();
+export {UserStore}

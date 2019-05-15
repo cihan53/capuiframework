@@ -6,9 +6,13 @@
 import React from "react";
 import createClass from "create-react-class";
 import ReactDOM from "react-dom";
-import CAPFrameWork from "./Initialization";
+import CAPFrameWork,{Xtypes} from "./Initialization";
 import BaseStore from "./Lib/CAP/Store/BaseStore";
 // import {CapBaseStore as BaseStore} from "./Lib/CapBaseStore";
+
+
+//Main Css
+import "./index.scss";
 
 //React bileşenleri
 window.React = React;
@@ -29,10 +33,14 @@ const Grid = CAPFrameWork.Grid;
 const Request = CAPFrameWork.Request;
 const ClassNames = CAPFrameWork.classNames;
 const Form = CAPFrameWork.Form;
+const FormPanel = CAPFrameWork.FormPanel;
 const Loadable = CAPFrameWork.Loadable;
 const PropTypes = CAPFrameWork.PropTypes;
 const Date = CAPFrameWork.Date;
 const ShortId = CAPFrameWork.ShortId;
+const Utils = CAPFrameWork.Utils;
+
+
 // const BaseStore= BaseStore;
 // const BaseStore= BaseStore;
 // //Jquery
@@ -42,6 +50,6 @@ const ShortId = CAPFrameWork.ShortId;
 // const BaseStore = CapBaseStore;
 export default {...CAPFrameWork};
 // export {BaseStore};
-export {CAP,MessageBox,BaseController,Date,Spinner,ShortId,Grid,Request,BaseStore,ClassNames,Form,Loadable,PropTypes}
+export {CAP,MessageBox,BaseController,Date,Spinner,ShortId,Grid,Request,BaseStore,ClassNames,FormPanel,Form,Loadable,PropTypes,Xtypes,Utils}
 
 

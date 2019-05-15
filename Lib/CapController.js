@@ -9,7 +9,7 @@ import React from "react";
 import {matchPath} from "react-router";
 import Utils from "./CAP/Utils/Utils";
 import StoreManager from "./StoreManager";
-import {Loadable,Spinner} from "../Index";
+import {Loadable, Spinner} from "../Index";
 
 
 const queryString = require("query-string");
@@ -380,10 +380,10 @@ export default class CapController extends React.Component {
         if (!loadmask) {
 
             let View = Loadable({
-              loader: () => import(
-                /* webpackMode: "lazy" */
-                `@ThemeViewsPath/${controller}/${view}`),
-              loading: this.loading
+                loader: () => import(
+                    /* webpackMode: "lazy" */
+                    `@ThemeViewsPath/${controller}/${view}`),
+                loading: this.loading
 
             });
 
@@ -509,14 +509,15 @@ export default class CapController extends React.Component {
      * @param errorText
      * @returns {*}
      */
-    actionError() {
+    actionError(params) {
 
-        console.debug(this.errors);
+        console.debug(this.errors, params);
 
         return <React.Fragment>
             <div className="text-white bg-danger text-center">
                 <div className={"cart card-error p-4"}>
                     <blockquote className="card-bodyquote">
+                        {params.errors ? <p>{params.errors}</p> : ""}
                         <p>{this.errors.map(e => {
                             return e;
                         })}</p>
@@ -552,7 +553,7 @@ export default class CapController extends React.Component {
      * @returns {string}
      */
 
-    createUrl(actionName, params = {}) {
+    createUrl(actionName, params = {}, hash = true) {
 
 
         // return <Link
@@ -573,12 +574,14 @@ export default class CapController extends React.Component {
         if (!_.isEmpty(params))
             queryStringParams = queryStringParams + "/?" + queryString.stringify(params);
 
-
         let controller = "/" + this.controllerName + "/" + actionName;
 
         if (Utils.startsWith(actionName, "/")) controller = actionName;
 
-        return "/#" + Utils.trimEnd(controller, "/") + "/" + queryStringParams;
+        if (hash)
+            return "/#" + Utils.trimEnd(controller, "/") + "/" + queryStringParams;
+        else
+            return Utils.trimEnd(controller, "/") + (Utils.startsWith(queryStringParams, "/") ? queryStringParams : "/" + queryStringParams);
     }
 
     /**
@@ -598,6 +601,6 @@ export default class CapController extends React.Component {
      * @returns {*}
      */
     toChange(actionName, params = {}) {
-        return this.props.history.push(this.createUrl(actionName, params));
+        return this.props.history.push(this.createUrl(actionName, params, false));
     }
 }

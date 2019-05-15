@@ -74,3 +74,4 @@ class AuthStore extends BaseStore {
 }
 
 export default new AuthStore();
+

@@ -38,3 +38,4 @@ class BreadCrumbStore {
 }
 
 export default new BreadCrumbStore();
+export {BreadCrumbStore}

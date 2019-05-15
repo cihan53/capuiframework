@@ -380,7 +380,6 @@ JsonEditorForm.propTypes = {
   root: PropTypes.string.isRequired,
   values: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
-
 };
 
 JsonEditorForm.defaultProps = {
