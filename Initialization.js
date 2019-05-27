@@ -25,6 +25,7 @@ import CapController from "./Lib/CapController";
 import JsonInput from "./Lib/CAP/Form/JsonInput";
 import ComboBox from "./Lib/CAP/Form/ComboBox";
 import DropZone from "./Lib/CAP/Form/DropZone";
+import Multiselect from "react-bootstrap-multiselect";
 
 const BaseController = CapController;
 
@@ -57,14 +58,14 @@ const CAPFrameWork = e => {
         Mask: Utils.Mask,
         Spinner: Utils.Mask.mask,
         Validator: {},
-        Panel: (config, options = {}) => <Panel config={config} options={options}/>,
+        Panel: (props, options = {}) => <Panel {...props} options={options}/>,
         /**
          *
          * @param config
          * @returns {*}
          * @constructor
          */
-        Grid: (config) => <Grid key={Utils.ShortId.generate()} config={config}/>,
+        Grid: (config) => <Grid config={config}/>,
         /**
          *
          * @type {{Field: {}}}
@@ -81,6 +82,7 @@ const CAPFrameWork = e => {
                 Number: {},
                 Radio: {},
                 Checkbox: {},
+                Multiselect: (c) => <Multiselect {...c}/>,
                 ComboBox: observer((props) => {
                     return <ComboBox {...props}/>
                 }),
@@ -118,6 +120,7 @@ const Xtypes = {
     xnumberfield: CAPFrameWork().Form.Field.Number,
     xradiofield: CAPFrameWork().Form.Field.Radio,
     xcheckboxfield: CAPFrameWork().Form.Field.Checkbox,
+    xcheckboxmultiselect: CAPFrameWork().Form.Field.CheckboxMultiSelect,
     xcomboxfield: CAPFrameWork().Form.Field.ComboBox,
     xdatefield: CAPFrameWork().Form.Field.Date,
     xdisplayfield: CAPFrameWork().Form.Field.Display,

@@ -26,13 +26,30 @@ export default class Panel extends React.Component {
     constructor(props) {
         super(props);
         this.key = this.props.key || Utils.ShortId.generate();
+        this.childRender = this.childRender.bind(this);
+    }
+
+
+    childRender(items = []) {
+
+        return Utils.isArray(items) ? items.map((E, i) => {
+
+            //console.log(this.key,E,i)
+            //E.key = this.key + "-child-item-" + i;
+            if (E.hasOwnProperty("xtype"))
+                return Utils.createElement(E);
+
+            if ((typeof  E.$$typeof) == "symbol")
+                return <React.Fragment key={E.key}>{E}</React.Fragment>;
+
+            return <E key={this.key + "-child-item-" + i}/>;
+        }) : null;
     }
 
     render(children = null) {
-
-        console.log("Render 3")
-
+        children = children || this.props.items.length > 0 ? this.childRender(this.props.items) : null;
         children = children || this.props.children || null;
+
         const footer = this.props.config.footer || null;
         const title = this.props.config.title || this.props.title;
         let header = this.props.header;
@@ -40,29 +57,28 @@ export default class Panel extends React.Component {
             header = this.props.config.header;
         }
 
-
         //items var ise
-        if (children == null && this.props.items && this.props.items.length > 0)
-            children = this.props.items.map((e, i) => {
-                e.key = this.key + "-child-item-" + i;
-                if (e.hasOwnProperty("xtype"))
-                    return Utils.createElement(e);
-                return e;
-            });
+        // if (children == null && this.props.items && this.props.items.length > 0)
+        // children = this.props.items.map((e, i) => {
+        //     e.key = this.key + "-child-item-" + i;
+        //     if (e.hasOwnProperty("xtype"))
+        //         return Utils.createElement(e);
+        //     return e;
+        // });
 
 
         //config içinde items var ise
-        if (children == null &&  this.props.config && this.props.config.items && this.props.config.items.length > 0)
-            children = this.props.config.items.map((E, i) => {
-                E.key = this.key + "-child-item-" + i;
-                if (E.hasOwnProperty("xtype"))
-                    return Utils.createElement(E);
-
-                if ((typeof  E.$$typeof) == "symbol")
-                    return <React.Fragment key={E.key}>{E}</React.Fragment>;
-
-                return <E key={this.key + "-child-item-" + i}/>;
-            });
+        // if (children == null &&  this.props.config && this.props.config.items && this.props.config.items.length > 0)
+        // children = this.props.config.items.map((E, i) => {
+        //     E.key = this.key + "-child-item-" + i;
+        //     if (E.hasOwnProperty("xtype"))
+        //         return Utils.createElement(E);
+        //
+        //     if ((typeof  E.$$typeof) == "symbol")
+        //         return <React.Fragment key={E.key}>{E}</React.Fragment>;
+        //
+        //     return <E key={this.key + "-child-item-" + i}/>;
+        // });
 
         let optionsHeader = this.props.options.optionsHeader || {};
         let optionsTitle = this.props.options.optionsTitle || {};
@@ -73,7 +89,6 @@ export default class Panel extends React.Component {
         // delete this.props.options.optionsTitle;
         // delete this.props.options.optionsBody;
         // delete this.props.options.optionsFooter;
-
 
         return <Card key={this.key + "-card"} {...this.props.options}>
             {header ? <CardHeader key={this.key + "-card-header"} {...optionsHeader}>{header}</CardHeader> : ""}

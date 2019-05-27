@@ -4,7 +4,6 @@ import ProgressBar from "react-progress-bar-plus";
 
 const Mask = {
   show: function(spinner = false, percent = -1, autoIncrement = true, intervalTime = 200, container = ".notifications-wrapper") {
-    console.log(document.querySelector(container))
     ReactDOM.render(<ProgressBar spinner={spinner} percent={percent} autoIncrement={autoIncrement} intervalTime={intervalTime}/>, document.querySelector(container));
   },
   hide: function(container = ".notifications-wrapper") {
