@@ -287,6 +287,12 @@ export default class CapController extends React.Component {
     }
 
 
+    componentDidCatch(error, info) {
+
+        console.log(error,info)
+    }
+
+
     /**
      *
      ### About `shouldComponentUpdate`

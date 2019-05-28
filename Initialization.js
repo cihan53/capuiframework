@@ -26,6 +26,7 @@ import JsonInput from "./Lib/CAP/Form/JsonInput";
 import ComboBox from "./Lib/CAP/Form/ComboBox";
 import DropZone from "./Lib/CAP/Form/DropZone";
 import Multiselect from "react-bootstrap-multiselect";
+import CapException from "./Lib/CAP/Exception/CapException";
 
 const BaseController = CapController;
 
@@ -33,6 +34,7 @@ const BaseController = CapController;
 const CAPFrameWork = e => {
 
     return {
+
         DefaultController: DefaultController,
         BaseController: BaseController,
         classNames: classNames,
@@ -102,7 +104,11 @@ const CAPFrameWork = e => {
                 DropZone: DropZone
             }
         },
-        Log: console.log
+        Log: console.log,
+        Raise: (name, e) => {
+            throw new CapException(name, e);
+        }
+
     }
 }
 
