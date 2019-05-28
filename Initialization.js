@@ -30,6 +30,8 @@ import CapException from "./Lib/CAP/Exception/CapException";
 
 const BaseController = CapController;
 
+window.moment=moment();
+
 
 const CAPFrameWork = e => {
 
@@ -41,7 +43,7 @@ const CAPFrameWork = e => {
         PropTypes: PropTypes,
         Utils: Utils,
         Request: Request,
-        Date: moment(),
+        Date: moment ,
         Loadable: Loadable,
         Formatter: {
             date: (date, format = "YYYY MM DD H:mm:ss") => moment(date).format(format),
