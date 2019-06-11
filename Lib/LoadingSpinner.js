@@ -40,17 +40,8 @@ export default class LoadingSpinner extends React.Component {
       </Card></React.Fragment>);
     } else {
       if (this.props.spinner)
-        return (<Spinner name="ball-grid-pulse" className={" margin-center "} />);
-        // return (
-        //   <div className="loading-spinner" style={style}>
-        //     <style>
-        //       {`@keyframes loading-spinner {
-        //           0% { transform : rotate(0deg); }
-        //           100% { transform : rotate(360deg); }
-        //         }`}
-        //     </style>
-        //   </div>
-        // );
+        return (<Spinner name={this.props.name} color={this.props.color} className={" margin-center "} />);
+
 
       return (<ProgressBar spinner={false} percent={this.loadPercent} autoIncrement={this.loadAutoIncrement}
                            intervalTime={this.loadIntervalTime}/>);
