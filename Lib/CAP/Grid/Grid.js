@@ -73,7 +73,7 @@ export default class Grid extends React.Component {
     data = null;
     limit = 50;
     autoload = true;
-    columns=[];
+    columns = [];
 
 
     constructor(props) {
@@ -117,8 +117,7 @@ export default class Grid extends React.Component {
             if (!this.store)
                 throw new Error("Undefined Store");
 
-
-            this.autoload = this.props.config.autoload || true;
+            this.autoload = this.props.config.hasOwnProperty('autoload') ? this.props.config.autoload : true;
 
 
             //this.store.load();
@@ -140,7 +139,15 @@ export default class Grid extends React.Component {
 
     //render before
     componentWillMount() {
-        if(this.props.config.hasOwnProperty('onBeforeRender')){
+        if (this.props.config.hasOwnProperty('onBeforeRender')) {
+            this.props.config.onBeforeRender(this);
+        }
+    }
+
+
+    componentWillUpdate() {
+       
+        if (this.props.config.hasOwnProperty('onBeforeRender')) {
             this.props.config.onBeforeRender(this);
         }
     }
@@ -148,7 +155,7 @@ export default class Grid extends React.Component {
     componentDidCatch(error, info) {
         // Hatanızı bir hata bildirimi servisine de yollayabilirsiniz.
         //logErrorToMyService(error, info);
-        console.log(error,info)
+        console.log(error, info)
 
     }
 

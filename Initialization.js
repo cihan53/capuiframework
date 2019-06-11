@@ -27,6 +27,7 @@ import ComboBox from "./Lib/CAP/Form/ComboBox";
 import DropZone from "./Lib/CAP/Form/DropZone";
 import Multiselect from "react-bootstrap-multiselect";
 import CapException from "./Lib/CAP/Exception/CapException";
+import Validator from "./Lib/CAP/Utils/Validator";
 
 const BaseController = CapController;
 
@@ -61,7 +62,7 @@ const CAPFrameWork = e => {
         },
         Mask: Utils.Mask,
         Spinner: Utils.Mask.mask,
-        Validator: {},
+        Validator: Validator,
         Panel: (props, options = {}) => <Panel {...props} options={options}/>,
         /**
          *

@@ -109,6 +109,7 @@ export default class BaseStore {
     @observable.ref _actionStatus = new Map()
         .set("get", false)
         .set("read", false)
+        .set("load", false)
         .set("save", false)
         .set("update", false)
         .set("delete", false);
@@ -150,6 +151,7 @@ export default class BaseStore {
     @observable currentPage = 1;
 
 
+    _validator=Validator;
     /**
      * errors
      */
@@ -181,8 +183,8 @@ export default class BaseStore {
      *
      */
     init() {
-        this.validator = Validator;
-        this.validator.showMessages();
+        // this.validator = Validator;
+        this._validator.showMessages();
         this._Rules = this._Rules.map(function (val) {
             if (!val.scenario) val = Object.assign(val, {scenario: "default"});
             return val;
@@ -272,6 +274,14 @@ export default class BaseStore {
     }
 
 
+    get validator() {
+        return this._validator;
+    }
+
+    set validator(value) {
+        this._validator = value;
+    }
+
     get ValidateErrors() {
         return this._ValidateErrors;
     }
@@ -328,6 +338,7 @@ export default class BaseStore {
      * @param key
      * @param record
      */
+    @action
     addRecord(key, record) {
         this._data.set(key, record);
     }
@@ -374,6 +385,7 @@ export default class BaseStore {
         this.actionStatus
             .set("get", false)
             .set("read", false)
+            .set("load", false)
             .set("save", false)
             .set("update", false)
             .set("delete", false);
@@ -461,6 +473,7 @@ export default class BaseStore {
     /**
      * load
      */
+    @action
     load(params = {}) {
 
         /**
@@ -473,6 +486,7 @@ export default class BaseStore {
          * @type {boolean}
          */
         this.actionStatus.read = true;
+        this.actionStatus.load = true;
 
         /**
          * Run Ajax Request
@@ -515,6 +529,8 @@ export default class BaseStore {
             .finally(action(() => {
 
                 this.actionStatus.read = false;
+                this.actionStatus.load = false;
+
 
             }));
     }
@@ -656,22 +672,23 @@ export default class BaseStore {
     @action validate(data, scenario = this._scenario) {
 
         this.ValidateErrors = [];
-        this.validator.errorMessages = {};
+        this._validator.errorMessages = {};
 
         this.Rules.forEach(function (val) {
+            console.log(val)
             if (val.scenario == scenario) {
-                // this.validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
-                this.validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
+                // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
+                this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
             } else if (val.scenario == "default" && scenario == "default") {
-                this.validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
-                // this.validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
+                this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
+                // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
             }
         }.bind(this));
 
 
-        this.ValidateErrors = this.validator.getErrorMessages();
+        this.ValidateErrors = this._validator.getErrorMessages();
 
-        this._isValid = this.validator.allValid();
+        this._isValid = this._validator.allValid();
         return this._isValid;
 
     }

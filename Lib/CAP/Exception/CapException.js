@@ -5,9 +5,9 @@
  */
 
 
-const CapException = function CapException(name = 'UserException', message) {
+const CapException = function CapException(name = 'CapException', message) {
     this.message = message;
-    this.name = 'UserException';
+    this.name = 'CapException';
 }
 export default CapException
 

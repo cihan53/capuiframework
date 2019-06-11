@@ -9,6 +9,7 @@ import SimpleReactValidator from "simple-react-validator";
 
 let customValid = {
     className: "text-danger",
+    // element: (message, className) => <div className={className}>{message}</div>,
     validators: {
         empty: { // name the rule
             message: "The :attribute must be a valid value.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
@@ -37,18 +38,24 @@ let customValid = {
             }
         },
 
-        alpha_num_dash_space: { // name the rule
-            message: "The :attribute must be a valid value.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
+        alpha_num: { // name the rule
+            message: "The :attribute may only contain letters and numbers.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
             rule: function (val, params, validator) {
-                return validator.helpers.testRegex(val, /^[A-Z0-9_\-\s.,]*$/i);
+                return validator.helpers.testRegex(val, /^[A-Za-z0-9]*$/);
             }
         },
-        string: { // name the rule
-            message: "The :attribute must be a valid value.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
-            rule: function (val, params, validator) {
-                return validator.helpers.testRegex(val, /^[\w'\-_,.0-9][^!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i);
-            }
-        },
+        // alpha_num_dash_space: { // name the rule
+        //     message: "The :attribute must be a valid value.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
+        //     rule: function (val, params, validator) {
+        //         return validator.helpers.testRegex(val, /^[A-Z0-9_\-\s.,]*$/i);
+        //     }
+        // },
+        // string: { // name the rule
+        //     message: "The :attribute must be a valid value.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
+        //     rule: function (val, params, validator) {
+        //         return validator.helpers.testRegex(val, /^[\w'\-_,.0-9][^!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/i);
+        //     }
+        // },
         password: { // name the rule
             message: "The :attribute must be a valid value.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
             rule: function (val, params, validator) {
