@@ -7,7 +7,7 @@
 import React from "react";
 import {observer} from "mobx-react/index";
 import PropTypes from "prop-types";
-import {Col, FormFeedback, FormGroup, Input, Label,FormText} from "reactstrap";
+import {Col, FormFeedback, FormGroup, Input, Label, FormText} from "reactstrap";
 import Field from "./Field";
 import Utils from "../Utils/Utils";
 
@@ -19,7 +19,7 @@ export default class ComboBox extends Field {
 
         console.log(event.target.name)
         if (this.store.Attributes.hasOwnProperty(event.target.name)) {
-            console.log("Field Valid",this.isValid(event.target.name, event.target.value))
+            console.log("Field Valid", this.isValid(event.target.name, event.target.value))
             if (!this.isValid(event.target.name, event.target.value)) {
                 this.store.setAttr(event.target.name, event.target.value);
             }
@@ -41,14 +41,16 @@ export default class ComboBox extends Field {
             invalid = false;
         }
         // let allowedProps =["defaultValue","valid","invalid","type","name","id","placeholder"];
-        let optionItems = config.items.map((opt) => {
-                return <option key={opt.value}>{opt.name}</option>
-            }
-        );
+
 
 
         let input = null;
         if (config.store == null) {
+            let optionItems = config.items.map((opt) => {
+                    return <option key={opt.value}>{opt.name}</option>
+                }
+            );
+
             input = <Input defaultValue={config.defaultValue}
                            valid={valid}
                            invalid={invalid}
@@ -59,6 +61,11 @@ export default class ComboBox extends Field {
                            placeholder={config.placeholder}
             >{optionItems}</Input>;
         } else {
+            let optionItems = this.props.store.load().then((opt) => {
+                    return <option key={opt.value}>{opt.name}</option>
+                }
+            );
+
             input = <Input defaultValue={config.defaultValue}
                            valid={valid}
                            invalid={invalid}
@@ -77,11 +84,11 @@ export default class ComboBox extends Field {
             input = <Col sm={config.options.col}>{input}</Col>
 
         return <FormGroup row={config.layout == "row"}>
-            {config.label && config.layout != "row"? <Label htmlFor={config.id} >{config.label}</Label> : ""}
-            {config.label && config.layout == "row"? <Label htmlFor={config.id}  sm={  config.options.labelCol }>{config.label}</Label> : ""}
+            {config.label && config.layout != "row" ? <Label htmlFor={config.id}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ? <Label htmlFor={config.id} sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
             <FormFeedback valid tooltip>{errorMessage}</FormFeedback>
-            {config.text && config.text!=""?<FormText>{config.text}</FormText>:""}
+            {config.text && config.text != "" ? <FormText>{config.text}</FormText> : ""}
         </FormGroup>;
     }
 }

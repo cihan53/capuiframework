@@ -419,6 +419,16 @@ export default class BaseStore {
      * @param action
      * @param status
      */
+    @action getActionStatus(action) {
+        this.actionStatus.get(action);
+    }
+
+
+    /**
+     *
+     * @param action
+     * @param status
+     */
     @action setActionStatus(action, status) {
         this.actionStatus.set(action, status);
     }
@@ -485,8 +495,8 @@ export default class BaseStore {
          *
          * @type {boolean}
          */
-        this.actionStatus.read = true;
-        this.actionStatus.load = true;
+        this.setActionStatus("read", true)
+        this.setActionStatus("load", true)
 
         /**
          * Run Ajax Request
@@ -519,6 +529,8 @@ export default class BaseStore {
                 } else {
                     //throw new Error("Data Error: Data");
                 }
+
+
                 return res;
             }))
             .catch(action((err) => {
@@ -527,9 +539,8 @@ export default class BaseStore {
                 throw err;
             }))
             .finally(action(() => {
-
-                this.actionStatus.read = false;
-                this.actionStatus.load = false;
+                this.setActionStatus("read", false)
+                this.setActionStatus("load", false)
 
 
             }));
