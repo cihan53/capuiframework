@@ -40,6 +40,7 @@ const PropTypes = CAPFrameWork.PropTypes;
 const Date = CAPFrameWork.Date;
 const ShortId = CAPFrameWork.ShortId;
 const Utils = CAPFrameWork.Utils;
+const classNames = CAPFrameWork.classNames;
 
 
 // const BaseStore= BaseStore;
@@ -51,6 +52,6 @@ const Utils = CAPFrameWork.Utils;
 // const BaseStore = CapBaseStore;
 export default {...CAPFrameWork};
 // export {BaseStore};
-export {CAP,MessageBox,BaseController,Date,Spinner,ShortId,Grid,Request,BaseStore,ClassNames,FormPanel,Panel,Form,Loadable,PropTypes,Xtypes,Utils}
+export {CAP,MessageBox,BaseController,Date,Spinner,ShortId,Grid,Request,BaseStore,ClassNames,FormPanel,Panel,Form,Loadable,PropTypes,Xtypes,Utils,classNames}
 
 

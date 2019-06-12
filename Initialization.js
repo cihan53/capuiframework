@@ -8,7 +8,7 @@ import {observer} from "mobx-react/index";
 import MobxReactForm from 'mobx-react-form';
 import Loadable from 'react-loadable';
 import moment from "moment";
-import classNames from "classnames";
+import classnames from "classnames";
 import PropTypes from 'prop-types';
 import Request from "./Lib/Request";
 import FormPanel from "./Lib/CAP/Form/FormPanel";
@@ -40,7 +40,7 @@ const CAPFrameWork = e => {
 
         DefaultController: DefaultController,
         BaseController: BaseController,
-        classNames: classNames,
+        classNames: classnames,
         PropTypes: PropTypes,
         Utils: Utils,
         Request: Request,
