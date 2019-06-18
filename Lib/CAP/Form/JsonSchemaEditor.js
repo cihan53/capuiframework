@@ -5,7 +5,6 @@
  */
 
 import React from "react";
-import _ from "lodash";
 import PropTypes from "prop-types";
 
 const JsonEditor = require("@json-editor/json-editor");
@@ -305,7 +304,7 @@ var schema = {
 };
 
 
-export default class JsonEditorForm extends React.Component {
+export default class JsonSchemaEditor extends React.Component {
   constructor(props) {
     super(props);
     this.newEditor = this.newEditor.bind(this);
@@ -376,13 +375,13 @@ export default class JsonEditorForm extends React.Component {
 
 }
 
-JsonEditorForm.propTypes = {
+JsonSchemaEditor.propTypes = {
   root: PropTypes.string.isRequired,
   values: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired
 };
 
-JsonEditorForm.defaultProps = {
+JsonSchemaEditor.defaultProps = {
   root: "root",
   values: {},
   editoroptions: {},

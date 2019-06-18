@@ -43,8 +43,7 @@ export default class LoadingSpinner extends React.Component {
         return (<Spinner name={this.props.name} color={this.props.color} className={" margin-center "} />);
 
 
-      return (<ProgressBar spinner={false} percent={this.loadPercent} autoIncrement={this.loadAutoIncrement}
-                           intervalTime={this.loadIntervalTime}/>);
+      return (<ProgressBar spinner={false} percent={this.loadPercent} autoIncrement={this.loadAutoIncrement}  intervalTime={this.loadIntervalTime}/>);
 
 
     }

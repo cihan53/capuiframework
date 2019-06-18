@@ -204,7 +204,8 @@ const Mask = {
      * @returns {*}
      */
   mask: function(name="cube-grid" ,color="") {
-    return <LoadingSpinner spinner name={name}  color={color}/>;
+
+    return <LoadingSpinner spinner name={name.toString()}  color={color.toString()}/>;
   }
 
 };

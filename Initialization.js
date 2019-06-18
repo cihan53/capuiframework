@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import Request from "./Lib/Request";
 import FormPanel from "./Lib/CAP/Form/FormPanel";
 import Panel from "./Lib/CAP/Panel/Panel";
-import JsonEditorForm from "./Lib/CAP/Form/JsonEditorForm";
+import JsonSchemaEditor from "./Lib/CAP/Form/JsonSchemaEditor";
 import Utils from "./Lib/CAP/Utils/Utils";
 import DefaultController from "./Controller/DefaultController";
 import Grid from "./Lib/CAP/Grid/Grid";
@@ -31,7 +31,7 @@ import Validator from "./Lib/CAP/Utils/Validator";
 
 const BaseController = CapController;
 
-window.moment=moment();
+window.moment = moment();
 
 
 const CAPFrameWork = e => {
@@ -40,11 +40,11 @@ const CAPFrameWork = e => {
 
         DefaultController: DefaultController,
         BaseController: BaseController,
-        classNames: classnames,
+        ClassNames: classnames,
         PropTypes: PropTypes,
         Utils: Utils,
         Request: Request,
-        Date: moment ,
+        Date: moment,
         Loadable: Loadable,
         Formatter: {
             date: (date, format = "YYYY MM DD H:mm:ss") => moment(date).format(format),
@@ -79,7 +79,13 @@ const CAPFrameWork = e => {
             return <FormPanel ref={props.ref || null} {...props}/>
         },
         Form: {
-            JsonEditor: (props) => <JsonEditorForm {...props}/>,
+            // JsonSchemaEditor:  (props) => <JsonSchemaEditor {...props}/> ,
+            JsonSchemaEditor: React.forwardRef((props, ref) => (
+                <JsonSchemaEditor ref={ref} {...props}/>
+            )),
+            JsonInput: React.forwardRef((props, ref) => (
+                <JsonInput ref={ref} {...props}/>
+            )),
             form: MobxReactForm,
             Field: {
                 base: {},
@@ -99,7 +105,6 @@ const CAPFrameWork = e => {
                 HtmlEditor: {},
                 Picker: {},
                 Spinner: {},
-                JsonInput: observer((props) => <JsonInput {...props}/>),
                 Tag: {},
                 Text: observer((props) => <Field type={"text"} {...props}/>),
                 TextArea: {},
@@ -124,7 +129,7 @@ const Xtypes = {
     xgrid: CAPFrameWork().Grid,
     xformpanel: CAPFrameWork().FormPanel,
     xform: CAPFrameWork().Form,
-    xjsoneditor: CAPFrameWork().Form.JsonEditor,
+    xjsoneditor: CAPFrameWork().Form.JsonSchemaEditor,
     xfield: Field,
     xnumberfield: CAPFrameWork().Form.Field.Number,
     xradiofield: CAPFrameWork().Form.Field.Radio,

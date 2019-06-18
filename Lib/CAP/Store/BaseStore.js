@@ -657,7 +657,7 @@ export default class BaseStore {
          */
         this.actionStatus.delete = false;
 
-        return agent.requests.post(this.baseUrl + this.Action.delete, params)
+        return Request.post(this.baseUrl + this.Action.delete, params)
             .then(action((res) => {
                 return res;
             }))

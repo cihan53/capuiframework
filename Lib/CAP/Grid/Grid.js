@@ -3,6 +3,7 @@ import {observer} from "mobx-react/index";
 import PropTypes from "prop-types";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import overlayFactory from 'react-bootstrap-table2-overlay';
 import filterFactory from "react-bootstrap-table2-filter";
 import cellEditFactory, {Type} from "react-bootstrap-table2-editor";
 import StoreManager from "../../StoreManager";
@@ -11,19 +12,24 @@ import Panel from "../Panel/Panel";
 import Utils from "../Utils/Utils";
 
 
-const shortid = require("shortid");
-
-
 const defaultSorted = [{
     dataField: "name",
     order: "desc"
 }];
 
 
+const EmptyTableDataIndication = () => (
+    <div>
+        <p>{Utils.__t("Kayıt yok")}</p>
+    </div>
+);
+
+
 const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
 
 
     let props = {
+        tabIndexCell:true,
         remote: true,
         keyField: keyField,
         data: data,
@@ -31,8 +37,8 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
         defaultSorted: defaultSorted,
         filter: filterFactory(),
         onTableChange: onTableChange,
-
-        noDataIndication: () => <LoadingSpinner key={shortid.generate()}/>
+        overlay: overlayFactory(<LoadingSpinner key={Utils.ShortId.generate()}/>),
+        noDataIndication: () => <EmptyTableDataIndication/>
     };
 
     //cell edit
@@ -146,7 +152,7 @@ export default class Grid extends React.Component {
 
 
     componentWillUpdate() {
-       
+
         if (this.props.config.hasOwnProperty('onBeforeRender')) {
             this.props.config.onBeforeRender(this);
         }
@@ -169,7 +175,10 @@ export default class Grid extends React.Component {
         cellEdit
     }) => {
         if (type != "cellEdit") {
-            const currentIndex = (page - 1) * sizePerPage;
+            let currentIndex = (page - 1) * sizePerPage;
+            currentIndex = currentIndex < 0 ? 0 : currentIndex
+
+            console.log(currentIndex, page, sizePerPage, sortOrder, filters, data, cellEdit);
             this.store.load({page: page, start: currentIndex, size: sizePerPage, sortField: sortField, sortOrder: sortOrder, filters: filters});
         } else {
             if (this.props.config.hasOwnProperty("cellEdit")) {
