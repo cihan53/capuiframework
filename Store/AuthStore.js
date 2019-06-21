@@ -9,7 +9,7 @@ import UserStore from "./UserStore";
 import CommonStore from "./CommonStore";
 import Utils from "../Lib/CAP/Utils/Utils";
 import BaseStore from "../Lib/CAP/Store/BaseStore";
-import {Request} from "../Index";
+import {Request} from "../index";
 
 class AuthStore extends BaseStore {
 

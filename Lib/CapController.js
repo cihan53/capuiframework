@@ -9,7 +9,7 @@ import React from "react";
 import {matchPath} from "react-router";
 import Utils from "./CAP/Utils/Utils";
 import StoreManager from "./StoreManager";
-import {Loadable, Spinner} from "../Index";
+import {Loadable, Spinner} from "../index";
 
 
 const queryString = require("query-string");
@@ -288,8 +288,8 @@ export default class CapController extends React.Component {
 
 
     componentDidCatch(error, info) {
+        console.log("MyCatch", error, info)
 
-        console.log(error,info)
     }
 
 
@@ -506,7 +506,7 @@ export default class CapController extends React.Component {
     addError(error) {
         this._errors.push(error);
         console.error(error);
-
+        return this;
     }
 
     /**
@@ -517,7 +517,7 @@ export default class CapController extends React.Component {
      */
     actionError(params) {
 
-        console.debug(this.errors, params);
+        console.log(this.errors, params);
 
         return <React.Fragment>
             <div className="text-white bg-danger text-center">

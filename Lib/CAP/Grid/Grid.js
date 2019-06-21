@@ -29,7 +29,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
 
 
     let props = {
-        tabIndexCell:true,
+        tabIndexCell: true,
         remote: true,
         keyField: keyField,
         data: data,
@@ -112,10 +112,10 @@ export default class Grid extends React.Component {
                 let baseParams = this.props.config.store.baseParams || null;
                 let defaultSort = this.props.config.store.defaultSort || null;
                 this.store = StoreManager.get(storeName) || null;
-                if (baseParams)
+                if (this.store && baseParams)
                     this.store.setParameters(baseParams);
 
-                if (defaultSort) {
+                if (this.store && defaultSort) {
                     this.store.setDefaultSortDir(defaultSort.dir, defaultSort.sort);
                 }
             }
@@ -231,9 +231,11 @@ export default class Grid extends React.Component {
             }
         }
 
+        console.log(keyField, data)
+
         let T = <Table
             _ref={this.xgrid}
-            key={this.key}
+            key={this.key + "-gridtable"}
             keyField={keyField}
             data={data}
             page={currentPage}
@@ -247,7 +249,7 @@ export default class Grid extends React.Component {
 
 
         if (this.props.config.xtype == "gridPanel") {
-            return <Panel items={[T]} config={this.props.config.panelOptions}/>;
+            return <Panel key={this.key + "-gridPanel"} items={[T]} config={this.props.config.panelOptions}/>;
         }
 
         return (T);

@@ -64,7 +64,7 @@ switch (command.toLocaleLowerCase()) {
       " */\n" +
       "import {observer} from \"mobx-react/index\";\n" +
       "import {withRouter} from \"react-router-dom\";\n" +
-      "import CAP, {BaseController} from \"@Framework/Index\";" +
+      "import CAP, {BaseController} from \"@Framework\";" +
       "\n" +
       "@withRouter\n" +
       "@observer\n" +

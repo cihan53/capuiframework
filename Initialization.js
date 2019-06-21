@@ -28,6 +28,8 @@ import DropZone from "./Lib/CAP/Form/DropZone";
 import Multiselect from "react-bootstrap-multiselect";
 import CapException from "./Lib/CAP/Exception/CapException";
 import Validator from "./Lib/CAP/Utils/Validator";
+import ErrorBoundary from "./Lib/ErrorBoundary";
+
 
 const BaseController = CapController;
 
@@ -115,7 +117,8 @@ const CAPFrameWork = e => {
         Log: console.log,
         Raise: (name, e) => {
             throw new CapException(name, e);
-        }
+        },
+        ErrorBoundary:ErrorBoundary
 
     }
 }

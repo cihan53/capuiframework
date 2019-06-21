@@ -25,8 +25,8 @@ function Base64Encode(str, encoding = "utf-8") {
 const handleErrors = (err, res) => {
 
 
-    console.debug("Request Result",res )
-    console.debug("Request Error", err )
+    // console.debug("Request Result",res )
+    // console.debug("Request Error", err )
 
 
     let errorText = "";

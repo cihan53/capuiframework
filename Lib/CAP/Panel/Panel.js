@@ -25,11 +25,15 @@ export default class Panel extends React.Component {
 
     constructor(props) {
         super(props);
-        this.key = this.props.key || Utils.ShortId.generate();
+         this.key=  this.props.key || Utils.ShortId.generate();
         this.childRender = this.childRender.bind(this);
     }
 
-
+    /**
+     *
+     * @param items
+     * @returns {any}
+     */
     childRender(items = []) {
 
         return Utils.isArray(items) ? items.map((E, i) => {
@@ -46,11 +50,16 @@ export default class Panel extends React.Component {
         }) : null;
     }
 
+    /**
+     *
+     * @param children
+     * @returns {*}
+     */
     render(children = null) {
         children = children || this.props.items.length > 0 ? this.childRender(this.props.items) : null;
         children = children || this.props.children || null;
 
-        const footer = this.props.config.footer || null;
+        const footer = this.props.footer || null;
         const title = this.props.config.title || this.props.title;
         let header = this.props.header;
         if (this.props.config.hasOwnProperty("header")) {
@@ -87,8 +96,9 @@ export default class Panel extends React.Component {
         //
         // delete this.props.options.optionsHeader;
         // delete this.props.options.optionsTitle;
-        // delete this.props.options.optionsBody;
+        delete this.props.options.optionsBody;
         // delete this.props.options.optionsFooter;
+
 
         return <Card key={this.key + "-card"} {...this.props.options}>
             {header ? <CardHeader key={this.key + "-card-header"} {...optionsHeader}>{header}</CardHeader> : ""}

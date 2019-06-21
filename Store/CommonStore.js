@@ -68,6 +68,7 @@ class CommonStore {
     }
 
 
+    @action
     initComponent() {
         this.isInitComponent = true;
         // let componentsObject = {};
@@ -98,7 +99,6 @@ class CommonStore {
 
 
             this.AllComponents.forEach(function (modul) {
-
                 //eğer modul türü webUI değil ise ve alt odulü yok ise
 
                 modul.level = 0;
