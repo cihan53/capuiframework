@@ -41,7 +41,7 @@ String.prototype.capitalizeFirstLetter = function() {
 
 
 
-var Utils = {
+const Utils = {
     Alert: NotificationSystem.addNotification,
     Parser: Parser,
     ShortId: ShortId,
@@ -55,6 +55,7 @@ var Utils = {
     isDebug,
     CreateComponent,
     createElement,
-    toJS:toJS
+    toJS:toJS,
+    toJSON:JSON.stringify
 };
 export default Utils;

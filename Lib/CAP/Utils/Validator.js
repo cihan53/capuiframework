@@ -7,6 +7,7 @@
 import Utils from "./Utils";
 import SimpleReactValidator from "simple-react-validator";
 
+
 let customValid = {
     className: "text-danger",
     // element: (message, className) => <div className={className}>{message}</div>,
@@ -20,11 +21,9 @@ let customValid = {
         each: { // name the rule
             message: "The :attribute must be a valid value.", // give a message that will display when there is an error. :attribute will be replaced by the name you supply in calling it.
             rule: function (val, options) {
-
                 if (val.length == 0) return true;
-
                 let v = val.filter(function (r) {
-                    return eval(options[0] + "(" + r + ")");
+                    return eval(options[0] + "(" + window.CAP.Utils.toJSON(r) + ")");
                 });
                 return v.length > 0;
             }

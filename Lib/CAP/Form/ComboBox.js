@@ -17,14 +17,13 @@ import StoreManager from "../../StoreManager";
 export default class ComboBox extends Field {
 
     autoload = true;
+    data = [];
 
     constructor(props) {
         super(props);
-
         this.store = null;
-
         this.key = this.props.key || Utils.ShortId.generate();
-
+        this.generateItems = this.generateItems.bind(this);
         this.init()
     }
 
@@ -37,7 +36,7 @@ export default class ComboBox extends Field {
                 let storeName = this.props.store.name;
                 let baseParams = this.props.store.baseParams || null;
                 let defaultSort = this.props.store.defaultSort || null;
-                this.store = StoreManager.get(storeName) || null ;
+                this.store = StoreManager.get(storeName) || null;
                 if (this.store && baseParams)
                     this.store.setParameters(baseParams);
 
@@ -58,11 +57,17 @@ export default class ComboBox extends Field {
 
     componentWillMount() {
         const currentIndex = 0;
-        if (this.autoload)
-            this.store.load({page: 0, start: currentIndex, size: this.limit});
+        if (this.store && this.autoload)
+            this.store.load({page: 0, start: currentIndex, size: this.limit})
     }
 
 
+
+
+    /**
+     *
+     * @param event
+     */
     onChange(event) {
 
         if (this.store.Attributes.hasOwnProperty(event.target.name)) {
@@ -73,6 +78,25 @@ export default class ComboBox extends Field {
         } else {
             throw Utils.Translate("Tanımlanmamış alan adı");
         }
+    }
+
+    /**
+     *
+     * @param data
+     * @returns {*}
+     */
+    generateItems(data) {
+
+        if(this.store){
+            return data.map((opt, index) => {
+                return <option key={this.key + "-combobox-item-" + index} value={opt[this.props.valueField]}>{opt[this.props.displayField]}</option>
+            });
+        }else{
+            return data.map((opt, index) => {
+                return <option key={this.key + "-combobox-item-" + index} value={opt.value}>{opt.name}</option>
+            });
+        }
+
     }
 
     render() {
@@ -91,35 +115,29 @@ export default class ComboBox extends Field {
 
 
         let input = null;
-        if (config.store == null) {
-            let optionItems = config.items.map((opt) => {
-                    return <option key={opt.value}>{opt.name}</option>
-                }
-            );
+        let optionItems = this.generateItems(this.store ? this.store.data : config.items);
 
+        if (config.store == null) {
             input = <Input defaultValue={config.defaultValue}
                            valid={valid}
                            invalid={invalid}
                            type={"select"}
                            default
                            name={config.inputName}
-                           id={config.id}
+                           id={config.id || this.key}
                            placeholder={config.placeholder}
             >{optionItems}</Input>;
         } else {
-            let optionItems = this.store.data.map((opt) => {
-                    return <option key={opt.value} value={opt.id}>{opt.name}</option>
-                }
-            );
 
-            input = <Input defaultValue={config.defaultValue}
+
+            input = <Input defaultValue={config.defaultValue || ""}
                            valid={valid}
                            invalid={invalid}
                            type={"select"}
                            default
                            name={config.inputName}
-                           id={config.id}
-                           value={this.store.Attributes[config.defaultValue]}
+                           id={config.id || config.inputName + "-form-field"}
+                           value={this.store.Attributes[config.valueField]}
                            placeholder={config.placeholder}
                            onChange={this.onChange}
             >{optionItems}</Input>
@@ -129,20 +147,22 @@ export default class ComboBox extends Field {
         if (config.layout == "row")
             input = <Col sm={config.options.col}>{input}</Col>;
 
-            console.log("Combobox errorMessage",errorMessage)
 
         return <FormGroup row={config.layout == "row"}>
-            {config.label && config.layout != "row" ? <Label htmlFor={config.id}>{config.label}</Label> : ""}
-            {config.label && config.layout == "row" ? <Label htmlFor={config.id} sm={config.options.labelCol}>{config.label}</Label> : ""}
+            {config.label && config.layout != "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
-            <FormFeedback valid tooltip>{errorMessage}</FormFeedback>
-            {config.text && config.text != "" ? <FormText>{config.text}</FormText> : ""}
+            {errorMessage ? <FormFeedback valid tooltip>{errorMessage}</FormFeedback> : void(0)}
+            {config.text && config.text != "" ? <FormText>{config.text}</FormText> : void (0)}
         </FormGroup>;
     }
 }
 
 
 Field.propTypes = {
+    valueField: PropTypes.any,
+    displayField: PropTypes.any,
+    inputName: PropTypes.string.required,
     options: PropTypes.any,
     // data: PropTypes.any.required,
 };

@@ -686,7 +686,6 @@ export default class BaseStore {
         this._validator.errorMessages = {};
 
         this.Rules.forEach(function (val) {
-            console.log(val)
             if (val.scenario == scenario) {
                 // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
                 this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
