@@ -292,19 +292,22 @@ JsonEditor.defaults.languages.tr = {
 // var jsoneditor = null;
 window.jsoneditor = {};
 
-var schema = {
-  schema: {
-    type: "object",
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    options: {
-      disable_edit_json: true,
-      form_name_root: "root"
-    }
-  }
-};
+
 
 
 export default class JsonSchemaEditor extends React.Component {
+
+    schema = {
+        schema: {
+            type: "object",
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            options: {
+                disable_edit_json: true,
+                form_name_root: "root"
+            }
+        }
+    };
+
   constructor(props) {
     super(props);
     this.newEditor = this.newEditor.bind(this);
@@ -313,15 +316,14 @@ export default class JsonSchemaEditor extends React.Component {
       // keyid :this.props.key,
       root: this.props.root
 
-    };
-
+    }
     this.jsoneditor = null;
     if (this.props.editoroptions) {
       JsonEditor.defaults.editors.object.options = Object.assign(JsonEditor.defaults.editors.object.options, this.props.editoroptions);
     }
 
 
-    schema.schema.options.form_name_root=this.props.root;
+    this.schema.schema.options.form_name_root=this.props.root;
 
   }
 
@@ -338,11 +340,11 @@ export default class JsonSchemaEditor extends React.Component {
   newEditor(newSchema, values = {}) {
     if (this.jsoneditor) this.jsoneditor.destroy();
 
-    schema.schema = Object.assign(schema.schema, newSchema);
-    schema.startval = values;
+      this.schema.schema = Object.assign(this.schema.schema, newSchema);
+      this.schema.startval = values;
 
 
-    this.jsoneditor = new JsonEditor(this.containerelement.current, schema);
+    this.jsoneditor = new JsonEditor(this.containerelement.current, this.schema);
 
     if(this.props.onChange){
 
@@ -351,7 +353,7 @@ export default class JsonSchemaEditor extends React.Component {
 
     let o = {};
     o[this.props.root] = this.jsoneditor;
-    window.jsoneditor = Object.assign(window.jsoneditor, o);
+    window.jsoneditor = Object.assign(window.jsoneditor, o)
   }
 
   getValues() {

@@ -56,7 +56,7 @@ function findByPropVal(o, prop, val, retprop) {
  */
 
 function findByPropKey(o, prop) {
-    console.log(o)
+
     if (o == null) return false;
     if (o.hasOwnProperty(prop)) {
         return o[prop];

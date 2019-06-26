@@ -160,8 +160,7 @@ export default class Grid extends React.Component {
 
     componentDidCatch(error, info) {
         // Hatanızı bir hata bildirimi servisine de yollayabilirsiniz.
-        //logErrorToMyService(error, info);
-        console.log(error, info)
+        //logErrorToMyService(error, info)
 
     }
 
@@ -178,7 +177,6 @@ export default class Grid extends React.Component {
             let currentIndex = (page - 1) * sizePerPage;
             currentIndex = currentIndex < 0 ? 0 : currentIndex
 
-            console.log(currentIndex, page, sizePerPage, sortOrder, filters, data, cellEdit);
             this.store.load({page: page, start: currentIndex, size: sizePerPage, sortField: sortField, sortOrder: sortOrder, filters: filters});
         } else {
             if (this.props.config.hasOwnProperty("cellEdit")) {
@@ -231,7 +229,6 @@ export default class Grid extends React.Component {
             }
         }
 
-        console.log(keyField, data)
 
         let T = <Table
             _ref={this.xgrid}

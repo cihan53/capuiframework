@@ -279,7 +279,7 @@ export default class CapController extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log("The render has just now finished, and so the event must be dispatched AFTER this.");
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -288,7 +288,7 @@ export default class CapController extends React.Component {
 
 
     componentDidCatch(error, info) {
-        console.log("MyCatch", error, info)
+        console.error("MyCatch", error, info)
 
     }
 
@@ -314,7 +314,7 @@ export default class CapController extends React.Component {
      @observer
      class TodoView extends React.Component {
       componentWillReact() {
-          console.log("I will re-render, since the todo has changed!")
+          console.info("I will re-render, since the todo has changed!")
       }
 
       render() {
@@ -517,7 +517,6 @@ export default class CapController extends React.Component {
      */
     actionError(params) {
 
-        console.log(this.errors, params);
 
         return <React.Fragment>
             <div className="text-white bg-danger text-center">

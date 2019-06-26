@@ -71,7 +71,7 @@ export default class ComboBox extends Field {
     onChange(event) {
 
         if (this.store.Attributes.hasOwnProperty(event.target.name)) {
-            console.log("Field Valid", this.isValid(event.target.name, event.target.value))
+
             if (!this.isValid(event.target.name, event.target.value)) {
                 this.store.setAttr(event.target.name, event.target.value);
             }

@@ -108,7 +108,7 @@ class CommonStore {
             });
 
 
-            console.log("Component Load Success");
+            console.info("Component Load Success");
             // this.componentsObject = componentsObject;
         } else {
             alert("Yetkilendirme hatası. Lütfen yöneticinize başvurunuz.");

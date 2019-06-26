@@ -29,6 +29,7 @@ import Multiselect from "react-bootstrap-multiselect";
 import CapException from "./Lib/CAP/Exception/CapException";
 import Validator from "./Lib/CAP/Utils/Validator";
 import ErrorBoundary from "./Lib/ErrorBoundary";
+import BreadCrumb from "./Lib/CAP/Utils/BreadCrumb";
 
 
 const BaseController = CapController;
@@ -42,6 +43,7 @@ const CAPFrameWork = e => {
 
         DefaultController: DefaultController,
         BaseController: BaseController,
+        BreadCrumb:BreadCrumb,
         ClassNames: classnames,
         PropTypes: PropTypes,
         Utils: Utils,

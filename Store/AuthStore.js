@@ -58,8 +58,7 @@ class AuthStore extends BaseStore {
 
     @action logout() {
         CommonStore.setToken(undefined);
-        UserStore.forgetUser();
-        console.log("User Logout 1");
+        UserStore.forgetUser()
         return Promise.resolve();
     }
 

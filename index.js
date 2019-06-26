@@ -26,6 +26,7 @@ window.CAPFrameWork = CAPFrameWork;
 // console.log(BaseStore)
 
 const CAP = CAPFrameWork;
+const BreadCrumb = CAPFrameWork.BreadCrumb;
 const MessageBox = CAPFrameWork.MessageBox;
 const BaseController = CAPFrameWork.BaseController;
 const Spinner = CAPFrameWork.Spinner;
@@ -51,6 +52,6 @@ const Utils = CAPFrameWork.Utils;
 // const BaseStore = CapBaseStore;
 export default {...CAPFrameWork};
 // export {BaseStore};
-export {CAP,MessageBox,BaseController,Date,Spinner,ShortId,Grid,Request,BaseStore,ClassNames,FormPanel,Panel,Form,Loadable,PropTypes,Xtypes,Utils}
+export {CAP,BreadCrumb,MessageBox,BaseController,Date,Spinner,ShortId,Grid,Request,BaseStore,ClassNames,FormPanel,Panel,Form,Loadable,PropTypes,Xtypes,Utils}
 
 

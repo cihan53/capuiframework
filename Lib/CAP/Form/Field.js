@@ -59,14 +59,13 @@ export default class Field extends React.Component {
 
     plus() {
 
-        console.log("Start Interval ", StoreManager.get("NotifyStore").count);
         StoreManager.get("NotifyStore").count = StoreManager.get("NotifyStore").count + 1;
     }
 
     onChange(event) {
 
         if (this.store.Attributes.hasOwnProperty(event.target.name)) {
-            console.log("Field Valid",this.isValid(event.target.name, event.target.value))
+
             if (!this.isValid(event.target.name, event.target.value)) {
                 this.store.setAttr(event.target.name, event.target.value);
             }
@@ -97,7 +96,7 @@ export default class Field extends React.Component {
                            placeholder={config.placeholder}
             />;
         } else {
-            console.log("Store Attach", value)
+
             input = <Input
                            valid={this.valid}
                            invalid={this.invalid}

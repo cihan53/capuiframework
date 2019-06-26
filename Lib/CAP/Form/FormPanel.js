@@ -108,8 +108,7 @@ export default class FormPanel extends React.Component{
             if (e.hasOwnProperty("xtype")) {
                 //return Utils.CreateComponent(e);
                 const Cp = observer((message) => {
-                    const Container = Xtypes[e.xtype];
-                    console.log(message,"abasdsadf");
+                    const Container = Xtypes[e.xtype]
                     return <Container {...message}/>
                 })
 
@@ -134,7 +133,7 @@ export default class FormPanel extends React.Component{
     }
 
     render() {
-        console.log("Form Panel Render")
+
 
         return <Form ref={this.formRef} id={this.props.name} name={this.props.name} onSubmit={e => this.submit(e)}>
             {this._renderItem()}

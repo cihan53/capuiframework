@@ -24,7 +24,7 @@ export default class JsonInput extends React.Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        console.log(this.state,nextState)
+
         if (this.state == nextState)
             this.placeholder = nextProps.placeholder;
     }

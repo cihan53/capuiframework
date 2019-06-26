@@ -18,9 +18,7 @@ if (!args.command) {
 }
 
 
-command = args.command;
-
-console.log("Run Command ", command);
+command = args.command
 
 switch (command.toLocaleLowerCase()) {
   case "createmodule":
@@ -95,10 +93,9 @@ switch (command.toLocaleLowerCase()) {
       }
       else {
 
-        console.log("Created ", dir + "/Controller.js");
         fs.writeFile(dir + "/Controller.js", data, (error) => {
           if (error)
-            console.log("Dosya oluşturulurken hata oluştu ", error);
+            console.error("Dosya oluşturulurken hata oluştu ", error);
         });
 
 
@@ -159,10 +156,9 @@ switch (command.toLocaleLowerCase()) {
       }
       else {
 
-        console.log("Created ", dir1 + "/index.js");
         fs.writeFile(dir1 + "/index.js", data1, (error) => {
           if (error)
-            console.log("Dosya oluşturulurken hata oluştu ", error);
+            console.error("Dosya oluşturulurken hata oluştu ", error);
         });
 
 
@@ -198,10 +194,10 @@ switch (command.toLocaleLowerCase()) {
       "}"
 
 
-    console.log("Created ", dir + "/package.json");
+    console.info("Created ", dir + "/package.json");
     fs.writeFile(dir + "/package.json", data2, (error) => {
       if (error)
-        console.log("Dosya oluşturulurken hata oluştu ", error);
+        console.error("Dosya oluşturulurken hata oluştu ", error);
     });
 
 
