@@ -119,5 +119,4 @@ Panel.propTypes = {
     // children: PropTypes.element,
     items: PropTypes.array,
     options: PropTypes.any
-
 };

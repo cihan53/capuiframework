@@ -253,6 +253,14 @@ export default class Grid extends React.Component {
     }
 }
 
+Grid.propTypes = {
+    keyField:PropTypes.string.isRequired,
+    config:PropTypes.any.isRequired,
+    data: PropTypes.array,
+    columns:PropTypes.array.isRequired,
+    store:PropTypes.any
+};
+
 
 
 
