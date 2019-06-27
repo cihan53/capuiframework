@@ -37,7 +37,8 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
         defaultSorted: defaultSorted,
         filter: filterFactory(),
         onTableChange: onTableChange,
-        overlay: overlayFactory(<LoadingSpinner key={Utils.ShortId.generate()}/>),
+        // overlay: overlayFactory(<LoadingSpinner key={Utils.ShortId.generate()}/>),
+        overlay:  overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.3)' })  ,
         noDataIndication: () => <EmptyTableDataIndication/>
     };
 
@@ -85,12 +86,7 @@ export default class Grid extends React.Component {
     constructor(props) {
         super(props);
         this.store = null;
-        // this.state = {
-        //   page: 1,
-        //   data: [],
-        //   totalSize: 0,
-        //   sizePerPage: 10
-        // };
+
         this.handleTableChange = this.handleTableChange.bind(this);
         this.init = this.init.bind(this);
 
@@ -246,7 +242,8 @@ export default class Grid extends React.Component {
 
 
         if (this.props.config.xtype == "gridPanel") {
-            return <Panel key={this.key + "-gridPanel"} items={[T]} config={this.props.config.panelOptions}/>;
+
+            return <Panel _key={this.key + "-gridPanel"} items={[T]} config={this.props.config.panelOptions}/>;
         }
 
         return (T);

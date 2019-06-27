@@ -6,7 +6,7 @@
 import React from "react";
 import createClass from "create-react-class";
 import ReactDOM from "react-dom";
-import CAPFrameWork,{Xtypes} from "./Initialization";
+import CAPFrameWork, {Xtypes} from "./Initialization";
 import BaseStore from "./Lib/CAP/Store/BaseStore";
 // import {CapBaseStore as BaseStore} from "./Lib/CapBaseStore";
 
@@ -41,7 +41,8 @@ const PropTypes = CAPFrameWork.PropTypes;
 const Date = CAPFrameWork.Date;
 const ShortId = CAPFrameWork.ShortId;
 const Utils = CAPFrameWork.Utils;
-
+const Button = CAPFrameWork.Form.Field.Button;
+const AlertPanel = CAPFrameWork.AlertPanel;
 
 // const BaseStore= BaseStore;
 // const BaseStore= BaseStore;
@@ -52,6 +53,27 @@ const Utils = CAPFrameWork.Utils;
 // const BaseStore = CapBaseStore;
 export default {...CAPFrameWork};
 // export {BaseStore};
-export {CAP,BreadCrumb,MessageBox,BaseController,Date,Spinner,ShortId,Grid,Request,BaseStore,ClassNames,FormPanel,Panel,Form,Loadable,PropTypes,Xtypes,Utils}
+export {
+    CAP,
+    BreadCrumb,
+    MessageBox,
+    BaseController,
+    Date,
+    Spinner,
+    ShortId,
+    Grid,
+    Request,
+    BaseStore,
+    ClassNames,
+    FormPanel,
+    Panel,
+    Form,
+    AlertPanel,
+    Button,
+    Loadable,
+    PropTypes,
+    Xtypes,
+    Utils
+}
 
 

@@ -30,6 +30,9 @@ import CapException from "./Lib/CAP/Exception/CapException";
 import Validator from "./Lib/CAP/Utils/Validator";
 import ErrorBoundary from "./Lib/ErrorBoundary";
 import BreadCrumb from "./Lib/CAP/Utils/BreadCrumb";
+import CButton from "./Lib/CAP/Form/Button";
+import AlertPanel from "./Lib/CAP/Panel/AlertPanel";
+
 
 
 const BaseController = CapController;
@@ -74,7 +77,7 @@ const CAPFrameWork = e => {
          * @returns {*}
          * @constructor
          */
-        Grid: (config) => <Grid config={config}/>,
+        Grid: (config) => <Grid keyField={config.keyField} columns={config.columns} config={config}/>,
         /**
          *
          * @type {{Field: {}}}
@@ -82,6 +85,7 @@ const CAPFrameWork = e => {
         FormPanel: (props) => {
             return <FormPanel ref={props.ref || null} {...props}/>
         },
+        AlertPanel:AlertPanel,
         Form: {
             // JsonSchemaEditor:  (props) => <JsonSchemaEditor {...props}/> ,
             JsonSchemaEditor: React.forwardRef((props, ref) => (
@@ -93,6 +97,7 @@ const CAPFrameWork = e => {
             form: MobxReactForm,
             Field: {
                 base: {},
+                Button:CButton,
                 Field: Field,
                 Number: {},
                 Radio: {},

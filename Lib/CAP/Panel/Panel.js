@@ -20,12 +20,12 @@ export default class Panel extends React.Component {
         header: "Panel Title",
         footer: false,
         items: [],
-        xtype: "panel"
+        xtype: "panel",
     };
 
     constructor(props) {
         super(props);
-         this.key=  this.props.key || Utils.ShortId.generate();
+        this.key = this.props._key || Utils.ShortId.generate();
         this.childRender = this.childRender.bind(this);
     }
 
