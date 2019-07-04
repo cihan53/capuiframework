@@ -1,6 +1,6 @@
 import Lodash from "./Lodash";
 import Parser from "./Parser";
-const Messages = JSON.parse(window.localStorage.getItem("language") || "{\"language\":\"tr-TR\"}");
+const MesgetConfiguration
 
 /**
  *
