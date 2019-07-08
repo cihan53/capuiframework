@@ -33,7 +33,8 @@ import BreadCrumb from "./Lib/CAP/Utils/BreadCrumb";
 import CButton from "./Lib/CAP/Form/Button";
 import AlertPanel from "./Lib/CAP/Panel/AlertPanel";
 
-
+import 'moment/locale/tr'  // without this line it didn't work
+moment.locale('tr')
 
 const BaseController = CapController;
 
