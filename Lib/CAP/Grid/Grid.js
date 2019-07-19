@@ -29,7 +29,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
 
 
     const customTotal = (from, to, size) => (
-        <span className="react-bootstrap-table-pagination-total">{Utils.__t("Toplam Kayıt: :size",{size:size})}</span>
+        <span className="react-bootstrap-table-pagination-total"> {Utils.__t("Toplam Kayıt: :size",{size:size})}</span>
     );
 
     let props = {
