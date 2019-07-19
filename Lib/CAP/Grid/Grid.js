@@ -28,6 +28,10 @@ const EmptyTableDataIndication = () => (
 const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
 
 
+    const customTotal = (from, to, size) => (
+        <span className="react-bootstrap-table-pagination-total">{Utils.__t("Toplam Kayıt: :size",{size:size})}</span>
+    );
+
     let props = {
         tabIndexCell: true,
         remote: true,
@@ -38,7 +42,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
         filter: filterFactory(),
         onTableChange: onTableChange,
         // overlay: overlayFactory(<LoadingSpinner key={Utils.ShortId.generate()}/>),
-        overlay:  overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.3)' })  ,
+        overlay: overlayFactory({spinner: true, background: 'rgba(192,192,192,0.3)'}),
         noDataIndication: () => <EmptyTableDataIndication/>
     };
 
@@ -52,7 +56,24 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
     let paginationSize = 10;
 
     if (otherprops.pagination)
-        props.pagination = paginationFactory({page, sizePerPage, totalSize, showTotal, pageStartIndex, paginationSize});
+        props.pagination = paginationFactory({
+            withFirstAndLast:true,
+            page: page,
+            sizePerPage: sizePerPage,
+            totalSize: totalSize,
+            showTotal: showTotal,
+            pageStartIndex: pageStartIndex,
+            paginationSize: paginationSize,
+            firstPageText: Utils.__t("İlk Sayfa"),
+            prePageText: Utils.__t("Önceki Sayfa"),
+            nextPageText: Utils.__t("Sonraki Sayfa"),
+            lastPageText: Utils.__t("Son Sayfa"),
+            firstPageTitle: Utils.__t("İlk Sayfa"),
+            prePageTitle: Utils.__t("Önceki Sayfa"),
+            nextPageTitle: Utils.__t("Sonraki Sayfa"),
+            lastPageTitle: Utils.__t("Son Sayfa"),
+            paginationTotalRenderer:customTotal
+        });
 
     delete otherprops.pagination;
 
@@ -251,11 +272,11 @@ export default class Grid extends React.Component {
 }
 
 Grid.propTypes = {
-    keyField:PropTypes.string.isRequired,
-    config:PropTypes.any.isRequired,
+    keyField: PropTypes.string.isRequired,
+    config: PropTypes.any.isRequired,
     data: PropTypes.array,
-    columns:PropTypes.array.isRequired,
-    store:PropTypes.any
+    columns: PropTypes.array.isRequired,
+    store: PropTypes.any
 };
 
 
