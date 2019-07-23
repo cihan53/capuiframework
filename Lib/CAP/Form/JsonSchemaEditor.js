@@ -303,6 +303,7 @@ export default class JsonSchemaEditor extends React.Component {
             "$schema": "http://json-schema.org/draft-04/schema#",
             options: {
                 disable_edit_json: true,
+                disable_properties: true,
                 form_name_root: "root"
             }
         }

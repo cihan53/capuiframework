@@ -29,7 +29,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
 
 
     const customTotal = (from, to, size) => (
-        <span className="react-bootstrap-table-pagination-total"> {Utils.__t("Toplam Kayıt: :size",{size:size})}</span>
+        <span className="react-bootstrap-table-pagination-total"> {Utils.__t("Toplam Kayıt: :size", {size: size})}</span>
     );
 
     let props = {
@@ -57,7 +57,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
 
     if (otherprops.pagination)
         props.pagination = paginationFactory({
-            withFirstAndLast:true,
+            withFirstAndLast: true,
             page: page,
             sizePerPage: sizePerPage,
             totalSize: totalSize,
@@ -72,7 +72,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
             prePageTitle: Utils.__t("Önceki Sayfa"),
             nextPageTitle: Utils.__t("Sonraki Sayfa"),
             lastPageTitle: Utils.__t("Son Sayfa"),
-            paginationTotalRenderer:customTotal
+            paginationTotalRenderer: customTotal
         });
 
     delete otherprops.pagination;
@@ -110,15 +110,17 @@ export default class Grid extends React.Component {
 
         this.handleTableChange = this.handleTableChange.bind(this);
         this.init = this.init.bind(this);
+        this.config = this.config.bind(this);
 
         this.key = Utils.ShortId.generate();
         this.xgrid = React.createRef();
 
         this.init();
+        this.config();
 
     }
 
-    init() {
+    init(action="") {
 
         if (this.props.config.store) {
             if (typeof  this.props.config.store == "string") {
@@ -153,11 +155,17 @@ export default class Grid extends React.Component {
 
         //columns setting
 
-        this.columns = this.props.config.columns || [];
+
     }
 
     config() {
+        this.columns = this.props.config.columns || [];
+    }
 
+
+    shouldComponentUpdate(newProps, newState) {
+        if(this.props!=newProps) this.init("propsChange");
+        return this.props!=newProps
     }
 
     //render before
@@ -218,8 +226,10 @@ export default class Grid extends React.Component {
     }
 
     render() {
+
         const {totalCount = 0, limit = this.limit, currentPage = 0} = this.store || {totalCount: 0, limit: this.limit, page: 0};
         const data = this.store ? this.store.data : this.data;
+
 
         //other props
         let otherProps = {};

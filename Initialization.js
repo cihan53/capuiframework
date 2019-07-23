@@ -119,7 +119,10 @@ const CAPFrameWork = e => {
                 Text: observer((props) => <Field type={"text"} {...props}/>),
                 TextArea: {},
                 Time: {},
-                DropZone: DropZone
+                DropZone: DropZone,
+                JsonSchemaEditor: JsonSchemaEditor,
+
+
             }
         },
         Log: console.log,
