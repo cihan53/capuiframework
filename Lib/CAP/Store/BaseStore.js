@@ -368,6 +368,7 @@ export default class BaseStore {
             dir: "id",
             desc: "asc"
         };
+        return this;
     }
 
     /**
@@ -392,6 +393,7 @@ export default class BaseStore {
 
         //this.parameters = Object.assign({}, this._defaultConfig.baseParams);
 
+        return this;
     }
 
 
