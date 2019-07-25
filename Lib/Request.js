@@ -45,6 +45,26 @@ const handleErrors = (err, res) => {
     }
 
 
+    if (res && res.status === 504) {
+        Utils.Alert({
+            position: "tc",
+            title: Utils.Translate("İstek gerçekleştirilemedi"),
+            message: Utils.Translate(res.statusText),
+            level: "error",
+            autoDismiss: 5
+        });
+
+        if( res.error.url.indexOf("/securityService/")!=-1){
+            AuthStore.logout()
+                .then(() => {
+                        window.location = "/#/login";
+                        //window.location.reload();
+                    }
+                );
+        }
+    }
+
+
     /**
      * Yetkisiz giriş hatası
      */
@@ -66,6 +86,8 @@ const handleErrors = (err, res) => {
                 }
             );
     }
+
+
 
 
     /**

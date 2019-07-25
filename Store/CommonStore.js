@@ -58,7 +58,7 @@ class CommonStore {
     @action loadComponents() {
         this.isLoadingComponent = true;
 
-        return Requests.get(`/components?moduleTypeName=0`)
+        return Requests.get(`/securityService/getComponentTree?moduleTypeName=0`)
             .then((components) => {
                 this.AllComponents = components;
                 this.isLoadingComponent = false;
