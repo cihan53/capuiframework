@@ -103,6 +103,15 @@ export default class Grid extends React.Component {
     autoload = true;
     columns = [];
 
+    /**
+     * Bu alan yeni eklendi ve buna göre diğer tüm değişiklikler sırası geldiğinde yapılamlı
+     * tüm ayarlar config nesnesinde toplanmalı
+     * @type {{xtype: string}}
+     */
+    config = {
+        xtype: "grid"
+    }
+
 
     constructor(props) {
         super(props);
@@ -110,17 +119,17 @@ export default class Grid extends React.Component {
 
         this.handleTableChange = this.handleTableChange.bind(this);
         this.init = this.init.bind(this);
-        this.config = this.config.bind(this);
+        this.configSet = this.configSet.bind(this);
 
         this.key = Utils.ShortId.generate();
         this.xgrid = React.createRef();
 
         this.init();
-        this.config();
+        this.configSet();
 
     }
 
-    init(action="") {
+    init(action = "") {
 
         if (this.props.config.store) {
             if (typeof  this.props.config.store == "string") {
@@ -158,14 +167,15 @@ export default class Grid extends React.Component {
 
     }
 
-    config() {
+    configSet() {
+        this.config = Object.assign(this.config, this.props.config);
         this.columns = this.props.config.columns || [];
     }
 
 
     shouldComponentUpdate(newProps, newState) {
-        if(this.props!=newProps) this.init("propsChange");
-        return this.props!=newProps
+        if (this.props != newProps) this.init("propsChange");
+        return this.props != newProps
     }
 
     //render before
@@ -272,7 +282,7 @@ export default class Grid extends React.Component {
         />;
 
 
-        if (this.props.config.xtype == "gridPanel") {
+        if (this.config.xtype.toLocaleLowerCase() == "gridpanel") {
 
             return <Panel _key={this.key + "-gridPanel"} items={[T]} config={this.props.config.panelOptions}/>;
         }
@@ -289,6 +299,12 @@ Grid.propTypes = {
     store: PropTypes.any
 };
 
-
+Grid.defaultProps = {
+    config: {
+        xtype: "grid",
+    },
+    columns: [],
+    data: null
+}
 
 

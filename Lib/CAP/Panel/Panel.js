@@ -89,10 +89,10 @@ export default class Panel extends React.Component {
         //     return <E key={this.key + "-child-item-" + i}/>;
         // });
 
-        let optionsHeader = this.props.options.optionsHeader || {};
-        let optionsTitle = this.props.options.optionsTitle || {};
-        let optionsBody = this.props.options.optionsBody || {};
-        let optionsFooter = this.props.options.optionsFooter || {};
+        let optionsHeader = this.props.options.optionsHeader || this.props.config.optionsHeader || {};
+        let optionsTitle = this.props.options.optionsTitle || this.props.config.optionsTitle || {};
+        let optionsBody = this.props.options.optionsBody || this.props.config.optionsBody || {};
+        let optionsFooter = this.props.options.optionsFooter || this.props.config.optionsFooter || {};
         //
         // delete this.props.options.optionsHeader;
         // delete this.props.options.optionsTitle;
