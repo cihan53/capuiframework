@@ -143,7 +143,7 @@ export default class CapController extends React.Component {
             a += e.capitalizeFirstLetter();
         });
 
-        // console.log(this.props.match.params)
+        // CAP.Log(this.props.match.params)
 
 
         this._action = a;

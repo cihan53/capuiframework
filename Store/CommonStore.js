@@ -86,7 +86,7 @@ class CommonStore {
 
 
             let re = function (modul, parentobje) {
-                //console.log("Load Module:", modul.name);
+                //CAP.Log("Load Module:", modul.name);
 
                 this.moduleToComponent(modul, parentobje);
 

@@ -23,7 +23,7 @@ window.ReactDOM = ReactDOM;
 //window.Utils = Util;
 window.CAPFrameWork = CAPFrameWork;
 
-// console.log(BaseStore)
+// CAP.Log(BaseStore)
 
 const CAP = CAPFrameWork;
 const BreadCrumb = CAPFrameWork.BreadCrumb;

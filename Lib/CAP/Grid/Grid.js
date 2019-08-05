@@ -226,7 +226,7 @@ export default class Grid extends React.Component {
             }
         }
 
-        // console.log(type,this )
+        // CAP.Log(type,this )
     };
 
     componentWillMount() {

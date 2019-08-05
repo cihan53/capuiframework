@@ -38,7 +38,7 @@ export default class Panel extends React.Component {
 
         return Utils.isArray(items) ? items.map((E, i) => {
 
-            //console.log(this.key,E,i)
+            //CAP.Log(this.key,E,i)
             //E.key = this.key + "-child-item-" + i;
             if (E.hasOwnProperty("xtype"))
                 return Utils.createElement(E);
