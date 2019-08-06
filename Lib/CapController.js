@@ -484,10 +484,9 @@ export default class CapController extends React.Component {
      *
      * @returns {*}
      */
-    render() {
+    render = () => {
 
         let methods = this.getMethods(this);
-        Logger.debug("Controller action", methods)
         Logger.debug("Controller Find action", this.controllerName + "/" + this.action)
         let method = methods.filter(f => f.toLocaleLowerCase() == "action" + this.action.toLocaleLowerCase());
         if (method.length > 0) {

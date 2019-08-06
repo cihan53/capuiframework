@@ -7,7 +7,6 @@ import React from "react";
 import createClass from "create-react-class";
 import ReactDOM from "react-dom";
 import CAPFrameWork, {Xtypes} from "./Initialization";
-import BaseStore from "./Lib/CAP/Store/BaseStore";
 // import {CapBaseStore as BaseStore} from "./Lib/CapBaseStore";
 
 
@@ -26,8 +25,10 @@ window.CAPFrameWork = CAPFrameWork;
 // CAP.Log(BaseStore)
 
 const CAP = CAPFrameWork;
+const BaseStore = CAPFrameWork.BaseStore;
 const BreadCrumb = CAPFrameWork.BreadCrumb;
 const MessageBox = CAPFrameWork.MessageBox;
+const ConfirmBox = CAPFrameWork.Message.Confirm;
 const BaseController = CAPFrameWork.BaseController;
 const Spinner = CAPFrameWork.Spinner;
 const Grid = CAPFrameWork.Grid;
@@ -61,6 +62,7 @@ export {
     CAP,
     BreadCrumb,
     MessageBox,
+    ConfirmBox,
     BaseController,
     Date,
     Spinner,

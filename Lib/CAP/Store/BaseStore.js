@@ -653,13 +653,13 @@ export default class BaseStore {
      * @param params
      * @returns {*|Promise<any>|Promise<T>}
      */
-    @action delete(params) {
+    @action delete(params,postType = "formdata") {
         /**
          * Set action status
          */
         this.actionStatus.delete = false;
 
-        return Request.post(this.baseUrl + this.Action.delete, params)
+        return Request.post(this.baseUrl + this.Action.delete, params,postType)
             .then(action((res) => {
                 return res;
             }))

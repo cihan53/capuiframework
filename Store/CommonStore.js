@@ -11,6 +11,7 @@ import LoadingSpinner from "../Lib/LoadingSpinner";
 import Utils from "../Lib/CAP/Utils/Utils";
 import StoreManager from "../Lib/StoreManager";
 import Requests from "../Lib/Request";
+import {Logger} from "../index";
 
 
 
@@ -108,7 +109,7 @@ class CommonStore {
             });
 
 
-            console.info("Component Load Success");
+            Logger.info("Component Load Success");
             // this.componentsObject = componentsObject;
         } else {
             alert("Yetkilendirme hatası. Lütfen yöneticinize başvurunuz.");

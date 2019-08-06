@@ -5,17 +5,14 @@
  */
 import React from "react";
 import {Button} from "reactstrap";
-import PropTypes from "prop-types";
-import Field from "./Field";
+class CButton extends React.Component{
 
-class CButton extends Field {
+
     render() {
         return <Button {...this.props}/>
     }
 }
 
-CButton.propTypes = {
-    icon: PropTypes.oneOf(['News', 'Photos']),
-};
+
 
 export default CButton;

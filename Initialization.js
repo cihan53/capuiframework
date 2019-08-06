@@ -33,7 +33,8 @@ import BreadCrumb from "./Lib/CAP/Utils/BreadCrumb";
 import CButton from "./Lib/CAP/Form/Button";
 import AlertPanel from "./Lib/CAP/Panel/AlertPanel";
 import 'moment/locale/tr'
-import DatePicker from "./Lib/CAP/Form/DatePicker";  // without this line it didn't work
+import DatePicker from "./Lib/CAP/Form/DatePicker";
+import BaseStore from "./Lib/CAP/Store/BaseStore";  // without this line it didn't work
 
 
 moment.locale('tr')
@@ -47,6 +48,7 @@ const CAPFrameWork = e => {
 
     return {
 
+        BaseStore:BaseStore,
         DefaultController: DefaultController,
         BaseController: BaseController,
         BreadCrumb: BreadCrumb,

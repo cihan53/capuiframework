@@ -124,8 +124,9 @@ export default class Grid extends React.Component {
         this.key = Utils.ShortId.generate();
         this.xgrid = React.createRef();
 
-        this.init();
         this.configSet();
+        this.init();
+
 
     }
 
