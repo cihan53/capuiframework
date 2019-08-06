@@ -32,8 +32,10 @@ import ErrorBoundary from "./Lib/ErrorBoundary";
 import BreadCrumb from "./Lib/CAP/Utils/BreadCrumb";
 import CButton from "./Lib/CAP/Form/Button";
 import AlertPanel from "./Lib/CAP/Panel/AlertPanel";
+import 'moment/locale/tr'
+import DatePicker from "./Lib/CAP/Form/DatePicker";  // without this line it didn't work
 
-import 'moment/locale/tr'  // without this line it didn't work
+
 moment.locale('tr')
 
 const BaseController = CapController;
@@ -47,7 +49,7 @@ const CAPFrameWork = e => {
 
         DefaultController: DefaultController,
         BaseController: BaseController,
-        BreadCrumb:BreadCrumb,
+        BreadCrumb: BreadCrumb,
         ClassNames: classnames,
         PropTypes: PropTypes,
         Utils: Utils,
@@ -86,7 +88,7 @@ const CAPFrameWork = e => {
         FormPanel: (props) => {
             return <FormPanel ref={props.ref || null} {...props}/>
         },
-        AlertPanel:AlertPanel,
+        AlertPanel: AlertPanel,
         Form: {
             // JsonSchemaEditor:  (props) => <JsonSchemaEditor {...props}/> ,
             JsonSchemaEditor: React.forwardRef((props, ref) => (
@@ -98,7 +100,7 @@ const CAPFrameWork = e => {
             form: MobxReactForm,
             Field: {
                 base: {},
-                Button:CButton,
+                Button: CButton,
                 Field: Field,
                 Number: {},
                 Radio: {},
@@ -107,7 +109,7 @@ const CAPFrameWork = e => {
                 ComboBox: observer((props) => {
                     return <ComboBox {...props}/>
                 }),
-                Date: {},
+                Date: DatePicker,
                 Display: {},
                 File: {},
                 FileButton: {},
@@ -126,10 +128,12 @@ const CAPFrameWork = e => {
             }
         },
         Log: console.log,
+        Debug: console.debug,
+        Logger :console,
         Raise: (name, e) => {
             throw new CapException(name, e);
         },
-        ErrorBoundary:ErrorBoundary
+        ErrorBoundary: ErrorBoundary
 
     }
 }

@@ -9,7 +9,7 @@ import React from "react";
 import {matchPath} from "react-router";
 import Utils from "./CAP/Utils/Utils";
 import StoreManager from "./StoreManager";
-import {Loadable, Spinner} from "../index";
+import {Loadable, Spinner, Log, Raise, Logger} from "../index";
 
 
 const queryString = require("query-string");
@@ -131,6 +131,27 @@ export default class CapController extends React.Component {
 
     }
 
+
+    getMethods = (obj) => Object.getOwnPropertyNames(obj).filter(item => typeof obj[item] === 'function');
+    loading = (params) => {
+        if (params.error) {
+            Log("Loading Error:", params.error);
+            return <React.Fragment>
+                <div className="text-white bg-danger text-center">
+                    <div className={"cart card-error p-4"}>
+                        <blockquote className="card-bodyquote">
+                            <p>{params.error.toString()}</p>
+                        </blockquote>
+                    </div>
+                </div>
+            </React.Fragment>;
+        } else if (params.pastDelay) {
+            return <Spinner/>;
+        } else {
+            return null;
+        }
+    };
+
     init() {
 
 
@@ -149,9 +170,6 @@ export default class CapController extends React.Component {
         this._action = a;
         this._controllerName = c;
         this._components = StoreManager.get("CommonStore").getComponent(c);
-
-        console.debug("Controller ", c, a);
-
         // let match = null;
         if (!Utils.isEmpty(this.urlMap)) {
 
@@ -272,11 +290,21 @@ export default class CapController extends React.Component {
         //TODO mount olunca neler yapılmalı bunlar belilenmeli
         //BreadCrumb
         StoreManager.get("BreadCrumbStore").setItem(this.BreadCrumb);
+
+
+        //console.log(this.getMethods(this));
+
+
     }
 
     componentDidMount() {
 
     }
+
+    // componentWillUpdate(nextProps, nextState) {
+    //     // Logger.debug("Controller Update NextProps ", nextProps, this.props)
+    //     return nextProps != this.props;
+    // }
 
     componentDidUpdate() {
 
@@ -288,8 +316,7 @@ export default class CapController extends React.Component {
 
 
     componentDidCatch(error, info) {
-        console.error("MyCatch", error, info)
-
+        Logger.error("MyCatch", error, info)
     }
 
 
@@ -330,44 +357,9 @@ export default class CapController extends React.Component {
      */
 
     componentWillReact() {
-
+        Logger.debug("Store Change")
     }
 
-    //
-    // /**
-    //  * Should the controller rerender?
-    //  *
-    //  * @param {Object} [nextProps]
-    //  * @param  {[type]} [nextState]
-    //  */
-    // shouldComponentUpdate(nextProps, nextState) {
-    //   return !(nextState.loadData);
-    // }
-
-    /**
-     *
-     * @param props
-     * @returns {*}
-     */
-    loading(props) {
-
-        if (props.error) {
-            console.error("Loading Error:", props.error);
-            return <React.Fragment>
-                <div className="text-white bg-danger text-center">
-                    <div className={"cart card-error p-4"}>
-                        <blockquote className="card-bodyquote">
-                            <p>{props.error.toString()}</p>
-                        </blockquote>
-                    </div>
-                </div>
-            </React.Fragment>;
-        } else if (props.pastDelay) {
-            return <Spinner/>;
-        } else {
-            return null;
-        }
-    }
 
     /**
      *
@@ -376,13 +368,14 @@ export default class CapController extends React.Component {
      * @returns {*}
      */
 
-    renderView(view, data = {}, loadmask = false, controller = this.controllerName) {
+    renderView = (view, data = {}, loadmask = false, controller = this.controllerName) => {
         //
         // let viewPath = this.viewPath;
         // let theme = this.theme;
         // let layout = this.layout;
 
 
+        Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
         if (!loadmask) {
 
             let View = Loadable({
@@ -393,7 +386,7 @@ export default class CapController extends React.Component {
 
             });
 
-            console.debug(`@ThemeViewsPath/${controller}/${view}`);
+            Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
 
             return (<View {...data} {...this.props} Controller={this}/>);
         } else {
@@ -474,7 +467,7 @@ export default class CapController extends React.Component {
      * @param loadmask
      * @param controller
      */
-    renderAjax(view, data = {}, loadmask = false, controller = this.controllerName) {
+    renderAjax = (view, data = {}, loadmask = false, controller = this.controllerName) => {
 
         /*var xhr = new XMLHttpRequest();
         xhr.open("get", this.props.url, true);
@@ -492,18 +485,21 @@ export default class CapController extends React.Component {
      * @returns {*}
      */
     render() {
-        console.debug("Action Name:", this.controllerName + "/action" + this.action);
-        if (typeof this["action" + this.action] !== "function") {
-            console.debug("Action Not Found :", this.controllerName + "/" + this.action);
-            return this.renderView("404", {action: this.action}, "Error");
+
+        let methods = this.getMethods(this);
+        Logger.debug("Controller action", methods)
+        Logger.debug("Controller Find action", this.controllerName + "/" + this.action)
+        let method = methods.filter(f => f.toLocaleLowerCase() == "action" + this.action.toLocaleLowerCase());
+        if (method.length > 0) {
+            return this[method[0]]({...this.getUrlParams()});
         } else {
-            console.debug("Action Run :", this.controllerName + "/" + this.action);
-            return this["action" + this.action]({...this.getUrlParams()});
+            return this.renderView("Page404", {action: this.action}, false, "Default");
         }
+
     }
 
 
-    addError(error) {
+    addError = (error) => {
         this._errors.push(error);
         console.error(error);
         return this;
@@ -515,7 +511,7 @@ export default class CapController extends React.Component {
      * @param errorText
      * @returns {*}
      */
-    actionError(params) {
+    actionError = (params) => {
 
 
         return <React.Fragment>
@@ -537,7 +533,7 @@ export default class CapController extends React.Component {
      * get all url parameters
      * @returns {*}
      */
-    getUrlParams(paramString = ":id?") {
+    getUrlParams = (paramString = ":id?") => {
 
         const match = matchPath(this.props.location.pathname, {
             path: this.props.match.path + paramString,
@@ -558,7 +554,7 @@ export default class CapController extends React.Component {
      * @returns {string}
      */
 
-    createUrl(actionName, params = {}, hash = true) {
+    createUrl = (actionName, params = {}, hash = true) => {
 
 
         // return <Link
@@ -569,14 +565,14 @@ export default class CapController extends React.Component {
         //     }}
         // />;
         let queryStringParams = "";
-        if (!_.isEmpty(params)) {
-            if (_.has(params, "id")) {
+        if (!Utils.isEmpty(params)) {
+            if (Utils.has(params, "id") && !Utils.isEmpty(params.id)) {
                 queryStringParams = params.id;
                 delete params.id;
             }
         }
 
-        if (!_.isEmpty(params))
+        if (!Utils.isEmpty(params))
             queryStringParams = queryStringParams + "/?" + queryString.stringify(params);
 
         let controller = "/" + this.controllerName + "/" + actionName;
@@ -595,7 +591,7 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    toUrl(actionName, params = {}) {
+    toUrl = (actionName, params = {}) => {
         return window.location = this.createUrl(actionName, params);
     }
 
@@ -605,7 +601,7 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    toChange(actionName, params = {}) {
+    toChange = (actionName, params = {}) => {
         return this.props.history.push(this.createUrl(actionName, params, false));
     }
 }

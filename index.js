@@ -43,6 +43,10 @@ const ShortId = CAPFrameWork.ShortId;
 const Utils = CAPFrameWork.Utils;
 const Button = CAPFrameWork.Form.Field.Button;
 const AlertPanel = CAPFrameWork.AlertPanel;
+const Raise = CAPFrameWork.Raise;
+const Log = CAPFrameWork.Log;
+const Logger = CAPFrameWork.Logger;
+const Debug = CAPFrameWork.Debug;
 
 // const BaseStore= BaseStore;
 // const BaseStore= BaseStore;
@@ -73,7 +77,11 @@ export {
     Loadable,
     PropTypes,
     Xtypes,
-    Utils
+    Utils,
+    Raise,
+    Log,
+    Debug,
+    Logger
 }
 
 
