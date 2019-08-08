@@ -129,9 +129,11 @@ export default class Grid extends React.Component {
         this.init();
 
 
+
     }
 
     init(action = "") {
+
 
         if (this.props.config.store) {
             if (typeof  this.props.config.store == "string") {
