@@ -77,7 +77,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
 
     delete otherprops.pagination;
 
-    return <BootstrapTable ref={_ref}  {...props} {...otherprops} />;
+    return <BootstrapTable ref={_ref}  {...props} {...otherprops}  />;
 
 };
 
