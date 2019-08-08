@@ -283,7 +283,7 @@ export default class BaseStore {
     }
 
     get ValidateErrors() {
-        return this._ValidateErrors;
+        return toJS(this._ValidateErrors);
     }
 
     set ValidateErrors(value) {
@@ -300,7 +300,7 @@ export default class BaseStore {
     }
 
     get errors() {
-        return this.ValidateErrors;
+        return this.ValidateErrors ;
     }
 
     get ErrorText() {
@@ -322,7 +322,7 @@ export default class BaseStore {
 
 
     get parameters() {
-        return this._parameters;
+        return toJS(this._parameters);
     }
 
     set parameters(value) {
@@ -688,17 +688,21 @@ export default class BaseStore {
         this._validator.errorMessages = {};
 
         this.Rules.forEach(function (val) {
+
+
+
             if (val.scenario == scenario) {
                 // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
                 this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
             } else if (val.scenario == "default" && scenario == "default") {
+                console.log(val,scenario);
                 this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
                 // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
             }
         }.bind(this));
 
 
-        this.ValidateErrors = this._validator.getErrorMessages();
+        this.ValidateErrors= this._validator.getErrorMessages();
 
         this._isValid = this._validator.allValid();
         return this._isValid;

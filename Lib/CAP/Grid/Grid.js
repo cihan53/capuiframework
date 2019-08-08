@@ -98,6 +98,7 @@ Table.propTypes = {
 @observer
 export default class Grid extends React.Component {
 
+    store=null;
     data = null;
     limit = 50;
     autoload = true;
@@ -115,7 +116,7 @@ export default class Grid extends React.Component {
 
     constructor(props) {
         super(props);
-        this.store = null;
+        this._store = null;
 
         this.handleTableChange = this.handleTableChange.bind(this);
         this.init = this.init.bind(this);
@@ -134,13 +135,13 @@ export default class Grid extends React.Component {
 
         if (this.props.config.store) {
             if (typeof  this.props.config.store == "string") {
-                this.store = StoreManager.get(this.props.config.store) || null;
+                this._store = StoreManager.get(this.props.config.store) || null;
 
             } else {
                 let storeName = this.props.config.store.name;
                 let baseParams = this.props.config.store.baseParams || null;
                 let defaultSort = this.props.config.store.defaultSort || null;
-                this.store = StoreManager.get(storeName) || null;
+                this._store = StoreManager.get(storeName) || null;
                 if (this.store && baseParams)
                     this.store.setParameters(baseParams);
 
@@ -173,6 +174,14 @@ export default class Grid extends React.Component {
         this.columns = this.props.config.columns || [];
     }
 
+
+    get store() {
+        return this._store;
+    }
+
+    set store(value) {
+        this._store = value;
+    }
 
     shouldComponentUpdate(newProps, newState) {
         if (this.props != newProps) this.init("propsChange");

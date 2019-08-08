@@ -48,7 +48,7 @@ const CAPFrameWork = e => {
 
     return {
 
-        BaseStore:BaseStore,
+        BaseStore: BaseStore,
         DefaultController: DefaultController,
         BaseController: BaseController,
         BreadCrumb: BreadCrumb,
@@ -82,7 +82,9 @@ const CAPFrameWork = e => {
          * @returns {*}
          * @constructor
          */
-        Grid: (config) => <Grid keyField={config.keyField} columns={config.columns} config={config}/>,
+        Grid: React.forwardRef((config, ref) => {
+            return <Grid ref={ref} keyField={config.keyField} columns={config.columns} config={config}/>
+        }),
         /**
          *
          * @type {{Field: {}}}
@@ -131,7 +133,7 @@ const CAPFrameWork = e => {
         },
         Log: console.log,
         Debug: console.debug,
-        Logger :console,
+        Logger: console,
         Raise: (name, e) => {
             throw new CapException(name, e);
         },
