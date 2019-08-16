@@ -26,7 +26,7 @@ const EmptyTableDataIndication = () => (
 );
 
 
-const Table = ({_ref, data, columns, page, sizePerPage, onTableChange,tableContextMenuRef, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
+const Table = ({key,_ref, data, columns, page, sizePerPage, onTableChange,tableContextMenuRef, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
 
     const customTotal = (from, to, size) => (
         <span
@@ -83,7 +83,7 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange,tableConte
 
     return <React.Fragment>
         <BootstrapTable ref={_ref}  {...props} {...otherprops}  />
-        <ContextMenu container={otherprops.id || this.key + "-t"} ref={tableContextMenuRef}
+        <ContextMenu container={otherprops.id || key + "-t"} ref={tableContextMenuRef}
                      clickItem={otherprops.onContextMenuClickItem || void (0)}/>
     </React.Fragment>
 
