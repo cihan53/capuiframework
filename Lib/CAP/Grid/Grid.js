@@ -10,6 +10,7 @@ import StoreManager from "../../StoreManager";
 import LoadingSpinner from "../../LoadingSpinner";
 import Panel from "../Panel/Panel";
 import Utils from "../Utils/Utils";
+import ContextMenu from "./ContextMenu";
 
 
 const defaultSorted = [{
@@ -25,11 +26,11 @@ const EmptyTableDataIndication = () => (
 );
 
 
-const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
-
+const Table = ({_ref, data, columns, page, sizePerPage, onTableChange,tableContextMenuRef, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
 
     const customTotal = (from, to, size) => (
-        <span className="react-bootstrap-table-pagination-total"> {Utils.__t("Toplam Kayıt: :size", {size: size})}</span>
+        <span
+            className="react-bootstrap-table-pagination-total"> {Utils.__t("Toplam Kayıt: :size", {size: size})}</span>
     );
 
     let props = {
@@ -54,7 +55,6 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
     let showTotal = true;
     let pageStartIndex = 1;
     let paginationSize = 10;
-
     if (otherprops.pagination)
         props.pagination = paginationFactory({
             withFirstAndLast: true,
@@ -77,7 +77,15 @@ const Table = ({_ref, data, columns, page, sizePerPage, onTableChange, otherprop
 
     delete otherprops.pagination;
 
-    return <BootstrapTable ref={_ref}  {...props} {...otherprops}  />;
+
+    // const ContextMenu = onContextMenu;
+
+
+    return <React.Fragment>
+        <BootstrapTable ref={_ref}  {...props} {...otherprops}  />
+        <ContextMenu container={otherprops.id || this.key + "-t"} ref={tableContextMenuRef}
+                     clickItem={otherprops.onContextMenuClickItem || void (0)}/>
+    </React.Fragment>
 
 };
 
@@ -98,7 +106,7 @@ Table.propTypes = {
 @observer
 export default class Grid extends React.Component {
 
-    store=null;
+    store = null;
     data = null;
     limit = 50;
     autoload = true;
@@ -124,10 +132,10 @@ export default class Grid extends React.Component {
 
         this.key = Utils.ShortId.generate();
         this.xgrid = React.createRef();
+        this.tableContextMenu = React.createRef();
 
         this.configSet();
         this.init();
-
 
 
     }
@@ -136,7 +144,7 @@ export default class Grid extends React.Component {
 
 
         if (this.props.config.store) {
-            if (typeof  this.props.config.store == "string") {
+            if (typeof this.props.config.store == "string") {
                 this._store = StoreManager.get(this.props.config.store) || null;
 
             } else {
@@ -224,7 +232,14 @@ export default class Grid extends React.Component {
             let currentIndex = (page - 1) * sizePerPage;
             currentIndex = currentIndex < 0 ? 0 : currentIndex
 
-            this.store.load({page: page, start: currentIndex, size: sizePerPage, sortField: sortField, sortOrder: sortOrder, filters: filters});
+            this.store.load({
+                page: page,
+                start: currentIndex,
+                size: sizePerPage,
+                sortField: sortField,
+                sortOrder: sortOrder,
+                filters: filters
+            });
         } else {
             if (this.props.config.hasOwnProperty("cellEdit")) {
                 if (this.props.config.cellEdit.hasOwnProperty("afterSaveCell")) {
@@ -249,7 +264,11 @@ export default class Grid extends React.Component {
 
     render() {
 
-        const {totalCount = 0, limit = this.limit, currentPage = 0} = this.store || {totalCount: 0, limit: this.limit, page: 0};
+        const {totalCount = 0, limit = this.limit, currentPage = 0} = this.store || {
+            totalCount: 0,
+            limit: this.limit,
+            page: 0
+        };
         const data = this.store ? this.store.data : this.data;
 
 
@@ -269,7 +288,7 @@ export default class Grid extends React.Component {
 
 
         //bunlar varsayılan props'lar bunlar haricindeki tüm prop'lar otherprops eklenecek
-        const props = ["store", "keyField", "data", "currentPage", "sizePerPage", "columns", "totalSize", "onTableChange", "panelOptions", "xtype", "cellEdit"];
+        const props = ["store", "keyField", "data", "currentPage", "sizePerPage", "columns", "totalSize", "onTableChange", "panelOptions", "xtype", "cellEdit","tableContextMenuRef"];
         const keys = Object.keys(this.props.config);
         for (const keyIndex in keys) {
             const key = keys[keyIndex];
@@ -279,6 +298,7 @@ export default class Grid extends React.Component {
         }
 
 
+        let contextMenu = null;
         let T = <Table
             _ref={this.xgrid}
             key={this.key + "-gridtable"}
@@ -291,6 +311,7 @@ export default class Grid extends React.Component {
             otherprops={otherProps}
             onTableChange={this.handleTableChange}
             cellEdit={cellEdit}
+            tableContextMenuRef={this.tableContextMenu}
         />;
 
 
@@ -299,7 +320,8 @@ export default class Grid extends React.Component {
             return <Panel _key={this.key + "-gridPanel"} items={[T]} config={this.props.config.panelOptions}/>;
         }
 
-        return (T);
+
+        return <React.Fragment>{T}</React.Fragment>;
     }
 }
 
