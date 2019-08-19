@@ -103,7 +103,6 @@ export default class ContextMenu extends React.Component {
             disabled = "";
         }
 
-
         return <React.Fragment>
             <div style={{"display": visible ? "block" : "none"}} ref={ref => {
                 this.root = ref;
