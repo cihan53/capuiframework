@@ -12,7 +12,7 @@ import StoreManager from "./StoreManager";
 import {Loadable, Spinner, Log, Raise, Logger} from "../index";
 
 
-const queryString = require("query-string");
+// const queryString = require("query-string");
 
 
 /**
@@ -542,7 +542,7 @@ export default class CapController extends React.Component {
 
         // let params = this.props.match.params || {};
         let params = match.params || {};
-        return Object.assign(params, queryString.parse(this.props.location.search));
+        return Object.assign(params, Utils.queryString.parse(this.props.location.search));
     }
 
 
@@ -572,7 +572,7 @@ export default class CapController extends React.Component {
         }
 
         if (!Utils.isEmpty(params))
-            queryStringParams = queryStringParams + "/?" + queryString.stringify(params);
+            queryStringParams = queryStringParams + "/?" + Utils.queryString.stringify(params);
 
         let controller = "/" + this.controllerName + "/" + actionName;
 

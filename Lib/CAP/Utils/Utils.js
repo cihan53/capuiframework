@@ -14,6 +14,7 @@ import CreateComponent from "./CreateComponent";
 
 
 const isDebug = process.env.PRODUCTION ? false : true;
+const queryString = require("query-string");
 
 
 /**
@@ -56,6 +57,7 @@ const Utils = {
     CreateComponent,
     createElement,
     toJS:toJS,
-    toJSON:JSON.stringify
+    toJSON:JSON.stringify,
+    queryString:queryString
 };
 export default Utils;
