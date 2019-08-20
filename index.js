@@ -57,7 +57,6 @@ const Debug = CAPFrameWork.Debug;
 
 // const BaseStore = CapBaseStore;
 export default {...CAPFrameWork};
-// export {BaseStore};
 export {
     CAP,
     BreadCrumb,
