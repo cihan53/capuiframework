@@ -7,11 +7,32 @@ import React from "react";
 
 export default class DataView extends React.Component {
 
+    init = function () {
+    }
     _cache = [];
     _view = "index";
 
-    init() {
+    constructor(props) {
+        super(props);
+        init()
+    }
+
+    beforeRender() {
 
     }
 
+    afterRender() {
+
+    }
+
+    view(_view = "index", params = {}) {
+
+    }
+
+    render() {
+        this.beforeRender();
+        let renderer = this.view();
+        this.afterRender()
+        return renderer;
+    }
 }
