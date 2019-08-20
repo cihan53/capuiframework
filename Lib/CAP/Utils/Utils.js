@@ -12,7 +12,6 @@ import createElement from "./CreateElements";
 import CreateComponent from "./CreateComponent";
 
 
-
 const isDebug = process.env.PRODUCTION ? false : true;
 const queryString = require("query-string");
 
@@ -23,7 +22,7 @@ const queryString = require("query-string");
  * @returns {String}
  */
 // eslint-disable-next-line
-String.prototype.allReplace = function(obj) {
+String.prototype.allReplace = function (obj) {
     var retStr = this;
     for (var x in obj) {
         retStr = retStr.replace(new RegExp(":" + x, "g"), obj[x]);
@@ -36,9 +35,20 @@ String.prototype.allReplace = function(obj) {
  * @returns {string}
  */
 // eslint-disable-next-line
-String.prototype.capitalizeFirstLetter = function() {
+String.prototype.capitalizeFirstLetter = function () {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 };
+
+
+const Download = (dataurl, filename) => {
+    let a = document.createElement("a");
+    a.href = dataurl;
+    a.setAttribute("download", filename);
+    a.click();
+    return false;
+}
+
+
 
 
 
@@ -56,8 +66,9 @@ const Utils = {
     isDebug,
     CreateComponent,
     createElement,
-    toJS:toJS,
-    toJSON:JSON.stringify,
-    queryString:queryString
+    toJS: toJS,
+    toJSON: JSON.stringify,
+    queryString: queryString,
+    Download: Download
 };
 export default Utils;

@@ -11,4 +11,24 @@ const _Array =
 
     };
 
+
+function plainToFlattenObject(object) {
+    const result = {}
+
+    function flatten(obj, prefix = '') {
+        _.forEach(obj, (value, key) => {
+            if (_.isObject(value)) {
+                flatten(value, `${prefix}${key}.`)
+            } else {
+                result[`${prefix}${key}`] = value
+            }
+        })
+    }
+
+    flatten(object)
+
+    return result
+}
+
 export default _Array;
+export {plainToFlattenObject}

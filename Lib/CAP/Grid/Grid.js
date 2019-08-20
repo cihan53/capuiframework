@@ -5,12 +5,13 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import overlayFactory from 'react-bootstrap-table2-overlay';
 import filterFactory from "react-bootstrap-table2-filter";
-import cellEditFactory, {Type} from "react-bootstrap-table2-editor";
+import cellEditFactory from "react-bootstrap-table2-editor";
+
 import StoreManager from "../../StoreManager";
-import LoadingSpinner from "../../LoadingSpinner";
 import Panel from "../Panel/Panel";
 import Utils from "../Utils/Utils";
 import ContextMenu from "./ContextMenu";
+import {ExportCSVButton} from "./ToolKit";
 
 
 const defaultSorted = [{
@@ -26,7 +27,7 @@ const EmptyTableDataIndication = () => (
 );
 
 
-const Table = ({ _ref, data, columns, page, sizePerPage, onTableChange,tableContextMenuRef, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
+const Table = ({_ref,store, data, columns, page, sizePerPage, onTableChange, tableContextMenuRef, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
 
     const customTotal = (from, to, size) => (
         <span
@@ -82,8 +83,12 @@ const Table = ({ _ref, data, columns, page, sizePerPage, onTableChange,tableCont
 
 
     return <React.Fragment>
-        <BootstrapTable ref={_ref}  {...props} {...otherprops}  />
-        <ContextMenu container={otherprops.id  } ref={tableContextMenuRef}
+
+        <ExportCSVButton data={store.data} columns={columns}/>
+        {/*<ExportPdfButton data={data} />*/}
+        {/*<CSVDownload data={data} target="_blank"/>;*/}
+        <BootstrapTable ref={_ref} {...props.baseProps} {...props} {...otherprops}  />
+        <ContextMenu container={otherprops.id} ref={tableContextMenuRef}
                      clickItem={otherprops.onContextMenuClickItem || void (0)}/>
     </React.Fragment>
 
@@ -288,7 +293,7 @@ export default class Grid extends React.Component {
 
 
         //bunlar varsayılan props'lar bunlar haricindeki tüm prop'lar otherprops eklenecek
-        const props = ["store", "keyField", "data", "currentPage", "sizePerPage", "columns", "totalSize", "onTableChange", "panelOptions", "xtype", "cellEdit","tableContextMenuRef"];
+        const props = ["store", "keyField", "data", "currentPage", "sizePerPage", "columns", "totalSize", "onTableChange", "panelOptions", "xtype", "cellEdit", "tableContextMenuRef"];
         const keys = Object.keys(this.props.config);
         for (const keyIndex in keys) {
             const key = keys[keyIndex];
@@ -312,6 +317,7 @@ export default class Grid extends React.Component {
             onTableChange={this.handleTableChange}
             cellEdit={cellEdit}
             tableContextMenuRef={this.tableContextMenu}
+            store={this.store}
         />;
 
 
