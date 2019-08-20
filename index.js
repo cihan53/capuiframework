@@ -36,6 +36,7 @@ const Request = CAPFrameWork.Request;
 const ClassNames = CAPFrameWork.ClassNames;
 const Form = CAPFrameWork.Form;
 const FormPanel = CAPFrameWork.FormPanel;
+const DataView = CAPFrameWork.DataView;
 const Panel = CAPFrameWork.Panel;
 const Loadable = CAPFrameWork.Loadable;
 const PropTypes = CAPFrameWork.PropTypes;
@@ -78,6 +79,7 @@ export {
     Loadable,
     PropTypes,
     Xtypes,
+    DataView,
     Utils,
     Raise,
     Log,

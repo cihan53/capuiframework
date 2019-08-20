@@ -4,10 +4,12 @@
  * Email: cihanozturk@crypttech.com
  */
 import React from "react";
+
 import {observer} from "mobx-react/index";
 import MobxReactForm from 'mobx-react-form';
 import Loadable from 'react-loadable';
 import moment from "moment";
+import 'moment/locale/tr'
 import classnames from "classnames";
 import PropTypes from 'prop-types';
 import Request from "./Lib/Request";
@@ -32,10 +34,9 @@ import ErrorBoundary from "./Lib/ErrorBoundary";
 import BreadCrumb from "./Lib/CAP/Utils/BreadCrumb";
 import CButton from "./Lib/CAP/Form/Button";
 import AlertPanel from "./Lib/CAP/Panel/AlertPanel";
-import 'moment/locale/tr'
 import DatePicker from "./Lib/CAP/Form/DatePicker";
 import BaseStore from "./Lib/CAP/Store/BaseStore";  // without this line it didn't work
-
+import DataView from "./View/DataView";
 
 moment.locale('tr')
 
@@ -130,6 +131,9 @@ const CAPFrameWork = e => {
 
 
             }
+        },
+        View:{
+            DataView:DataView
         },
         Log: console.log,
         Debug: console.debug,
