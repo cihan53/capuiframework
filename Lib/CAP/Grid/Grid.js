@@ -27,7 +27,7 @@ const EmptyTableDataIndication = () => (
 );
 
 
-const Table = ({_ref,store, data, columns, page, sizePerPage, onTableChange, tableContextMenuRef, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
+const Table = ({_ref, store, data, columns, page, sizePerPage, onTableChange, tableContextMenuRef, otherprops, cellEdit = null, totalSize, keyField = "id"}) => {
 
     const customTotal = (from, to, size) => (
         <span
@@ -84,9 +84,9 @@ const Table = ({_ref,store, data, columns, page, sizePerPage, onTableChange, tab
 
     return <React.Fragment>
 
-        <ExportCSVButton data={store.data} columns={columns}/>
         {/*<ExportPdfButton data={data} />*/}
         {/*<CSVDownload data={data} target="_blank"/>;*/}
+        {otherprops.hasOwnProperty('buttons') ? <ExportCSVButton data={store.data} columns={columns}/> : void (0)}
         <BootstrapTable ref={_ref} {...props.baseProps} {...props} {...otherprops}  />
         <ContextMenu container={otherprops.id} ref={tableContextMenuRef}
                      clickItem={otherprops.onContextMenuClickItem || void (0)}/>

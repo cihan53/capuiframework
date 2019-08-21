@@ -36,7 +36,7 @@ import CButton from "./Lib/CAP/Form/Button";
 import AlertPanel from "./Lib/CAP/Panel/AlertPanel";
 import DatePicker from "./Lib/CAP/Form/DatePicker";
 import BaseStore from "./Lib/CAP/Store/BaseStore";  // without this line it didn't work
-import DataView from "./View/DataView";
+import View from "./View/View";
 
 moment.locale('tr')
 
@@ -132,8 +132,8 @@ const CAPFrameWork = e => {
 
             }
         },
-        View:{
-            DataView:DataView
+        View: {
+            View: View
         },
         Log: console.log,
         Debug: console.debug,
@@ -175,7 +175,8 @@ const Xtypes = {
     xtextfield: CAPFrameWork().Form.Field.Text,
     xtextareafield: CAPFrameWork().Form.Field.TextArea,
     xtimefield: CAPFrameWork().Form.Field.Time,
-    xdropzone: CAPFrameWork().Form.Field.Dropzone
+    xdropzone: CAPFrameWork().Form.Field.Dropzone,
+    xview: CAPFrameWork().View.View
 }
 
 
