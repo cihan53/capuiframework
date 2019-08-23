@@ -268,6 +268,10 @@ export default class CapController extends React.Component {
     }
 
 
+    /**
+     * İlgili komponent
+     * @returns {{}}
+     */
     get components() {
         return this._components;
     }
@@ -277,6 +281,10 @@ export default class CapController extends React.Component {
     }
 
 
+    /**
+     * kontroller da oluşan hatalar
+     * @returns {Array}
+     */
     get errors() {
         return this._errors;
     }

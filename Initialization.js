@@ -60,8 +60,8 @@ const CAPFrameWork = e => {
         Date: moment,
         Loadable: Loadable,
         Formatter: {
-            date: (date, format = "YYYY MM DD H:mm:ss") => moment(date).format(format),
-            duration: (duration, units = "minutes", format = "H:mm:ss") => moment.duration(duration, units)
+            date: (date, format = "YYYY.MM.DD HH:mm:ss") => moment(date).format(format),
+            duration: (duration, units = "minutes", format = "HH:mm:ss") => moment.duration(duration, units)
         },
         loadBar: Utils.Mask,
         toHtml: Utils.Parser,
@@ -114,7 +114,7 @@ const CAPFrameWork = e => {
                 ComboBox: observer((props) => {
                     return <ComboBox {...props}/>
                 }),
-                Date: DatePicker,
+                DatePicker: DatePicker,
                 Display: {},
                 File: {},
                 FileButton: {},
