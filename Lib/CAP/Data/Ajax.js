@@ -100,11 +100,13 @@ export default class Ajax {
 
 
     get = (url, params = {}) => {
+
         var fullUrl = `${API_ROOT_URL}${url}`;
         if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("//")) {
             fullUrl = url;
         }
-        this._running = this.Request.get(url).query(params);
+
+        this._running = this.Request.get(fullUrl).query(params);
         return this._running
             .use(this.tokenPlugin)
             .end(this.handleErrors)
