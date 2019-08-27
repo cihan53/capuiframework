@@ -9,9 +9,10 @@
 import {action, observable, toJS} from "mobx";
 import Ajax from "./Ajax";
 import Utils from "../Utils/Utils";
+import DataProxy from "./DataProxy";
 
 export default class ElasticSql {
-    _baseUrl ="";
+    _baseUrl = "";
     currentId = 0;
     running = null;
     Ajax = null;
@@ -46,8 +47,8 @@ export default class ElasticSql {
 
     constructor() {
         this._type = 'elasticsql';
-        this.id = Ajax._uniqueIdGenerator();
-        this.Ajax = new Ajax();
+        this.dataProxy = new DataProxy();
+        this.Ajax = this.dataProxy.createProxy('ajax');
         // this.oldEnd = superagent.prototype.end;
         this.init = this.init.bind(this);
 
@@ -78,7 +79,8 @@ export default class ElasticSql {
      * işlemi kes
      */
     abort = () => {
-        this.running.abort();
+        if (!Utils.isEmpty(this.Ajax.running))
+            this.Ajax.running.abort();
     }
 
     init = () => {
@@ -289,18 +291,18 @@ export default class ElasticSql {
         });
 
         console.debug("Run Elastic SQL:", newSql);
+        let post = this.Ajax.post(this._baseUrl, params);
 
 
-        return this.Ajax.post(this._baseUrl, params)
-            .then(action((res) => {
-                if (res && res.data.hasOwnProperty("error")) {
-                    this.ErrorText = res.data.error.root_cause.map(e => {
-                        return e.reason + " ";
-                    });
-                    throw this.ErrorText;
-                }
-                return res;
-            }))
+        return post.then(action((res) => {
+            if (res && res.data.hasOwnProperty("error")) {
+                this.ErrorText = res.data.error.root_cause.map(e => {
+                    return e.reason + " ";
+                });
+                throw this.ErrorText;
+            }
+            return res;
+        }))
             .catch(action((err) => {
                 this.ErrorText = err.response && err.response.body && err.response.body.errors;
                 throw err;

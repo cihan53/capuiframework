@@ -14,7 +14,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 export default class Ajax {
 
-    currentId = 0;
+    static currentId = 0;
     running = null;
     tokenPlugin = (req) => {
 
@@ -30,14 +30,14 @@ export default class Ajax {
 
     constructor() {
         this._type = 'ajax';
-        this.id = Ajax._uniqueIdGenerator();
+        this._id = Ajax._uniqueIdGenerator();
         this._Request = superagent;
         this.oldEnd = superagent.prototype.end;
         this.init = this.init.bind(this);
 
     }
 
-    static _uniqueIdGenerator() {
+     static _uniqueIdGenerator=()=>{
         return ++this.currentId;
     }
 
@@ -57,7 +57,7 @@ export default class Ajax {
      * Queues.
      */
     queues = {};
-    running = {};
+    _running = {};
 
 
     queue = (name) => {
@@ -70,6 +70,24 @@ export default class Ajax {
 
     }
 
+
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
+    }
+
+
+    get running() {
+        return this._running;
+    }
+
+    set running(value) {
+        this._running = value;
+    }
+
     end = (fn) => {
 
     };
@@ -77,7 +95,7 @@ export default class Ajax {
      * işlemi kes
      */
     abort = () => {
-        this.running.abort();
+        this._running.abort();
     }
 
 
@@ -86,8 +104,8 @@ export default class Ajax {
         if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("//")) {
             fullUrl = url;
         }
-        this.running = this.Request.get(url).query(params);
-        return this.running
+        this._running = this.Request.get(url).query(params);
+        return this._running
             .use(this.tokenPlugin)
             .end(this.handleErrors)
             .then(this.responseBody);
@@ -109,8 +127,9 @@ export default class Ajax {
         if (url.startsWith("http://") && url.startsWith("https://")) {
             fullUrl = url;
         }
-        this.running = this.Request.post(fullUrl, body);
-        return this.running
+        this._running = this.Request.post(fullUrl, body);
+
+        return this._running
             .use(this.tokenPlugin)
             .on("error", this.handleErrors)
             .end(this.handleErrors)
@@ -124,8 +143,8 @@ export default class Ajax {
             fullUrl = url;
         }
 
-        this.running = this.Request.post(fullUrl, body);
-        return this.running
+        this._running = this.Request.post(fullUrl, body);
+        return this._running
             .use(this.tokenPlugin)
             .on("error", this.handleErrors)
             .end(this.handleErrors)
@@ -133,18 +152,18 @@ export default class Ajax {
     }
 
     postMultiPart = (url, body) => {
-        this.running = this.Request.post(`${API_ROOT_URL}${url}`);
+        this._running = this.Request.post(`${API_ROOT_URL}${url}`);
 
         Object.keys(body).forEach((key)=>{
             if ((body[key] instanceof File)) {
-                this.running.attach(key, body[key]);
+                this._running.attach(key, body[key]);
             } else {
-                this.running.field(key, body[key]);
+                this._running.field(key, body[key]);
             }
 
         });
 
-        return this.running.use(this.tokenPlugin)
+        return this._running.use(this.tokenPlugin)
             .retry(0)
             .on("error", this.handleErrors)
             .end(this.handleErrors)
