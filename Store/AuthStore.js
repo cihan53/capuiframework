@@ -8,10 +8,10 @@ import {action} from "mobx";
 import UserStore from "./UserStore";
 import CommonStore from "./CommonStore";
 import Utils from "../Lib/CAP/Utils/Utils";
-import BaseStore from "../Lib/CAP/Store/BaseStore";
 import {Request} from "../index";
+import CBaseStore from "../../Stores/CBaseStore";
 
-class AuthStore extends BaseStore {
+class AuthStore extends CBaseStore {
 
     baseUrl = "/login/";
 
@@ -30,7 +30,7 @@ class AuthStore extends BaseStore {
 
     constructor() {
         super();
-        this.init();
+        // this.init();
 
     }
 
