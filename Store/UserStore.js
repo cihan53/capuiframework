@@ -3,12 +3,13 @@
  * Author : Cihan Ozturk
  *
  */
-import {action, observable, reaction, computed, toJS} from "mobx";
+import {action, computed, observable, reaction, toJS} from "mobx";
 import Utils from "../Lib/CAP/Utils/Utils";
-import BaseStore from "../Lib/CAP/Store/BaseStore";
+import CBaseStore from "../../Stores/CBaseStore";
+
 // import Request from "../Lib/Request";
 
-class UserStore extends BaseStore {
+class UserStore extends CBaseStore {
 
     @observable currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
     @observable loadingUser;
@@ -31,7 +32,10 @@ class UserStore extends BaseStore {
         {
             name: "usernamesurname",
             rule: "required|alpha_num_dash_space",
-            msg: {alpha: Utils.__t("Sadece harflerden ve boşluk karakterinden oluşabilir."), required: Utils.__t("Zorunlu alan")}
+            msg: {
+                alpha: Utils.__t("Sadece harflerden ve boşluk karakterinden oluşabilir."),
+                required: Utils.__t("Zorunlu alan")
+            }
         },
         {
             name: "customerId",
@@ -72,7 +76,6 @@ class UserStore extends BaseStore {
                 }
             }
         );
-        this.init();
     }
 
     @computed get detail() {
@@ -82,10 +85,12 @@ class UserStore extends BaseStore {
 
     @action getProfile() {
         this.loadingUser = true;
-        return this.Request.get("/securityService/getloginuserdetail")
+        return this.Request.get("/api/securityService/getloginuserdetail")
             .then(action((res) => {
-                this.userDetail = res[0];
-                this.loadingUser = false;
+                if (res) {
+                    this.userDetail = res[0];
+                    this.loadingUser = false;
+                }
                 //return Promise.resolve( res[0] );
             }));
     }

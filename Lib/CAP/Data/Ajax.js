@@ -135,12 +135,11 @@ export default class Ajax {
     postMultiPart = (url, body) => {
         this.running = this.Request.post(`${API_ROOT_URL}${url}`);
 
-        Object.keys(body).forEach(function (key) {
+        Object.keys(body).forEach((key)=>{
             if ((body[key] instanceof File)) {
-                r.attach(key, body[key]);
-                console.debug("Attach file", body[key])
+                this.running.attach(key, body[key]);
             } else {
-                r.field(key, body[key]);
+                this.running.field(key, body[key]);
             }
 
         });
