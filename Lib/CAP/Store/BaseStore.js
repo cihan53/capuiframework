@@ -6,8 +6,8 @@
 
 import {action, observable, toJS, values} from "mobx";
 import Utils from "../Utils/Utils";
-import Request from "../../Request";
 import Validator from "../Utils/Validator";
+import DataProxy from "../Data/DataProxy";
 
 // import lodash from "lodash";
 
@@ -53,6 +53,14 @@ export default class BaseStore {
             desc: "asc"
         }
     };
+
+    /**
+     *
+     * @type {{postMultiPart: (function(*, *=): *), postJson: (function(*, *=): *), post: _Request.post, get: (function(*, *=): *), del: (function(*): *), deadline: number, postForm: (function(*, *=): *), timeout: number, put: (function(*, *=): *)}}
+     */
+    _Request = {}
+
+    dataProxy = new DataProxy();
 
 
     /**
@@ -151,7 +159,7 @@ export default class BaseStore {
     @observable currentPage = 1;
 
 
-    _validator=Validator;
+    _validator = Validator;
     /**
      * errors
      */
@@ -175,6 +183,13 @@ export default class BaseStore {
      *
      */
     constructor() {
+        this._validator.showMessages();
+        this._Rules = this._Rules.map(function (val) {
+            if (!val.scenario) val = Object.assign(val, {scenario: "default"});
+            return val;
+        });
+
+
         this.init();
     }
 
@@ -183,14 +198,17 @@ export default class BaseStore {
      *
      */
     init() {
-        // this.validator = Validator;
-        this._validator.showMessages();
-        this._Rules = this._Rules.map(function (val) {
-            if (!val.scenario) val = Object.assign(val, {scenario: "default"});
-            return val;
-        });
+        this.Request = this.dataProxy.createProxy('ajax');
     }
 
+
+    get Request() {
+        return this._Request;
+    }
+
+    set Request(value) {
+        this._Request = value;
+    }
 
     get scenario() {
         return this._scenario;
@@ -300,7 +318,7 @@ export default class BaseStore {
     }
 
     get errors() {
-        return this.ValidateErrors ;
+        return this.ValidateErrors;
     }
 
     get ErrorText() {
@@ -349,6 +367,12 @@ export default class BaseStore {
      */
     removeRecord(key) {
         this._data.delete(key);
+    }
+
+
+    @action abort() {
+
+        this._Request.abort()
     }
 
     /**
@@ -520,7 +544,8 @@ export default class BaseStore {
 
         if (!this.cacheUrl) url = url + "&rnd=" + Math.random();
 
-        return Request.get(url)
+
+        return this._Request.get(url)
             .then(action((res) => {
 
                 if (res) {
@@ -573,7 +598,7 @@ export default class BaseStore {
         // let url = primaryKeyValue != null ? this.baseUrl + this.Action.get + "?" + primaryKey + "=" + primaryKeyValue : this.baseUrl + this.Action.get;
 
 
-        return Request.get(url, params)
+        return this._Request.get(url, params)
             .then(action((res) => {
                 this._model.set(primaryKeyValue, res);
                 return res;
@@ -601,7 +626,7 @@ export default class BaseStore {
          */
         this.actionStatus.save = true;
 
-        return Request.post(this.baseUrl + this.Action.save, params, postType)
+        return this._Request.post(this.baseUrl + this.Action.save, params, postType)
             .then(action((res) => {
                 return res;
             }))
@@ -631,7 +656,7 @@ export default class BaseStore {
          * Set action status
          */
         this.actionStatus.update_ = true;
-        return Request.post(this.baseUrl + this.Action.update, params, postType)
+        return this._Request.post(this.baseUrl + this.Action.update, params, postType)
             .then(action((res) => {
                 return res;
             }))
@@ -653,13 +678,13 @@ export default class BaseStore {
      * @param params
      * @returns {*|Promise<any>|Promise<T>}
      */
-    @action delete(params,postType = "formdata") {
+    @action delete(params, postType = "formdata") {
         /**
          * Set action status
          */
         this.actionStatus.delete = false;
 
-        return Request.post(this.baseUrl + this.Action.delete, params,postType)
+        return this._Request.post(this.baseUrl + this.Action.delete, params, postType)
             .then(action((res) => {
                 return res;
             }))
@@ -690,19 +715,18 @@ export default class BaseStore {
         this.Rules.forEach(function (val) {
 
 
-
             if (val.scenario == scenario) {
                 // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
                 this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
             } else if (val.scenario == "default" && scenario == "default") {
-                console.log(val,scenario);
+                console.log(val, scenario);
                 this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {message: val.message});
                 // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
             }
         }.bind(this));
 
 
-        this.ValidateErrors= this._validator.getErrorMessages();
+        this.ValidateErrors = this._validator.getErrorMessages();
 
         this._isValid = this._validator.allValid();
         return this._isValid;

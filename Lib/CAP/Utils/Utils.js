@@ -10,6 +10,7 @@ import _Array from "./_Array";
 import findProp from "./findProp";
 import createElement from "./CreateElements";
 import CreateComponent from "./CreateComponent";
+import Base64Encode from "./Base64Encode";
 
 
 const isDebug = process.env.PRODUCTION ? false : true;
@@ -69,6 +70,7 @@ const Utils = {
     toJS: toJS,
     toJSON: JSON.stringify,
     queryString: queryString,
+    Base64Encode:Base64Encode,
     Download: Download
 };
 export default Utils;

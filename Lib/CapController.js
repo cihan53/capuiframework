@@ -561,7 +561,7 @@ export default class CapController extends React.Component {
      * @returns {string}
      */
 
-    createUrl = (actionName, params = {}, hash = true) => {
+    static createUrl = (actionName, params = {}, hash = true) => {
 
 
         // return <Link
@@ -598,7 +598,7 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    toUrl = (actionName, params = {}) => {
+    static toUrl = (actionName, params = {}) => {
         return window.location = this.createUrl(actionName, params);
     }
 
@@ -608,7 +608,7 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    toChange = (actionName, params = {}) => {
+    static toChange = (actionName, params = {}) => {
         return this.props.history.push(this.createUrl(actionName, params, false));
     }
 }

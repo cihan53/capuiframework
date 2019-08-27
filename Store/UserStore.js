@@ -6,7 +6,7 @@
 import {action, observable, reaction, computed, toJS} from "mobx";
 import Utils from "../Lib/CAP/Utils/Utils";
 import BaseStore from "../Lib/CAP/Store/BaseStore";
-import Request from "../Lib/Request";
+// import Request from "../Lib/Request";
 
 class UserStore extends BaseStore {
 
@@ -60,8 +60,8 @@ class UserStore extends BaseStore {
     ];
 
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         reaction(
             () => this.currentUser,
             currentUser => {
@@ -82,7 +82,7 @@ class UserStore extends BaseStore {
 
     @action getProfile() {
         this.loadingUser = true;
-        return Request.get("/securityService/getloginuserdetail")
+        return this.Request.get("/securityService/getloginuserdetail")
             .then(action((res) => {
                 this.userDetail = res[0];
                 this.loadingUser = false;

@@ -1,7 +1,5 @@
-import DataProxy from "./DataProxy";
-
-class LocalStorage extends DataProxy {
-    get(key, db="rgl-8") {
+export default class LocalStorage   {
+    get(key, db = "rgl-8") {
         let ls = {};
         if (global.localStorage) {
             try {
@@ -13,7 +11,7 @@ class LocalStorage extends DataProxy {
         return ls[key];
     }
 
-    read(db="rgl-8") {
+    read(db = "rgl-8") {
         let ls = {};
         if (global.localStorage) {
             try {
@@ -25,7 +23,7 @@ class LocalStorage extends DataProxy {
         return ls;
     }
 
-    save(key,value,db="rgl-8") {
+    save(key, value, db = "rgl-8") {
         if (global.localStorage) {
             global.localStorage.setItem(
                 "rgl-8",
