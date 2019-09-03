@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/Lib/CAP/Utils/capitalizeFirstLetter.js"],"names":[],"mappings":"AAAA;AACA;AACA","sourcesContent":["// String.prototype.capitalizeFirstLetter = function() {\r\n//   return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();\r\n// };"],"file":"capitalizeFirstLetter.js"}

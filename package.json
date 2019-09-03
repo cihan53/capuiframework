@@ -1,0 +1,92 @@
+{
+  "name": "capuiframework",
+  "version": "1.0.0",
+  "description": "CryptTech Yazılım",
+  "main": "src/lib/index.js",
+  "author": "Cihan Ozturk",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "babel src --out-dir dist ",
+    "test": "jest"
+  },
+  "files": [
+    "dist/"
+  ],
+  "babel": {
+    "presets": [
+      "mobx",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ],
+      "@babel/plugin-syntax-dynamic-import"
+    ]
+  },
+  "dependencies": {
+    "@json-editor/json-editor": "^1.3.5",
+    "@react-pdf/renderer": "^1.6.4",
+    "babel-preset-mobx": "^2.0.0",
+    "bootstrap-daterangepicker": "^3.0.5",
+    "classnames": "^2.2.6",
+    "create-react-class": "^15.6.3",
+    "generate-schema": "^2.6.0",
+    "html-react-parser": "^0.7.0",
+    "ip-subnet-calculator": "^1.1.8",
+    "lodash": "^4.17.15",
+    "mobx": "^5.9.4",
+    "mobx-react": "^5.4.3",
+    "mobx-react-form": "^2.0.2",
+    "moment": "^2.24.0",
+    "promise.prototype.finally": "^3.1.0",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.5.0",
+    "rc-tree": "^2.1.0",
+    "react": "^16.8.6",
+    "react-bootstrap-daterangepicker": "^4.1.0",
+    "react-bootstrap-multiselect": "^2.4.1",
+    "react-bootstrap-table-next": "^3.1.2",
+    "react-bootstrap-table2-editor": "^1.2.3",
+    "react-bootstrap-table2-filter": "^1.1.9",
+    "react-bootstrap-table2-overlay": "^2.0.0",
+    "react-bootstrap-table2-paginator": "^2.0.6",
+    "react-bootstrap-table2-toolkit": "^1.4.2",
+    "react-csv": "^1.1.1",
+    "react-dom": "^16.8.6",
+    "react-json-editor-ajrm": "^2.5.9",
+    "react-loadable": "^5.5.0",
+    "react-mobx-notification-system": "^0.1.5",
+    "react-progress-bar-plus": "^1.3.1",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "short-id": "^0.1.0-1",
+    "simple-react-validator": "^1.1.0",
+    "superagent": "^5.0.5",
+    "superagent-promise": "^1.1.0",
+    "sweetalert": "^2.1.2",
+    "text-encoding": "^0.7.0",
+    "textcomplete": "^0.17.1",
+    "tree-model": "^1.0.7",
+    "tree-search": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-preset-mobx": "^2.0.0"
+  }
+}
