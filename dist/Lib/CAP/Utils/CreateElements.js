@@ -1,1 +1,11 @@
-import React from"react";import{Xtypes}from"../../../Initialization";import Utils from"./Utils";const createElement=a=>{let b=a;return b.key=Utils.ShortId.generate(),React.createElement(Xtypes[a.xtype],b,((b||{}).children||[]).map(a=>createElement(a)))};export default createElement;
+import React from "react";
+import { Xtypes } from "../../../Initialization";
+import Utils from "./Utils";
+
+const createElement = def => {
+  let props = def;
+  props.key = Utils.ShortId.generate();
+  return React.createElement(Xtypes[def.xtype], props, ((props || {}).children || []).map(c => createElement(c)));
+};
+
+export default createElement;

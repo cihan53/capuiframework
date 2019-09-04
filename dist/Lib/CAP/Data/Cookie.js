@@ -1,1 +1,66 @@
-function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function _defineProperties(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,"value"in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}function _createClass(a,b,c){return b&&_defineProperties(a.prototype,b),c&&_defineProperties(a,c),a}function _possibleConstructorReturn(a,b){return b&&("object"==typeof b||"function"==typeof b)?b:_assertThisInitialized(a)}function _assertThisInitialized(a){if(void 0===a)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return a}function _getPrototypeOf(a){return _getPrototypeOf=Object.setPrototypeOf?Object.getPrototypeOf:function(a){return a.__proto__||Object.getPrototypeOf(a)},_getPrototypeOf(a)}function _inherits(a,b){if("function"!=typeof b&&null!==b)throw new TypeError("Super expression must either be null or a function");a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,writable:!0,configurable:!0}}),b&&_setPrototypeOf(a,b)}function _setPrototypeOf(a,b){return _setPrototypeOf=Object.setPrototypeOf||function(a,b){return a.__proto__=b,a},_setPrototypeOf(a,b)}import DataProxy from"./DataProxy";let Cookie=function(a){function b(){return _classCallCheck(this,b),_possibleConstructorReturn(this,_getPrototypeOf(b).apply(this,arguments))}return _inherits(b,a),_createClass(b,[{key:"get",value:function get(a,b="rgl-8"){let c={};if(global.localStorage)try{c=JSON.parse(global.localStorage.getItem(b))||{}}catch(a){}return c[a]}},{key:"read",value:function read(a="rgl-8"){let b={};if(global.localStorage)try{b=JSON.parse(global.localStorage.getItem(key))||{}}catch(a){}return b}},{key:"save",value:function save(a,b,c="rgl-8"){global.localStorage&&global.localStorage.setItem("rgl-8",JSON.stringify({[a]:b}))}}]),b}(DataProxy);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import DataProxy from "./DataProxy";
+
+let Cookie = function (_DataProxy) {
+  _inherits(Cookie, _DataProxy);
+
+  function Cookie() {
+    _classCallCheck(this, Cookie);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Cookie).apply(this, arguments));
+  }
+
+  _createClass(Cookie, [{
+    key: "get",
+    value: function get(key, db = "rgl-8") {
+      let ls = {};
+
+      if (global.localStorage) {
+        try {
+          ls = JSON.parse(global.localStorage.getItem(db)) || {};
+        } catch (e) {}
+      }
+
+      return ls[key];
+    }
+  }, {
+    key: "read",
+    value: function read(db = "rgl-8") {
+      let ls = {};
+
+      if (global.localStorage) {
+        try {
+          ls = JSON.parse(global.localStorage.getItem(key)) || {};
+        } catch (e) {}
+      }
+
+      return ls;
+    }
+  }, {
+    key: "save",
+    value: function save(key, value, db = "rgl-8") {
+      if (global.localStorage) {
+        global.localStorage.setItem("rgl-8", JSON.stringify({
+          [key]: value
+        }));
+      }
+    }
+  }]);
+
+  return Cookie;
+}(DataProxy);

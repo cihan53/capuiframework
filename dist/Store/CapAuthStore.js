@@ -1,1 +1,92 @@
-var _class,_descriptor,_temp;function _initializerDefineProperty(a,b,c,d){c&&Object.defineProperty(a,b,{enumerable:c.enumerable,configurable:c.configurable,writable:c.writable,value:c.initializer?c.initializer.call(d):void 0})}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function _defineProperties(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,"value"in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}function _createClass(a,b,c){return b&&_defineProperties(a.prototype,b),c&&_defineProperties(a,c),a}function _possibleConstructorReturn(a,b){return b&&("object"==typeof b||"function"==typeof b)?b:_assertThisInitialized(a)}function _getPrototypeOf(a){return _getPrototypeOf=Object.setPrototypeOf?Object.getPrototypeOf:function(a){return a.__proto__||Object.getPrototypeOf(a)},_getPrototypeOf(a)}function _assertThisInitialized(a){if(void 0===a)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return a}function _inherits(a,b){if("function"!=typeof b&&null!==b)throw new TypeError("Super expression must either be null or a function");a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,writable:!0,configurable:!0}}),b&&_setPrototypeOf(a,b)}function _setPrototypeOf(a,b){return _setPrototypeOf=Object.setPrototypeOf||function(a,b){return a.__proto__=b,a},_setPrototypeOf(a,b)}function _applyDecoratedDescriptor(a,b,c,d,e){var f={};return Object.keys(d).forEach(function(a){f[a]=d[a]}),f.enumerable=!!f.enumerable,f.configurable=!!f.configurable,("value"in f||f.initializer)&&(f.writable=!0),f=c.slice().reverse().reduce(function(c,d){return d(a,b,c)||c},f),e&&void 0!==f.initializer&&(f.value=f.initializer?f.initializer.call(e):void 0,f.initializer=void 0),void 0===f.initializer&&(Object.defineProperty(a,b,f),f=null),f}function _initializerWarningHelper(){throw new Error("Decorating class property failed. Please ensure that proposal-class-properties is enabled and set to use loose mode. To use proposal-class-properties in spec mode with decorators, wait for the next major version of decorators in stage 2.")}import{action,observable,reaction}from"mobx";import Utils from"../Lib/CAP/Utils/Utils";import BaseStore from"../Lib/CAP/Store/BaseStore";import{Logger}from"../index";export let CapAuthStore=(_class=(_temp=function(a){function b(a){var c;return _classCallCheck(this,b),c=_possibleConstructorReturn(this,_getPrototypeOf(b).call(this,a)),_initializerDefineProperty(c,"accessToken",_descriptor,_assertThisInitialized(c)),c.baseUrl="/login/",c.Rules=[{name:"password",rule:"required",msg:{required:Utils.__t("Zorunlu alan")}},{name:"userName",rule:"required|alpha_num",msg:{alpha:Utils.__t("Sadece harflerden olu\u015Fabilir"),required:Utils.__t("Zorunlu alan")}}],reaction(()=>c.accessToken,a=>{Logger.debug("CapAuthStore Token",a),a&&(c.accessToken=a)}),c}return _inherits(b,a),_createClass(b,[{key:"login",value:function login(){}},{key:"logout",value:function logout(){}},{key:"isLogin",value:function isLogin(){return null!=this.accessToken}}]),b}(BaseStore),_temp),_descriptor=_applyDecoratedDescriptor(_class.prototype,"accessToken",[observable],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return window.localStorage.getItem("accessToken")}}),_applyDecoratedDescriptor(_class.prototype,"login",[action],Object.getOwnPropertyDescriptor(_class.prototype,"login"),_class.prototype),_applyDecoratedDescriptor(_class.prototype,"logout",[action],Object.getOwnPropertyDescriptor(_class.prototype,"logout"),_class.prototype),_applyDecoratedDescriptor(_class.prototype,"isLogin",[action],Object.getOwnPropertyDescriptor(_class.prototype,"isLogin"),_class.prototype),_class);export default CapAuthStore;
+var _class, _descriptor, _temp;
+
+function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and set to use loose mode. ' + 'To use proposal-class-properties in spec mode with decorators, wait for ' + 'the next major version of decorators in stage 2.'); }
+
+import { action, observable, reaction } from "mobx";
+import Utils from "../Lib/CAP/Utils/Utils";
+import BaseStore from "../Lib/CAP/Store/BaseStore";
+import { Logger } from "../index";
+export let CapAuthStore = (_class = (_temp = function (_BaseStore) {
+  _inherits(CapAuthStore, _BaseStore);
+
+  function CapAuthStore(props) {
+    var _this;
+
+    _classCallCheck(this, CapAuthStore);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CapAuthStore).call(this, props));
+
+    _initializerDefineProperty(_this, "accessToken", _descriptor, _assertThisInitialized(_this));
+
+    _this.baseUrl = "/login/";
+    _this.Rules = [{
+      name: "password",
+      rule: "required",
+      msg: {
+        required: Utils.__t("Zorunlu alan")
+      }
+    }, {
+      name: "userName",
+      rule: "required|alpha_num",
+      msg: {
+        alpha: Utils.__t("Sadece harflerden oluşabilir"),
+        required: Utils.__t("Zorunlu alan")
+      }
+    }];
+    reaction(() => _this.accessToken, accessToken => {
+      Logger.debug("CapAuthStore Token", accessToken);
+
+      if (accessToken) {
+        _this.accessToken = accessToken;
+      }
+    });
+    return _this;
+  }
+
+  _createClass(CapAuthStore, [{
+    key: "login",
+    value: function login(params) {}
+  }, {
+    key: "logout",
+    value: function logout() {}
+  }, {
+    key: "isLogin",
+    value: function isLogin() {
+      if (this.accessToken == null) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }]);
+
+  return CapAuthStore;
+}(BaseStore), _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "accessToken", [observable], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function () {
+    return window.localStorage.getItem("accessToken");
+  }
+}), _applyDecoratedDescriptor(_class.prototype, "login", [action], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "logout", [action], Object.getOwnPropertyDescriptor(_class.prototype, "logout"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "isLogin", [action], Object.getOwnPropertyDescriptor(_class.prototype, "isLogin"), _class.prototype)), _class);
+export default CapAuthStore;

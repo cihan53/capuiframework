@@ -1,1 +1,294 @@
-function _extends(){return _extends=Object.assign||function(a){for(var b,c=1;c<arguments.length;c++)for(var d in b=arguments[c],b)Object.prototype.hasOwnProperty.call(b,d)&&(a[d]=b[d]);return a},_extends.apply(this,arguments)}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function _defineProperties(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,"value"in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}function _createClass(a,b,c){return b&&_defineProperties(a.prototype,b),c&&_defineProperties(a,c),a}function _possibleConstructorReturn(a,b){return b&&("object"==typeof b||"function"==typeof b)?b:_assertThisInitialized(a)}function _getPrototypeOf(a){return _getPrototypeOf=Object.setPrototypeOf?Object.getPrototypeOf:function(a){return a.__proto__||Object.getPrototypeOf(a)},_getPrototypeOf(a)}function _assertThisInitialized(a){if(void 0===a)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return a}function _inherits(a,b){if("function"!=typeof b&&null!==b)throw new TypeError("Super expression must either be null or a function");a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,writable:!0,configurable:!0}}),b&&_setPrototypeOf(a,b)}function _setPrototypeOf(a,b){return _setPrototypeOf=Object.setPrototypeOf||function(a,b){return a.__proto__=b,a},_setPrototypeOf(a,b)}import React from"react";import{matchPath}from"react-router";import Utils from"./CAP/Utils/Utils";import StoreManager from"./StoreManager";import{Loadable,Spinner,Log,Raise,Logger}from"../index";let CapController=function(a){function b(a){var c;return _classCallCheck(this,b),c=_possibleConstructorReturn(this,_getPrototypeOf(b).call(this,a)),c._BreadCrumbStore=null,c._BreadCrumb=[],c._SecurityProvider=0,c._components={},c._urlMap=[],c._theme="Default",c._layout="Layout",c._view="index",c._controllerName=c.constructor.name,c._action="actionIndex",c._viewPath=null,c._errors=[],c.getMethods=a=>Object.getOwnPropertyNames(a).filter(b=>"function"==typeof a[b]),c.loading=a=>a.error?(Log("Loading Error:",a.error),React.createElement(React.Fragment,null,React.createElement("div",{className:"text-white bg-danger text-center"},React.createElement("div",{className:"cart card-error p-4"},React.createElement("blockquote",{className:"card-bodyquote"},React.createElement("p",null,a.error.toString())))))):a.pastDelay?React.createElement(Spinner,null):null,c.renderView=(a,d={},e=!1,f=c.controllerName)=>{if(Logger.debug(`@ThemeViewsPath/${f}/${a}`),!e){let e=Loadable({loader:()=>import(`@ThemeViewsPath/${f}/${a}`),loading:c.loading});return Logger.debug(`@ThemeViewsPath/${f}/${a}`),React.createElement(e,_extends({},d,c.props,{Controller:b}))}return React.createElement(Spinner,null)},c.renderAjax=(a,b={},d=!1,e=c.controllerName)=>{},c.render=()=>{let a=c.getMethods(_assertThisInitialized(c));Logger.debug("Controller Find action",c.controllerName+"/"+c.action);let b=a.filter(a=>a.toLocaleLowerCase()=="action"+c.action.toLocaleLowerCase());return 0<b.length?c[b[0]]({...c.getUrlParams()}):c.renderView("Page404",{action:c.action},!1,"Default")},c.addError=a=>(c._errors.push(a),console.error(a),_assertThisInitialized(c)),c.actionError=a=>React.createElement(React.Fragment,null,React.createElement("div",{className:"text-white bg-danger text-center"},React.createElement("div",{className:"cart card-error p-4"},React.createElement("blockquote",{className:"card-bodyquote"},a.errors?React.createElement("p",null,a.errors):"",React.createElement("p",null,c.errors.map(a=>a)))))),c.getUrlParams=(a=":id?")=>{const b=matchPath(c.props.location.pathname,{path:c.props.match.path+a,exact:!0,strict:!1})||{};let d=b.params||{};return Object.assign(d,Utils.queryString.parse(c.props.location.search))},c.toUrl=(a,b={})=>c.constructor._toUrl(a,b),c.toChange=(a,b={})=>c.constructor._toChange(a,b),c.init(),c}return _inherits(b,a),_createClass(b,[{key:"init",value:function init(){let b=this.props.match.params.controller||"Default",c=(this.props.match.params.action||"Index").capitalizeFirstLetter().split("-"),d="";c.forEach(a=>{d+=a.capitalizeFirstLetter()}),this._action=d,this._controllerName=b,this._components=StoreManager.get("CommonStore").getComponent(b),!Utils.isEmpty(this.urlMap)}},{key:"UNSAFE_componentWillMount",value:function UNSAFE_componentWillMount(){null!=this._BreadCrumbStore&&StoreManager.get(this._BreadCrumbStore).setItem(this.BreadCrumb)}},{key:"componentDidCatch",value:function componentDidCatch(a,b){Logger.error("MyCatch",a,b)}},{key:"componentWillReact",value:function componentWillReact(){Logger.debug("Store Change")}},{key:"BreadCrumbStore",get:function(){return this._BreadCrumbStore},set:function(a){this._BreadCrumbStore=a}},{key:"BreadCrumb",get:function(){return this._BreadCrumb},set:function(a){this._BreadCrumb=a}},{key:"SecurityProvider",get:function(){return this._SecurityProvider},set:function(a){this._SecurityProvider=a}},{key:"theme",get:function(){return this._theme},set:function(a){this._theme=a}},{key:"view",get:function(){return this._view},set:function(a){this._view=a}},{key:"controllerName",get:function(){return this._controllerName},set:function(a){this._controllerName=a}},{key:"action",get:function(){return this._action},set:function(a){this._action=a}},{key:"urlMap",get:function(){return this._urlMap},set:function(a){this._urlMap=a}},{key:"viewPath",get:function(){return this._viewPath},set:function(a){this._viewPath=a}},{key:"layout",get:function(){return this._layout},set:function(a){this._layout=a}},{key:"components",get:function(){return this._components},set:function(a){this._components=a}},{key:"errors",get:function(){return this._errors},set:function(a){this._errors.push(a)}}]),b}(React.Component);CapController.createUrl=(a,b={},c=!0)=>{let d="";Utils.isEmpty(b)||!Utils.has(b,"id")||Utils.isEmpty(b.id)||(d=b.id,delete b.id),Utils.isEmpty(b)||(d=d+"/?"+Utils.queryString.stringify(b));let e="/"+CapController.controllerName+"/"+a;return Utils.startsWith(a,"/")&&(e=a),c?"/#"+Utils.trimEnd(e,"/")+"/"+d:Utils.trimEnd(e,"/")+(Utils.startsWith(d,"/")?d:"/"+d)},CapController._toUrl=(a,b={})=>window.location=CapController.createUrl(a,b),CapController._toChange=(a,b={})=>CapController.props.history.push(CapController.createUrl(a,b,!1));export{CapController as default};
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import React from "react";
+import { matchPath } from "react-router";
+import Utils from "./CAP/Utils/Utils";
+import StoreManager from "./StoreManager";
+import { Loadable, Spinner, Log, Raise, Logger } from "../index";
+
+let CapController = function (_React$Component) {
+  _inherits(CapController, _React$Component);
+
+  function CapController(props) {
+    var _this;
+
+    _classCallCheck(this, CapController);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CapController).call(this, props));
+    _this._BreadCrumbStore = null;
+    _this._BreadCrumb = [];
+    _this._SecurityProvider = 0;
+    _this._components = {};
+    _this._urlMap = [];
+    _this._theme = "Default";
+    _this._layout = "Layout";
+    _this._view = "index";
+    _this._controllerName = _this.constructor.name;
+    _this._action = "actionIndex";
+    _this._viewPath = null;
+    _this._errors = [];
+
+    _this.getMethods = obj => Object.getOwnPropertyNames(obj).filter(item => typeof obj[item] === 'function');
+
+    _this.loading = params => {
+      if (params.error) {
+        Log("Loading Error:", params.error);
+        return React.createElement(React.Fragment, null, React.createElement("div", {
+          className: "text-white bg-danger text-center"
+        }, React.createElement("div", {
+          className: "cart card-error p-4"
+        }, React.createElement("blockquote", {
+          className: "card-bodyquote"
+        }, React.createElement("p", null, params.error.toString())))));
+      } else if (params.pastDelay) {
+        return React.createElement(Spinner, null);
+      } else {
+        return null;
+      }
+    };
+
+    _this.renderView = (view, data = {}, loadmask = false, controller = _this.controllerName) => {
+      Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
+
+      if (!loadmask) {
+        let View = Loadable({
+          loader: () => import(`@ThemeViewsPath/${controller}/${view}`),
+          loading: _this.loading
+        });
+        Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
+        return React.createElement(View, _extends({}, data, _this.props, {
+          Controller: CapController
+        }));
+      } else {
+        return React.createElement(Spinner, null);
+      }
+    };
+
+    _this.renderAjax = (view, data = {}, loadmask = false, controller = _this.controllerName) => {};
+
+    _this.render = () => {
+      let methods = _this.getMethods(_assertThisInitialized(_this));
+
+      Logger.debug("Controller Find action", _this.controllerName + "/" + _this.action);
+      let method = methods.filter(f => f.toLocaleLowerCase() == "action" + _this.action.toLocaleLowerCase());
+
+      if (method.length > 0) {
+        return _this[method[0]]({ ..._this.getUrlParams()
+        });
+      } else {
+        return _this.renderView("Page404", {
+          action: _this.action
+        }, false, "Default");
+      }
+    };
+
+    _this.addError = error => {
+      _this._errors.push(error);
+
+      console.error(error);
+      return _assertThisInitialized(_this);
+    };
+
+    _this.actionError = params => {
+      return React.createElement(React.Fragment, null, React.createElement("div", {
+        className: "text-white bg-danger text-center"
+      }, React.createElement("div", {
+        className: "cart card-error p-4"
+      }, React.createElement("blockquote", {
+        className: "card-bodyquote"
+      }, params.errors ? React.createElement("p", null, params.errors) : "", React.createElement("p", null, _this.errors.map(e => {
+        return e;
+      }))))));
+    };
+
+    _this.getUrlParams = (paramString = ":id?") => {
+      const match = matchPath(_this.props.location.pathname, {
+        path: _this.props.match.path + paramString,
+        exact: true,
+        strict: false
+      }) || {};
+      let params = match.params || {};
+      return Object.assign(params, Utils.queryString.parse(_this.props.location.search));
+    };
+
+    _this.toUrl = (actionName, params = {}) => _this.constructor._toUrl(actionName, params);
+
+    _this.toChange = (actionName, params = {}) => _this.constructor._toChange(actionName, params);
+
+    _this.init();
+
+    return _this;
+  }
+
+  _createClass(CapController, [{
+    key: "init",
+    value: function init() {
+      let c = this.props.match.params.controller || "Default";
+      let a1 = (this.props.match.params.action || "Index").capitalizeFirstLetter().split("-");
+      let a = "";
+      a1.forEach(e => {
+        a += e.capitalizeFirstLetter();
+      });
+      this._action = a;
+      this._controllerName = c;
+      this._components = StoreManager.get("CommonStore").getComponent(c);
+
+      if (!Utils.isEmpty(this.urlMap)) {}
+    }
+  }, {
+    key: "UNSAFE_componentWillMount",
+    value: function UNSAFE_componentWillMount() {
+      if (this._BreadCrumbStore != null) StoreManager.get(this._BreadCrumbStore).setItem(this.BreadCrumb);
+    }
+  }, {
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, info) {
+      Logger.error("MyCatch", error, info);
+    }
+  }, {
+    key: "componentWillReact",
+    value: function componentWillReact() {
+      Logger.debug("Store Change");
+    }
+  }, {
+    key: "BreadCrumbStore",
+    get: function () {
+      return this._BreadCrumbStore;
+    },
+    set: function (value) {
+      this._BreadCrumbStore = value;
+    }
+  }, {
+    key: "BreadCrumb",
+    get: function () {
+      return this._BreadCrumb;
+    },
+    set: function (value) {
+      this._BreadCrumb = value;
+    }
+  }, {
+    key: "SecurityProvider",
+    get: function () {
+      return this._SecurityProvider;
+    },
+    set: function (value) {
+      this._SecurityProvider = value;
+    }
+  }, {
+    key: "theme",
+    get: function () {
+      return this._theme;
+    },
+    set: function (value) {
+      this._theme = value;
+    }
+  }, {
+    key: "view",
+    get: function () {
+      return this._view;
+    },
+    set: function (value) {
+      this._view = value;
+    }
+  }, {
+    key: "controllerName",
+    get: function () {
+      return this._controllerName;
+    },
+    set: function (value) {
+      this._controllerName = value;
+    }
+  }, {
+    key: "action",
+    get: function () {
+      return this._action;
+    },
+    set: function (value) {
+      this._action = value;
+    }
+  }, {
+    key: "urlMap",
+    get: function () {
+      return this._urlMap;
+    },
+    set: function (value) {
+      this._urlMap = value;
+    }
+  }, {
+    key: "viewPath",
+    get: function () {
+      return this._viewPath;
+    },
+    set: function (value) {
+      this._viewPath = value;
+    }
+  }, {
+    key: "layout",
+    get: function () {
+      return this._layout;
+    },
+    set: function (value) {
+      this._layout = value;
+    }
+  }, {
+    key: "components",
+    get: function () {
+      return this._components;
+    },
+    set: function (value) {
+      this._components = value;
+    }
+  }, {
+    key: "errors",
+    get: function () {
+      return this._errors;
+    },
+    set: function (value) {
+      this._errors.push(value);
+    }
+  }]);
+
+  return CapController;
+}(React.Component);
+
+CapController.createUrl = (actionName, params = {}, hash = true) => {
+  let queryStringParams = "";
+
+  if (!Utils.isEmpty(params)) {
+    if (Utils.has(params, "id") && !Utils.isEmpty(params.id)) {
+      queryStringParams = params.id;
+      delete params.id;
+    }
+  }
+
+  if (!Utils.isEmpty(params)) queryStringParams = queryStringParams + "/?" + Utils.queryString.stringify(params);
+  let controller = "/" + CapController.controllerName + "/" + actionName;
+  if (Utils.startsWith(actionName, "/")) controller = actionName;
+  if (hash) return "/#" + Utils.trimEnd(controller, "/") + "/" + queryStringParams;else return Utils.trimEnd(controller, "/") + (Utils.startsWith(queryStringParams, "/") ? queryStringParams : "/" + queryStringParams);
+};
+
+CapController._toUrl = (actionName, params = {}) => {
+  return window.location = CapController.createUrl(actionName, params);
+};
+
+CapController._toChange = (actionName, params = {}) => {
+  return CapController.props.history.push(CapController.createUrl(actionName, params, false));
+};
+
+export { CapController as default };

@@ -1,1 +1,3 @@
-var Parser=require("html-react-parser");export default Parser;
+var Parser = require("html-react-parser");
+
+export default Parser;

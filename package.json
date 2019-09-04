@@ -17,8 +17,7 @@
     "comments": false,
     "presets": [
       "mobx",
-      "@babel/preset-react",
-      "minify"
+      "@babel/preset-react"
     ],
     "plugins": [
       [

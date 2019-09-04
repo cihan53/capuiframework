@@ -1,1 +1,62 @@
-var _class,_temp;function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function _defineProperties(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,"value"in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}function _createClass(a,b,c){return b&&_defineProperties(a.prototype,b),c&&_defineProperties(a,c),a}function _possibleConstructorReturn(a,b){return b&&("object"==typeof b||"function"==typeof b)?b:_assertThisInitialized(a)}function _assertThisInitialized(a){if(void 0===a)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return a}function _getPrototypeOf(a){return _getPrototypeOf=Object.setPrototypeOf?Object.getPrototypeOf:function(a){return a.__proto__||Object.getPrototypeOf(a)},_getPrototypeOf(a)}function _inherits(a,b){if("function"!=typeof b&&null!==b)throw new TypeError("Super expression must either be null or a function");a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,writable:!0,configurable:!0}}),b&&_setPrototypeOf(a,b)}function _setPrototypeOf(a,b){return _setPrototypeOf=Object.setPrototypeOf||function(a,b){return a.__proto__=b,a},_setPrototypeOf(a,b)}import React from"react";import{observer}from"mobx-react/index";import PropTypes from"prop-types";import{AppBreadcrumb}from"@coreui/react";import Utils from"./Utils";import Field from"../Form/Field";let BreadCrumb=observer(_class=(_temp=function(a){function b(a){var c;return _classCallCheck(this,b),c=_possibleConstructorReturn(this,_getPrototypeOf(b).call(this,a)),c.store=null,c.route=[{path:"/",exact:!0,name:Utils.__t("Ana Sayfa"),component:null}],c.route=c.props.route,c}return _inherits(b,a),_createClass(b,[{key:"render",value:function render(){return React.createElement(AppBreadcrumb,{key:Utils.ShortId.generate(),appRoutes:this.route})}}]),b}(React.Component),_temp))||_class;export{BreadCrumb as default};Field.propTypes={route:PropTypes.any.isRequired};
+var _class, _temp;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import React from "react";
+import { observer } from "mobx-react/index";
+import PropTypes from "prop-types";
+import { AppBreadcrumb } from "@coreui/react";
+import Utils from "./Utils";
+import Field from "../Form/Field";
+
+let BreadCrumb = observer(_class = (_temp = function (_React$Component) {
+  _inherits(BreadCrumb, _React$Component);
+
+  function BreadCrumb(props) {
+    var _this;
+
+    _classCallCheck(this, BreadCrumb);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BreadCrumb).call(this, props));
+    _this.store = null;
+    _this.route = [{
+      path: "/",
+      exact: true,
+      name: Utils.__t("Ana Sayfa"),
+      component: null
+    }];
+    _this.route = _this.props.route;
+    return _this;
+  }
+
+  _createClass(BreadCrumb, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(AppBreadcrumb, {
+        key: Utils.ShortId.generate(),
+        appRoutes: this.route
+      });
+    }
+  }]);
+
+  return BreadCrumb;
+}(React.Component), _temp)) || _class;
+
+export { BreadCrumb as default };
+Field.propTypes = {
+  route: PropTypes.any.isRequired
+};

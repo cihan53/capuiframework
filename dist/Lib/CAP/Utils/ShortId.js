@@ -1,1 +1,3 @@
-const shortid=require("short-id");export default shortid;
+const shortid = require("short-id");
+
+export default shortid;

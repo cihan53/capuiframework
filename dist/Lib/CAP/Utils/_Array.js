@@ -1,1 +1,30 @@
-const _Array={getValuesByKey:function(a,b){var c=[];return JSON.stringify(a,function(a,d){return a===b&&c.push(d),d}),c}};function plainToFlattenObject(a){function b(a,d=""){_.forEach(a,(a,e)=>{_.isObject(a)?b(a,`${d}${e}.`):c[`${d}${e}`]=a})}const c={};return b(a),c}export default _Array;export{plainToFlattenObject};
+const _Array = {
+  getValuesByKey: function (object, key) {
+    var values = [];
+    JSON.stringify(object, function (k, v) {
+      if (k === key) values.push(v);
+      return v;
+    });
+    return values;
+  }
+};
+
+function plainToFlattenObject(object) {
+  const result = {};
+
+  function flatten(obj, prefix = '') {
+    _.forEach(obj, (value, key) => {
+      if (_.isObject(value)) {
+        flatten(value, `${prefix}${key}.`);
+      } else {
+        result[`${prefix}${key}`] = value;
+      }
+    });
+  }
+
+  flatten(object);
+  return result;
+}
+
+export default _Array;
+export { plainToFlattenObject };

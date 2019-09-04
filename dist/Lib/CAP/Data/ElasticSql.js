@@ -1,1 +1,363 @@
-var _class,_descriptor,_descriptor2,_descriptor3,_descriptor4,_descriptor5,_temp;function _initializerDefineProperty(a,b,c,d){c&&Object.defineProperty(a,b,{enumerable:c.enumerable,configurable:c.configurable,writable:c.writable,value:c.initializer?c.initializer.call(d):void 0})}function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function _defineProperties(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,"value"in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}function _createClass(a,b,c){return b&&_defineProperties(a.prototype,b),c&&_defineProperties(a,c),a}function _applyDecoratedDescriptor(a,b,c,d,e){var f={};return Object.keys(d).forEach(function(a){f[a]=d[a]}),f.enumerable=!!f.enumerable,f.configurable=!!f.configurable,("value"in f||f.initializer)&&(f.writable=!0),f=c.slice().reverse().reduce(function(c,d){return d(a,b,c)||c},f),e&&void 0!==f.initializer&&(f.value=f.initializer?f.initializer.call(e):void 0,f.initializer=void 0),void 0===f.initializer&&(Object.defineProperty(a,b,f),f=null),f}function _initializerWarningHelper(){throw new Error("Decorating class property failed. Please ensure that proposal-class-properties is enabled and set to use loose mode. To use proposal-class-properties in spec mode with decorators, wait for the next major version of decorators in stage 2.")}import{action,observable,toJS}from"mobx";import Ajax from"./Ajax";import Utils from"../Utils/Utils";import DataProxy from"./DataProxy";let ElasticSql=(_class=(_temp=function(){function a(){_classCallCheck(this,a),this._baseUrl="",this.currentId=0,this.running=null,this.Ajax=null,_initializerDefineProperty(this,"_select",_descriptor,this),_initializerDefineProperty(this,"_joins",_descriptor2,this),this._limit=50,this._from="",this._maps={},this._start=0,this._fetch=0,this._sqlText="",this._whereText="",this._mainTable=process.env.REACT_APP_DEFAULT_INDEX||"eventdata-prod",_initializerDefineProperty(this,"_where",_descriptor3,this),_initializerDefineProperty(this,"_orderBy",_descriptor4,this),this._groupBy=null,this._debug=!1,_initializerDefineProperty(this,"isRunning",_descriptor5,this),this.tokenPlugin=()=>{},this.handleErrors=()=>{},this.responseBody=a=>a.body,this.abort=()=>{Utils.isEmpty(this.Ajax.running)||this.Ajax.running.abort()},this.init=()=>{this.regenerateQuery()},this._type="elasticsql",this.dataProxy=new DataProxy,this.Ajax=this.dataProxy.createProxy("ajax"),this.init=this.init.bind(this)}return _createClass(a,[{key:"regenerateQuery",value:function regenerateQuery(){this._select=[],this._joins=[],this._from=[],this._limit=null,this._start=0,this._fetch=0,this._sqlText="",this._mainTable=process.env.REACT_APP_DEFAULT_INDEX||"eventdata-prod",this._where=null,this._orderBy=null,this._groupBy=null}},{key:"mainTable",value:function mainTable(a){return this._mainTable=a,this}},{key:"where",value:function where(a){return this._where=a,this}},{key:"addWhere",value:function addWhere(){return this}},{key:"select",value:function select(a=[]){return this.regenerateQuery(),this._select=a,this}},{key:"join",value:function join(a="",b="",c=[]){return this._joins.push({type:a,table:b,on:c}),this}},{key:"order",value:function order(a=[]){return this.order=a,this}},{key:"limits",value:function limits(a=null){return this._limit=a,this}},{key:"orderBy",value:function orderBy(a){return this._orderBy=a,this}},{key:"groupBy",value:function groupBy(a){return this._groupBy=a,this}},{key:"from",value:function from(a){return this._mainTable=a,this}},{key:"conditions",value:function conditions(a,b="and"){if(Utils.isArray(a))for(let c in a){let d=a[c];if(Utils.isString(d))this._whereText+=" "+b+" "+d;else{let a="=";if(d.type&&"subset"==d.type&&d.items&&CAP.Utils.isArray(d.items)){this._whereText+=" "+b+" ( 1=1  ",d.items.forEach(a=>{this.conditions(a,"or")}),this._whereText+=")";continue}d.operator&&(a=d.operator),this._whereText+="in"==a.trim()||"is"==a.trim()||"between"==a.trim()?" "+b+" "+d.column+" "+a+" "+d.value+" ":" "+b+" "+d.column+" "+a+"'"+d.value+"'"}}else Utils.isString(a)&&!CAP.Utils.isEmpty(a)&&(this._whereText+=" "+b+" "+a)}},{key:"build",value:function build(){if(this._sqlText="",this._whereText="",this._sqlText+="select "+this._select.join(", "),this._sqlText+=" from "+this._mainTable,this._joins.forEach(a=>{this._sqlText+=" "+a.type+" join "+a.table+" on "+a.on.join(" and ")}),""!=this._where&&(this.conditions(this._where),this._sqlText+=" where 1=1 "+this._whereText),this._groupBy){let a=" group by ";this._groupBy.forEach(b=>{a+=b+","}),a=a.substr(0,a.length-1),this._sqlText+=a}if(this._orderBy){Utils.isArray(this._orderBy)||(this._orderBy=[this._orderBy]);let a=" order by ";this._orderBy.forEach(b=>{a+=b.field+" "+b.dir+","}),a=a.substr(0,a.length-1),this._sqlText+=a}return this._limit&&(this._sqlText+=" limit "+this._limit.start+","+this._limit.limit),this._sqlText}},{key:"execute",value:function execute(a=null){let b=a||this.build();this.isRunning=!0;var c={parameters:Object.assign({dashboardType:"GenericElasticSearch"},{query:b})};if(Utils.isEmpty(b))return new Promise((a,b)=>{b(Utils.__t("Hatal\u0131 sorgu. Sorgu Bo\u015F olamaz"))});console.debug("Run Elastic SQL:",b);let d=this.Ajax.post(this._baseUrl,c);return d.then(action(a=>{if(a&&a.data.hasOwnProperty("error"))throw this.ErrorText=a.data.error.root_cause.map(a=>a.reason+" "),this.ErrorText;return a})).catch(action(a=>{throw this.ErrorText=a.response&&a.response.body&&a.response.body.errors,a})).finally(()=>{this.isRunning=!1})}},{key:"schema",value:function schema(){let a="show "+this.table+"/_doc/_mapping";return this.execute(a).then(a=>this._maps=a)}},{key:"show",value:function show(a=null){let b="show "+(null==a?this.table:a);return this.execute(b).then(a=>this._maps=a)}},{key:"Request",get:function(){return this._Request},set:function(a){this._Request=a}},{key:"baseUrl",get:function(){return this._baseUrl},set:function(a){this._baseUrl=a}},{key:"table",get:function(){return this._mainTable}},{key:"wheres",get:function(){return toJS(this._where)}},{key:"whereText",get:function(){return Utils.trimStart(this._whereText.trim(),"and")}}],[{key:"_uniqueIdGenerator",value:function _uniqueIdGenerator(){return++this.currentId}}]),a}(),_temp),_descriptor=_applyDecoratedDescriptor(_class.prototype,"_select",[observable],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return[]}}),_descriptor2=_applyDecoratedDescriptor(_class.prototype,"_joins",[observable],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return[]}}),_descriptor3=_applyDecoratedDescriptor(_class.prototype,"_where",[observable],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return null}}),_descriptor4=_applyDecoratedDescriptor(_class.prototype,"_orderBy",[observable],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return null}}),_descriptor5=_applyDecoratedDescriptor(_class.prototype,"isRunning",[observable],{configurable:!0,enumerable:!0,writable:!0,initializer:function(){return!1}}),_applyDecoratedDescriptor(_class.prototype,"execute",[action],Object.getOwnPropertyDescriptor(_class.prototype,"execute"),_class.prototype),_applyDecoratedDescriptor(_class.prototype,"schema",[action],Object.getOwnPropertyDescriptor(_class.prototype,"schema"),_class.prototype),_applyDecoratedDescriptor(_class.prototype,"show",[action],Object.getOwnPropertyDescriptor(_class.prototype,"show"),_class.prototype),_class);export{ElasticSql as default};
+var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _temp;
+
+function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and set to use loose mode. ' + 'To use proposal-class-properties in spec mode with decorators, wait for ' + 'the next major version of decorators in stage 2.'); }
+
+import { action, observable, toJS } from "mobx";
+import Ajax from "./Ajax";
+import Utils from "../Utils/Utils";
+import DataProxy from "./DataProxy";
+let ElasticSql = (_class = (_temp = function () {
+  function ElasticSql() {
+    _classCallCheck(this, ElasticSql);
+
+    this._baseUrl = "";
+    this.currentId = 0;
+    this.running = null;
+    this.Ajax = null;
+
+    _initializerDefineProperty(this, "_select", _descriptor, this);
+
+    _initializerDefineProperty(this, "_joins", _descriptor2, this);
+
+    this._limit = 50;
+    this._from = "";
+    this._maps = {};
+    this._start = 0;
+    this._fetch = 0;
+    this._sqlText = "";
+    this._whereText = "";
+    this._mainTable = process.env.REACT_APP_DEFAULT_INDEX || "eventdata-prod";
+
+    _initializerDefineProperty(this, "_where", _descriptor3, this);
+
+    _initializerDefineProperty(this, "_orderBy", _descriptor4, this);
+
+    this._groupBy = null;
+    this._debug = false;
+
+    _initializerDefineProperty(this, "isRunning", _descriptor5, this);
+
+    this.tokenPlugin = req => {};
+
+    this.handleErrors = (err, res) => {};
+
+    this.responseBody = res => {
+      return res.body;
+    };
+
+    this.abort = () => {
+      if (!Utils.isEmpty(this.Ajax.running)) this.Ajax.running.abort();
+    };
+
+    this.init = () => {
+      this.regenerateQuery();
+    };
+
+    this._type = 'elasticsql';
+    this.dataProxy = new DataProxy();
+    this.Ajax = this.dataProxy.createProxy('ajax');
+    this.init = this.init.bind(this);
+  }
+
+  _createClass(ElasticSql, [{
+    key: "regenerateQuery",
+    value: function regenerateQuery() {
+      this._select = [];
+      this._joins = [];
+      this._from = [];
+      this._limit = null;
+      this._start = 0;
+      this._fetch = 0;
+      this._sqlText = "";
+      this._mainTable = process.env.REACT_APP_DEFAULT_INDEX || "eventdata-prod";
+      this._where = null;
+      this._orderBy = null;
+      this._groupBy = null;
+    }
+  }, {
+    key: "mainTable",
+    value: function mainTable(_mainTable) {
+      this._mainTable = _mainTable;
+      return this;
+    }
+  }, {
+    key: "where",
+    value: function where(_where) {
+      this._where = _where;
+      return this;
+    }
+  }, {
+    key: "addWhere",
+    value: function addWhere(where) {
+      return this;
+    }
+  }, {
+    key: "select",
+    value: function select(selectArr = []) {
+      this.regenerateQuery();
+      this._select = selectArr;
+      return this;
+    }
+  }, {
+    key: "join",
+    value: function join(type = "", table = "", on = []) {
+      this._joins.push({
+        "type": type,
+        "table": table,
+        "on": on
+      });
+
+      return this;
+    }
+  }, {
+    key: "order",
+    value: function order(_order = []) {
+      this.order = _order;
+      return this;
+    }
+  }, {
+    key: "limits",
+    value: function limits(_limits = null) {
+      this._limit = _limits;
+      return this;
+    }
+  }, {
+    key: "orderBy",
+    value: function orderBy(_orderBy) {
+      this._orderBy = _orderBy;
+      return this;
+    }
+  }, {
+    key: "groupBy",
+    value: function groupBy(_groupBy) {
+      this._groupBy = _groupBy;
+      return this;
+    }
+  }, {
+    key: "from",
+    value: function from(_from) {
+      this._mainTable = _from;
+      return this;
+    }
+  }, {
+    key: "conditions",
+    value: function conditions(param, logic = "and") {
+      if (Utils.isArray(param)) {
+        for (let index in param) {
+          let item = param[index];
+
+          if (Utils.isString(item)) {
+            this._whereText += " " + logic + " " + item;
+          } else {
+            let operator = "=";
+
+            if (item["type"]) {
+              if (item["type"] == "subset") {
+                if (item["items"]) {
+                  if (CAP.Utils.isArray(item["items"])) {
+                    this._whereText += " " + logic + " ( 1=1  ";
+                    item["items"].forEach(subsetItem => {
+                      this.conditions(subsetItem, "or");
+                    });
+                    this._whereText += ")";
+                    continue;
+                  }
+                }
+              }
+            }
+
+            if (item["operator"]) {
+              operator = item["operator"];
+            }
+
+            if (operator.trim() == "in" || operator.trim() == "is" || operator.trim() == "between") {
+              this._whereText += " " + logic + " " + item["column"] + " " + operator + " " + item["value"] + " ";
+            } else {
+              this._whereText += " " + logic + " " + item["column"] + " " + operator + "'" + item["value"] + "'";
+            }
+          }
+        }
+      } else if (Utils.isString(param) && !CAP.Utils.isEmpty(param)) {
+        this._whereText += " " + logic + " " + param;
+      }
+    }
+  }, {
+    key: "build",
+    value: function build() {
+      this._sqlText = "";
+      this._whereText = "";
+      this._sqlText += "select " + this._select.join(", ");
+      this._sqlText += " from " + this._mainTable;
+
+      this._joins.forEach(item => {
+        this._sqlText += " " + item["type"] + " join " + item["table"] + " on " + item["on"].join(" and ");
+      });
+
+      if (this._where != "") {
+        this.conditions(this._where);
+        this._sqlText += " where 1=1 " + this._whereText;
+      }
+
+      if (this._groupBy) {
+        let groupStr = " group by ";
+
+        this._groupBy.forEach(item => {
+          groupStr += item + ",";
+        });
+
+        groupStr = groupStr.substr(0, groupStr.length - 1);
+        this._sqlText += groupStr;
+      }
+
+      if (this._orderBy) {
+        if (!Utils.isArray(this._orderBy)) {
+          this._orderBy = [this._orderBy];
+        }
+
+        let orderStr = " order by ";
+
+        this._orderBy.forEach(item => {
+          orderStr += item["field"] + " " + item["dir"] + ",";
+        });
+
+        orderStr = orderStr.substr(0, orderStr.length - 1);
+        this._sqlText += orderStr;
+      }
+
+      if (this._limit) {
+        this._sqlText += " limit " + this._limit["start"] + "," + this._limit["limit"];
+      }
+
+      return this._sqlText;
+    }
+  }, {
+    key: "execute",
+    value: function execute(sql = null) {
+      let newSql = sql || this.build();
+      this.isRunning = true;
+      var params = {
+        parameters: Object.assign({
+          dashboardType: "GenericElasticSearch"
+        }, {
+          query: newSql
+        })
+      };
+      if (Utils.isEmpty(newSql)) return new Promise((resolve, reject) => {
+        reject(Utils.__t("Hatalı sorgu. Sorgu Boş olamaz"));
+      });
+      console.debug("Run Elastic SQL:", newSql);
+      let post = this.Ajax.post(this._baseUrl, params);
+      return post.then(action(res => {
+        if (res && res.data.hasOwnProperty("error")) {
+          this.ErrorText = res.data.error.root_cause.map(e => {
+            return e.reason + " ";
+          });
+          throw this.ErrorText;
+        }
+
+        return res;
+      })).catch(action(err => {
+        this.ErrorText = err.response && err.response.body && err.response.body.errors;
+        throw err;
+      })).finally(e => {
+        this.isRunning = false;
+      });
+    }
+  }, {
+    key: "schema",
+    value: function schema() {
+      let sql = "show " + this.table + "/_doc/_mapping";
+      return this.execute(sql).then(e => this._maps = e);
+    }
+  }, {
+    key: "show",
+    value: function show(index = null) {
+      let sql = "show " + (index == null ? this.table : index);
+      return this.execute(sql).then(e => this._maps = e);
+    }
+  }, {
+    key: "Request",
+    get: function () {
+      return this._Request;
+    },
+    set: function (value) {
+      this._Request = value;
+    }
+  }, {
+    key: "baseUrl",
+    get: function () {
+      return this._baseUrl;
+    },
+    set: function (value) {
+      this._baseUrl = value;
+    }
+  }, {
+    key: "table",
+    get: function () {
+      return this._mainTable;
+    }
+  }, {
+    key: "wheres",
+    get: function () {
+      return toJS(this._where);
+    }
+  }, {
+    key: "whereText",
+    get: function () {
+      return Utils.trimStart(this._whereText.trim(), 'and');
+    }
+  }], [{
+    key: "_uniqueIdGenerator",
+    value: function _uniqueIdGenerator() {
+      return ++this.currentId;
+    }
+  }]);
+
+  return ElasticSql;
+}(), _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "_select", [observable], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function () {
+    return [];
+  }
+}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "_joins", [observable], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function () {
+    return [];
+  }
+}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "_where", [observable], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function () {
+    return null;
+  }
+}), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "_orderBy", [observable], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function () {
+    return null;
+  }
+}), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, "isRunning", [observable], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function () {
+    return false;
+  }
+}), _applyDecoratedDescriptor(_class.prototype, "execute", [action], Object.getOwnPropertyDescriptor(_class.prototype, "execute"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "schema", [action], Object.getOwnPropertyDescriptor(_class.prototype, "schema"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "show", [action], Object.getOwnPropertyDescriptor(_class.prototype, "show"), _class.prototype)), _class);
+export { ElasticSql as default };

@@ -1,1 +1,214 @@
-function _classCallCheck(a,b){if(!(a instanceof b))throw new TypeError("Cannot call a class as a function")}function _defineProperties(a,b){for(var c,d=0;d<b.length;d++)c=b[d],c.enumerable=c.enumerable||!1,c.configurable=!0,"value"in c&&(c.writable=!0),Object.defineProperty(a,c.key,c)}function _createClass(a,b,c){return b&&_defineProperties(a.prototype,b),c&&_defineProperties(a,c),a}function _possibleConstructorReturn(a,b){return b&&("object"==typeof b||"function"==typeof b)?b:_assertThisInitialized(a)}function _assertThisInitialized(a){if(void 0===a)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return a}function _getPrototypeOf(a){return _getPrototypeOf=Object.setPrototypeOf?Object.getPrototypeOf:function(a){return a.__proto__||Object.getPrototypeOf(a)},_getPrototypeOf(a)}function _inherits(a,b){if("function"!=typeof b&&null!==b)throw new TypeError("Super expression must either be null or a function");a.prototype=Object.create(b&&b.prototype,{constructor:{value:a,writable:!0,configurable:!0}}),b&&_setPrototypeOf(a,b)}function _setPrototypeOf(a,b){return _setPrototypeOf=Object.setPrototypeOf||function(a,b){return a.__proto__=b,a},_setPrototypeOf(a,b)}import React from"react";import Utils from"../Utils/Utils";let ContextMenu=function(a){function b(...a){var c;return _classCallCheck(this,b),c=_possibleConstructorReturn(this,_getPrototypeOf(b).call(this,...a)),c.state={visible:!1},c._handleContextMenu=(a,b=null,d=null)=>{a.preventDefault(),c.setState({visible:!0,field:b,target:d});const e=a.clientX,f=a.clientY,g=window.innerWidth,h=window.innerHeight,i=c.root.offsetWidth,j=c.root.offsetHeight,k=g-e>i,l=h-f>j;k&&(c.root.style.left=`${e+5}px`),!k&&(c.root.style.left=`${e-i-5}px`),l&&(c.root.style.top=`${f+5}px`),!l&&(c.root.style.top=`${f-j-5}px`)},c._handleClick=a=>{const{visible:b}=c.state,d=a.target.contains!==c.root;d&&b&&c.setState({visible:!1})},c._handleScroll=()=>{const{visible:a}=c.state;a&&c.setState({visible:!1})},c.show=(a,b,d)=>{c._handleContextMenu(a,b,d)},c}return _inherits(b,a),_createClass(b,[{key:"UNSAFE_componentDidMount",value:function UNSAFE_componentDidMount(){document.getElementById(this.props.container)&&(document.getElementById(this.props.container).addEventListener("click",this._handleClick),document.getElementById(this.props.container).addEventListener("scroll",this._handleScroll))}},{key:"UNSAFE_componentWillUpdate",value:function UNSAFE_componentWillUpdate(){document.getElementById(this.props.container)&&(document.getElementById(this.props.container).addEventListener("click",this._handleClick),document.getElementById(this.props.container).addEventListener("scroll",this._handleScroll))}},{key:"componentWillUnmount",value:function componentWillUnmount(){document.getElementById(this.props.container)&&(document.getElementById(this.props.container).removeEventListener("click",this._handleClick),document.getElementById(this.props.container).removeEventListener("scroll",this._handleScroll))}},{key:"clickItem",value:function clickItem(a){this.props.clickItem(a,this.state),this.state.visible&&this.setState({visible:!1})}},{key:"render",value:function render(){const{visible:a}=this.state;let b=" contextMenu--option__disabled";return Utils.isEmpty(this.state.target)||(b=""),React.createElement(React.Fragment,null,React.createElement("div",{style:{display:a?"block":"none"},ref:a=>{this.root=a},className:"contextMenu"},React.createElement("div",{className:"contextMenu--label"},Utils.__t("Filtre: ':data'",{data:this.state.target})),React.createElement("div",{className:"contextMenu--separator"}),React.createElement("div",{className:"contextMenu--option",onClick:a=>this.clickItem("eq",a)},Utils.__t("E\u015Fit (=':data')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option",onClick:a=>this.clickItem("noteq",a)},Utils.__t("E\u015Fit De\u011Fil (!=':data')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option",onClick:a=>this.clickItem("startWith",a)},Utils.__t("Ba\u015Flayan (like '%:data')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option",onClick:a=>this.clickItem("endWith",a)},Utils.__t("Biten (like ':data%')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option",onClick:a=>this.clickItem("contains",a)},Utils.__t("\u0130\xE7eren (like '%:data%')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option",onClick:a=>this.clickItem("not-contains",a)},Utils.__t("\u0130\xE7ermeyen (not like '%:data%')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option"+b,onClick:a=>this.clickItem("gt",a)},Utils.__t("B\xFCy\xFCk (> ':data')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option"+b,onClick:a=>this.clickItem("gte",a)},Utils.__t("B\xFCy\xFCk E\u015Fit (>= ':data')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option"+b,onClick:a=>this.clickItem("lt",a)},Utils.__t("K\xFC\xE7\xFCk (< ':data')",{data:this.state.target})),React.createElement("div",{className:"contextMenu--option"+b,onClick:a=>this.clickItem("lte",a)},Utils.__t("K\xFC\xE7\xFCk E\u015Fit (<= ':data')",{data:this.state.target}))))}}]),b}(React.Component);export{ContextMenu as default};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import React from "react";
+import Utils from "../Utils/Utils";
+
+let ContextMenu = function (_React$Component) {
+  _inherits(ContextMenu, _React$Component);
+
+  function ContextMenu(...args) {
+    var _this;
+
+    _classCallCheck(this, ContextMenu);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ContextMenu).call(this, ...args));
+    _this.state = {
+      visible: false
+    };
+
+    _this._handleContextMenu = (event, field = null, data = null) => {
+      event.preventDefault();
+
+      _this.setState({
+        visible: true,
+        field: field,
+        target: data
+      });
+
+      const clickX = event.clientX;
+      const clickY = event.clientY;
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
+      const rootW = _this.root.offsetWidth;
+      const rootH = _this.root.offsetHeight;
+      const right = screenW - clickX > rootW;
+      const left = !right;
+      const top = screenH - clickY > rootH;
+      const bottom = !top;
+
+      if (right) {
+        _this.root.style.left = `${clickX + 5}px`;
+      }
+
+      if (left) {
+        _this.root.style.left = `${clickX - rootW - 5}px`;
+      }
+
+      if (top) {
+        _this.root.style.top = `${clickY + 5}px`;
+      }
+
+      if (bottom) {
+        _this.root.style.top = `${clickY - rootH - 5}px`;
+      }
+    };
+
+    _this._handleClick = event => {
+      const {
+        visible
+      } = _this.state;
+      const wasOutside = !(event.target.contains === _this.root);
+
+      if (wasOutside && visible) {
+        _this.setState({
+          visible: false
+        });
+      }
+    };
+
+    _this._handleScroll = () => {
+      const {
+        visible
+      } = _this.state;
+      if (visible) _this.setState({
+        visible: false
+      });
+    };
+
+    _this.show = (event, field, data) => {
+      _this._handleContextMenu(event, field, data);
+    };
+
+    return _this;
+  }
+
+  _createClass(ContextMenu, [{
+    key: "UNSAFE_componentDidMount",
+    value: function UNSAFE_componentDidMount() {
+      if (document.getElementById(this.props.container)) {
+        document.getElementById(this.props.container).addEventListener("click", this._handleClick);
+        document.getElementById(this.props.container).addEventListener("scroll", this._handleScroll);
+      }
+    }
+  }, {
+    key: "UNSAFE_componentWillUpdate",
+    value: function UNSAFE_componentWillUpdate(nextProps, nextState) {
+      if (document.getElementById(this.props.container)) {
+        document.getElementById(this.props.container).addEventListener("click", this._handleClick);
+        document.getElementById(this.props.container).addEventListener("scroll", this._handleScroll);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (document.getElementById(this.props.container)) {
+        document.getElementById(this.props.container).removeEventListener("click", this._handleClick);
+        document.getElementById(this.props.container).removeEventListener("scroll", this._handleScroll);
+      }
+    }
+  }, {
+    key: "clickItem",
+    value: function clickItem(type, event) {
+      this.props.clickItem(type, this.state);
+      if (this.state.visible) this.setState({
+        visible: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      const {
+        visible
+      } = this.state;
+      let disabled = " contextMenu--option__disabled";
+
+      if (!Utils.isEmpty(this.state.target)) {
+        disabled = "";
+      }
+
+      return React.createElement(React.Fragment, null, React.createElement("div", {
+        style: {
+          "display": visible ? "block" : "none"
+        },
+        ref: ref => {
+          this.root = ref;
+        },
+        className: "contextMenu"
+      }, React.createElement("div", {
+        className: "contextMenu--label"
+      }, Utils.__t("Filtre: ':data'", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--separator"
+      }), React.createElement("div", {
+        className: "contextMenu--option",
+        onClick: event => this.clickItem("eq", event)
+      }, Utils.__t("Eşit (=':data')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option",
+        onClick: event => this.clickItem("noteq", event)
+      }, Utils.__t("Eşit Değil (!=':data')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option",
+        onClick: event => this.clickItem("startWith", event)
+      }, Utils.__t("Başlayan (like '%:data')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option",
+        onClick: event => this.clickItem("endWith", event)
+      }, Utils.__t("Biten (like ':data%')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option",
+        onClick: event => this.clickItem("contains", event)
+      }, Utils.__t("İçeren (like '%:data%')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option",
+        onClick: event => this.clickItem("not-contains", event)
+      }, Utils.__t("İçermeyen (not like '%:data%')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option" + disabled,
+        onClick: event => this.clickItem("gt", event)
+      }, Utils.__t("Büyük (> ':data')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option" + disabled,
+        onClick: event => this.clickItem("gte", event)
+      }, Utils.__t("Büyük Eşit (>= ':data')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option" + disabled,
+        onClick: event => this.clickItem("lt", event)
+      }, Utils.__t("Küçük (< ':data')", {
+        data: this.state.target
+      })), React.createElement("div", {
+        className: "contextMenu--option" + disabled,
+        onClick: event => this.clickItem("lte", event)
+      }, Utils.__t("Küçük Eşit (<= ':data')", {
+        data: this.state.target
+      }))));
+    }
+  }]);
+
+  return ContextMenu;
+}(React.Component);
+
+export { ContextMenu as default };
