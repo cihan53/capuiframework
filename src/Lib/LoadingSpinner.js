@@ -17,13 +17,6 @@ export default class LoadingSpinner extends React.Component {
   loadAutoIncrement = true;
   loadIntervalTime = 300;
 
-  componentWillMount() {
-    // CAP.Stores.get("CommonStore").setLoadAutoIncrement(true)
-  }
-
-  componentWillUnmount() {
-    //CAP.Stores.get("CommonStore").setLoadPercent(100)
-  }
 
 
   render() {
