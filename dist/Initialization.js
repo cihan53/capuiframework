@@ -41,6 +41,7 @@ import BaseStore from "./Lib/CAP/Store/BaseStore"; // without this line it didn'
 import { DataProxy } from "./Lib/CAP/Data/DataProxy";
 import View from "./View/View";
 import Mask from "./Lib/CAP/Utils/Mask";
+import LoadingSpinner from "./Lib/LoadingSpinner";
 moment.locale('tr');
 const BaseController = CapController;
 window.moment = moment();
@@ -75,11 +76,7 @@ const CAPFrameWork = e => {
       Confirm: Confirm
     },
     Mask: Utils.Mask,
-    Spinner: props => {
-      const mask = new Mask(props);
-      mask.mask();
-      return mask.render();
-    },
+    Spinner: props => React.createElement(LoadingSpinner, props),
     Validator: Validator,
     Panel: (props, options = {}) => React.createElement(Panel, _extends({}, props, {
       options: options
