@@ -59,7 +59,7 @@ const Utils = {
     ShortId: ShortId,
     Translate: Translate,
     __t: Translate,
-    Mask: new Mask(),
+    Mask: Mask,
     ...Lodash,
     Array: _Array,
     capitalizeFirstLetter: e => (e.charAt(0).toUpperCase() + e.slice(1).toLowerCase()),
