@@ -73,7 +73,7 @@ let CapController = function (_React$Component) {
         });
         Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
         return React.createElement(View, _extends({}, data, _this.props, {
-          Controller: CapController
+          Controller: _assertThisInitialized(_this)
         }));
       } else {
         return React.createElement(Spinner, null);

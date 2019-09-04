@@ -396,7 +396,7 @@ export default class CapController extends React.Component {
 
             Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
 
-            return (<View {...data} {...this.props} Controller={CapController}/>);
+            return (<View {...data} {...this.props} Controller={this}/>);
         } else {
             return <Spinner/>;
         }
