@@ -328,7 +328,7 @@ export default class JsonSchemaEditor extends React.Component {
 
   }
 
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     this.newEditor(this.props.schema, this.props.values);
   }
 

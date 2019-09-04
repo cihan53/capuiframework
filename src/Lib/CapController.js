@@ -303,34 +303,24 @@ export default class CapController extends React.Component {
     }
 
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         //TODO mount olunca neler yapılmalı bunlar belilenmeli
         //BreadCrumb
         if (this._BreadCrumbStore != null)
             StoreManager.get(this._BreadCrumbStore).setItem(this.BreadCrumb);
-
-
-        //console.log(this.getMethods(this));
-
-
     }
 
-    componentDidMount() {
 
-    }
 
     // componentWillUpdate(nextProps, nextState) {
     //     // Logger.debug("Controller Update NextProps ", nextProps, this.props)
     //     return nextProps != this.props;
     // }
 
-    componentDidUpdate() {
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-    }
+    // componentWillReceiveProps(nextProps) {
+    //
+    // }
 
 
     componentDidCatch(error, info) {
@@ -369,7 +359,7 @@ export default class CapController extends React.Component {
      ```
 
      *   `componentWillReact` doesn't take arguments
-     *   `componentWillReact` won't fire before the initial render (use `componentDidMount` or `constructor` instead)
+     *   `componentWillReact` won't fire before the initial render (use `UNSAFE_componentDidMount` or `constructor` instead)
      *
      * @returns {boolean}
      */

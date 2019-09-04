@@ -7,7 +7,7 @@ export default class ContextMenu extends React.Component {
     };
 
 
-    componentDidMount() {
+    UNSAFE_componentDidMount() {
         // document.addEventListener("contextmenu", this._handleContextMenu);
 
 
@@ -19,7 +19,7 @@ export default class ContextMenu extends React.Component {
     };
 
 
-    componentWillUpdate(nextProps, nextState) {
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
         if (document.getElementById(this.props.container)) {
             document.getElementById(this.props.container).addEventListener("click", this._handleClick);
             document.getElementById(this.props.container).addEventListener("scroll", this._handleScroll);

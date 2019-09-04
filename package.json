@@ -14,9 +14,11 @@
     "dist/"
   ],
   "babel": {
+    "comments": false,
     "presets": [
       "mobx",
-      "@babel/preset-react"
+      "@babel/preset-react",
+      "minify"
     ],
     "plugins": [
       [
@@ -88,6 +90,7 @@
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-preset-minify": "^0.5.1",
     "babel-preset-mobx": "^2.0.0"
   }
 }

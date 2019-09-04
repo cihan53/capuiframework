@@ -204,14 +204,18 @@ export default class Grid extends React.Component {
     }
 
     //render before
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if (this.props.config.hasOwnProperty('onBeforeRender')) {
             this.props.config.onBeforeRender(this);
         }
+
+        const currentIndex = 0;
+        if (this.autoload)
+            this.store.load({page: 0, start: currentIndex, size: this.limit})
     }
 
 
-    componentWillUpdate() {
+    UNSAFE_componentWillUpdate() {
 
         if (this.props.config.hasOwnProperty('onBeforeRender')) {
             this.props.config.onBeforeRender(this);
@@ -261,11 +265,7 @@ export default class Grid extends React.Component {
         // CAP.Log(type,this )
     };
 
-    componentWillMount() {
-        const currentIndex = 0;
-        if (this.autoload)
-            this.store.load({page: 0, start: currentIndex, size: this.limit});
-    }
+
 
     render() {
 
