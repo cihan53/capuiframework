@@ -43,14 +43,6 @@ function (_React$Component) {
   }
 
   _createClass(LoadingSpinner, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {// CAP.Stores.get("CommonStore").setLoadAutoIncrement(true)
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {//CAP.Stores.get("CommonStore").setLoadPercent(100)
-    }
-  }, {
     key: "render",
     value: function render() {
       if (this.props.error) {
