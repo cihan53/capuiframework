@@ -32,6 +32,8 @@ function (_React$Component) {
     _classCallCheck(this, View);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(View).call(this, props));
+    _this._cache = [];
+    _this._view = "index";
 
     _this.init = function () {};
 
@@ -39,11 +41,9 @@ function (_React$Component) {
 
     _this.afterRender = function () {};
 
-    _this._cache = [];
-    _this._view = "index";
-
     _this.init();
 
+    _this.Controller = _this.props.Controller;
     return _this;
   }
 

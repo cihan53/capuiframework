@@ -190,7 +190,7 @@ function (_React$Component) {
         });
         Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
         return React.createElement(View, _extends({}, data, _this.props, {
-          Controller: _assertThisInitialized(_this)
+          Controller: CapController
         }));
       } else {
         return React.createElement(Spinner, null);
@@ -257,6 +257,10 @@ function (_React$Component) {
       let params = match.params || {};
       return Object.assign(params, Utils.queryString.parse(_this.props.location.search));
     };
+
+    _this.toUrl = (actionName, params = {}) => _this.constructor._toUrl(actionName, params);
+
+    _this.toChange = (actionName, params = {}) => _this.constructor._toChange(actionName, params);
 
     _this.init();
 
@@ -490,11 +494,11 @@ CapController.createUrl = (actionName, params = {}, hash = true) => {
   if (hash) return "/#" + Utils.trimEnd(controller, "/") + "/" + queryStringParams;else return Utils.trimEnd(controller, "/") + (Utils.startsWith(queryStringParams, "/") ? queryStringParams : "/" + queryStringParams);
 };
 
-CapController.toUrl = (actionName, params = {}) => {
+CapController._toUrl = (actionName, params = {}) => {
   return window.location = CapController.createUrl(actionName, params);
 };
 
-CapController.toChange = (actionName, params = {}) => {
+CapController._toChange = (actionName, params = {}) => {
   return CapController.props.history.push(CapController.createUrl(actionName, params, false));
 };
 

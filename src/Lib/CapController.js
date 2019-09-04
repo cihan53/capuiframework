@@ -406,7 +406,7 @@ export default class CapController extends React.Component {
 
             Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
 
-            return (<View {...data} {...this.props} Controller={this}/>);
+            return (<View {...data} {...this.props} Controller={CapController}/>);
         } else {
             return <Spinner/>;
         }
@@ -608,9 +608,17 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    static toUrl = (actionName, params = {}) => {
+    toUrl = (actionName, params = {}) => this.constructor._toUrl(actionName, params);
+    /**
+     *
+     * @param actionName
+     * @param params
+     * @returns {*}
+     */
+    static _toUrl = (actionName, params = {}) => {
         return window.location = this.createUrl(actionName, params);
     }
+
 
     /**
      *
@@ -618,7 +626,14 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    static toChange = (actionName, params = {}) => {
+    toChange = (actionName, params = {}) => this.constructor._toChange(actionName, params);
+    /**
+     *
+     * @param actionName
+     * @param params
+     * @returns {*}
+     */
+    static _toChange = (actionName, params = {}) => {
         return this.props.history.push(this.createUrl(actionName, params, false));
     }
 }
