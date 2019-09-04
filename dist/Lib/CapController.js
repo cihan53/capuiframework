@@ -127,9 +127,29 @@ let CapController = function (_React$Component) {
       return Object.assign(params, Utils.queryString.parse(_this.props.location.search));
     };
 
-    _this.toUrl = (actionName, params = {}) => _this.constructor._toUrl(actionName, params);
+    _this.createUrl = (actionName, params = {}, hash = true) => {
+      let queryStringParams = "";
 
-    _this.toChange = (actionName, params = {}) => _this.constructor._toChange(actionName, params);
+      if (!Utils.isEmpty(params)) {
+        if (Utils.has(params, "id") && !Utils.isEmpty(params.id)) {
+          queryStringParams = params.id;
+          delete params.id;
+        }
+      }
+
+      if (!Utils.isEmpty(params)) queryStringParams = queryStringParams + "/?" + Utils.queryString.stringify(params);
+      let controller = "/" + _this.controllerName + "/" + actionName;
+      if (Utils.startsWith(actionName, "/")) controller = actionName;
+      if (hash) return "/#" + Utils.trimEnd(controller, "/") + "/" + queryStringParams;else return Utils.trimEnd(controller, "/") + (Utils.startsWith(queryStringParams, "/") ? queryStringParams : "/" + queryStringParams);
+    };
+
+    _this.toUrl = (actionName, params = {}) => {
+      return window.location = _this.createUrl(actionName, params);
+    };
+
+    _this.toChange = (actionName, params = {}) => {
+      return _this.props.history.push(_this.createUrl(actionName, params, false));
+    };
 
     _this.init();
 
@@ -266,29 +286,5 @@ let CapController = function (_React$Component) {
 
   return CapController;
 }(React.Component);
-
-CapController.createUrl = (actionName, params = {}, hash = true) => {
-  let queryStringParams = "";
-
-  if (!Utils.isEmpty(params)) {
-    if (Utils.has(params, "id") && !Utils.isEmpty(params.id)) {
-      queryStringParams = params.id;
-      delete params.id;
-    }
-  }
-
-  if (!Utils.isEmpty(params)) queryStringParams = queryStringParams + "/?" + Utils.queryString.stringify(params);
-  let controller = "/" + CapController.controllerName + "/" + actionName;
-  if (Utils.startsWith(actionName, "/")) controller = actionName;
-  if (hash) return "/#" + Utils.trimEnd(controller, "/") + "/" + queryStringParams;else return Utils.trimEnd(controller, "/") + (Utils.startsWith(queryStringParams, "/") ? queryStringParams : "/" + queryStringParams);
-};
-
-CapController._toUrl = (actionName, params = {}) => {
-  return window.location = CapController.createUrl(actionName, params);
-};
-
-CapController._toChange = (actionName, params = {}) => {
-  return CapController.props.history.push(CapController.createUrl(actionName, params, false));
-};
 
 export { CapController as default };

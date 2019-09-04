@@ -560,8 +560,7 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {string}
      */
-
-    static createUrl = (actionName, params = {}, hash = true) => {
+    createUrl = (actionName, params = {}, hash = true) => {
 
 
         // return <Link
@@ -592,20 +591,14 @@ export default class CapController extends React.Component {
             return Utils.trimEnd(controller, "/") + (Utils.startsWith(queryStringParams, "/") ? queryStringParams : "/" + queryStringParams);
     }
 
+
     /**
      *
      * @param actionName
      * @param params
      * @returns {*}
      */
-    toUrl = (actionName, params = {}) => this.constructor._toUrl(actionName, params);
-    /**
-     *
-     * @param actionName
-     * @param params
-     * @returns {*}
-     */
-    static _toUrl = (actionName, params = {}) => {
+    toUrl = (actionName, params = {}) => {
         return window.location = this.createUrl(actionName, params);
     }
 
@@ -616,14 +609,7 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    toChange = (actionName, params = {}) => this.constructor._toChange(actionName, params);
-    /**
-     *
-     * @param actionName
-     * @param params
-     * @returns {*}
-     */
-    static _toChange = (actionName, params = {}) => {
+    toChange = (actionName, params = {}) => {
         return this.props.history.push(this.createUrl(actionName, params, false));
     }
 }
