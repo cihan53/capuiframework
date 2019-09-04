@@ -83,6 +83,6 @@ fabric.properties
 *.js.bak
 .env.local
 
-/.idea/
+/.idea
 # End of https://www.gitignore.io/api/webstorm
 /node_modules/
