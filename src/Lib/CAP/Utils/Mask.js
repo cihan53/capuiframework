@@ -3,258 +3,212 @@ import ReactDOM from 'react-dom';
 import LoadingSpinner from "../../LoadingSpinner";
 import ProgressBar from "react-progress-bar-plus";
 
-const notificationWrapper = document.querySelector('notifications-wrapper');
+const Mask = {
+  show: function(spinner = false, percent = -1, autoIncrement = true, intervalTime = 200, container = ".notifications-wrapper") {
+    ReactDOM.render(<ProgressBar spinner={spinner} percent={percent} autoIncrement={autoIncrement} intervalTime={intervalTime}/>, document.querySelector(container));
+  },
+  hide: function(container = ".notifications-wrapper") {
+    ReactDOM.render(<ProgressBar spinner={false} percent={0} autoIncrement={false} intervalTime={1}/>, document.querySelector(container));
+  },
+    /**
+     * http://kyleamathews.github.io/react-spinkit/
+     Spinkit Spinners
+     <Spinner name="circle" />
+     <Spinner name="circle" color="steelblue"/>
 
-class Mask extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.el = document.createElement('div');
 
-        this.state = {
-            mask: ""
-        };
+     <Spinner name="cube-grid" />
+     <Spinner name="cube-grid" color="blue"/>
 
 
-    }
 
+     <Spinner name="wave" />
+     <Spinner name="wave" color="purple"/>
 
-    componentDidMount() {
-        // The portal element is inserted in the DOM tree after
-        // the Modal's children are mounted, meaning that children
-        // will be mounted on a detached DOM node. If a child
-        // component requires to be attached to the DOM tree
-        // immediately when mounted, for example to measure a
-        // DOM node, or uses 'autoFocus' in a descendant, add
-        // state to Modal and only render the children when Modal
-        // is inserted in the DOM tree.
-        notificationWrapper.appendChild(this.el);
 
 
-    }
+     <Spinner name="folding-cube" />
+     <Spinner name="folding-cube" color="purple"/>
 
-    componentWillUnmount() {
-        notificationWrapper.removeChild(this.el);
-    }
 
-    show = (spinner = false, percent = -1, autoIncrement = true, intervalTime = 200, container = ".notifications-wrapper") => {
-        this.setState({
-            mask: <ProgressBar spinner={spinner} percent={percent} autoIncrement={autoIncrement} intervalTime={intervalTime}/>
-        })
-    }
-    hide = (container = ".notifications-wrapper") => {
-        this.setState({mask: <ProgressBar spinner={false} percent={0} autoIncrement={false} intervalTime={1}/>})
-        // ReactDOM.render(<ProgressBar spinner={false} percent={0} autoIncrement={false} intervalTime={1}/>, document.querySelector(container));
-    }
-    mask = (name = "cube-grid", color = "") => {
-        this.setState({mask: <LoadingSpinner spinner name={name.toString()} color={color.toString()}/>})
-    }
 
+     <Spinner name="three-bounce" />
+     <Spinner name="three-bounce" color="steelblue"/>
 
-    render() {
-        return ReactDOM.createPortal(
-            this.state.mask,
-            this.el,
-        );
-    }
-}
 
-/**
- * http://kyleamathews.github.io/react-spinkit/
- Spinkit Spinners
- <Spinner name="circle" />
- <Spinner name="circle" color="steelblue"/>
 
+     <Spinner name="double-bounce" />
+     <Spinner name="double-bounce" color="coral"/>
 
 
- <Spinner name="cube-grid" />
- <Spinner name="cube-grid" color="blue"/>
 
+     <Spinner name="wandering-cubes" />
+     <Spinner name="wandering-cubes" color="goldenrod"/>
 
 
- <Spinner name="wave" />
- <Spinner name="wave" color="purple"/>
 
+     <Spinner name="chasing-dots" />
+     <Spinner name="chasing-dots" color="purple"/>
 
 
- <Spinner name="folding-cube" />
- <Spinner name="folding-cube" color="purple"/>
 
+     <Spinner name="rotating-plane" />
+     <Spinner name="rotating-plane" color="red"/>
 
 
- <Spinner name="three-bounce" />
- <Spinner name="three-bounce" color="steelblue"/>
 
+     <Spinner name="pulse" />
+     <Spinner name="pulse" color="aqua"/>
 
 
- <Spinner name="double-bounce" />
- <Spinner name="double-bounce" color="coral"/>
 
+     <Spinner name="wordpress" />
+     <Spinner name="wordpress" color="orange"/>
 
 
- <Spinner name="wandering-cubes" />
- <Spinner name="wandering-cubes" color="goldenrod"/>
 
+     loaders.css Spinners
+     (not all of these center here, but are easily centerable with flexbox)
+     <Spinner name="ball-grid-beat" />
+     <Spinner name="ball-grid-beat" color="orange"/>
 
 
- <Spinner name="chasing-dots" />
- <Spinner name="chasing-dots" color="purple"/>
 
+     <Spinner name="ball-grid-pulse" />
+     <Spinner name="ball-grid-pulse" color="olive"/>
 
 
- <Spinner name="rotating-plane" />
- <Spinner name="rotating-plane" color="red"/>
 
+     <Spinner name="line-spin-fade-loader" />
+     <Spinner name="line-spin-fade-loader" color="green"/>
 
 
- <Spinner name="pulse" />
- <Spinner name="pulse" color="aqua"/>
 
+     <Spinner name="ball-spin-fade-loader" />
+     <Spinner name="ball-spin-fade-loader" color="fuchsia"/>
 
 
- <Spinner name="wordpress" />
- <Spinner name="wordpress" color="orange"/>
 
+     <Spinner name="ball-pulse-rise" />
+     <Spinner name="ball-pulse-rise" color="fuchsia"/>
 
 
- loaders.css Spinners
- (not all of these center here, but are easily centerable with flexbox)
- <Spinner name="ball-grid-beat" />
- <Spinner name="ball-grid-beat" color="orange"/>
 
+     <Spinner name="line-scale" />
+     <Spinner name="line-scale" color="steelblue"/>
 
 
- <Spinner name="ball-grid-pulse" />
- <Spinner name="ball-grid-pulse" color="olive"/>
 
+     <Spinner name="line-scale-pulse-out" />
+     <Spinner name="line-scale-pulse-out" color="coral"/>
 
 
- <Spinner name="line-spin-fade-loader" />
- <Spinner name="line-spin-fade-loader" color="green"/>
 
+     <Spinner name="line-scale-pulse-out-rapid" />
+     <Spinner name="line-scale-pulse-out-rapid" color="fuchsia"/>
 
 
- <Spinner name="ball-spin-fade-loader" />
- <Spinner name="ball-spin-fade-loader" color="fuchsia"/>
 
+     <Spinner name="pacman" />
+     <Spinner name="pacman" color="fuchsia"/>
 
 
- <Spinner name="ball-pulse-rise" />
- <Spinner name="ball-pulse-rise" color="fuchsia"/>
 
+     <Spinner name="line-scale-party" />
+     <Spinner name="line-scale-party" color="steelblue"/>
 
 
- <Spinner name="line-scale" />
- <Spinner name="line-scale" color="steelblue"/>
 
+     <Spinner name="ball-triangle-path" />
+     <Spinner name="ball-triangle-path" color="coral"/>
 
 
- <Spinner name="line-scale-pulse-out" />
- <Spinner name="line-scale-pulse-out" color="coral"/>
 
+     <Spinner name="ball-scale-multiple" />
+     <Spinner name="ball-scale-multiple" color="orange"/>
 
 
- <Spinner name="line-scale-pulse-out-rapid" />
- <Spinner name="line-scale-pulse-out-rapid" color="fuchsia"/>
 
+     <Spinner name="ball-scale-ripple-multiple" />
+     <Spinner name="ball-scale-ripple-multiple" color="orange"/>
 
 
- <Spinner name="pacman" />
- <Spinner name="pacman" color="fuchsia"/>
 
+     <Spinner name="ball-pulse-sync" />
+     <Spinner name="ball-pulse-sync" color="steelblue"/>
 
 
- <Spinner name="line-scale-party" />
- <Spinner name="line-scale-party" color="steelblue"/>
 
+     <Spinner name="ball-beat" />
+     <Spinner name="ball-beat" color="red"/>
 
 
- <Spinner name="ball-triangle-path" />
- <Spinner name="ball-triangle-path" color="coral"/>
 
+     <Spinner name="ball-zig-zag" />
+     <Spinner name="ball-zig-zag" color="olive"/>
 
 
- <Spinner name="ball-scale-multiple" />
- <Spinner name="ball-scale-multiple" color="orange"/>
 
+     <Spinner name="ball-zig-zag-deflect" />
+     <Spinner name="ball-zig-zag-deflect" color="fuchsia"/>
 
 
- <Spinner name="ball-scale-ripple-multiple" />
- <Spinner name="ball-scale-ripple-multiple" color="orange"/>
 
+     <Spinner name="ball-clip-rotate-pulse" />
+     <Spinner name="ball-clip-rotate-pulse" color="blue"/>
 
 
- <Spinner name="ball-pulse-sync" />
- <Spinner name="ball-pulse-sync" color="steelblue"/>
 
+     <Spinner name="ball-clip-rotate-multiple" />
+     <Spinner name="ball-clip-rotate-multiple" color="green"/>
 
 
- <Spinner name="ball-beat" />
- <Spinner name="ball-beat" color="red"/>
 
+     <Spinner name="ball-clip-rotate" />
+     <Spinner name="ball-clip-rotate" color="green"/>
 
 
- <Spinner name="ball-zig-zag" />
- <Spinner name="ball-zig-zag" color="olive"/>
 
+     <Spinner name="ball-scale-ripple" />
+     <Spinner name="ball-scale-ripple" color="goldenrod"/>
 
 
- <Spinner name="ball-zig-zag-deflect" />
- <Spinner name="ball-zig-zag-deflect" color="fuchsia"/>
 
+     <Spinner name="triangle-skew-spin" />
+     <Spinner name="triangle-skew-spin" color="green"/>
 
 
- <Spinner name="ball-clip-rotate-pulse" />
- <Spinner name="ball-clip-rotate-pulse" color="blue"/>
 
+     Spinner Options
+     <Spinner name="wordpress" fadeIn="none" />
 
 
- <Spinner name="ball-clip-rotate-multiple" />
- <Spinner name="ball-clip-rotate-multiple" color="green"/>
 
+     <Spinner name="wordpress" fadeIn="quarter" />
 
 
- <Spinner name="ball-clip-rotate" />
- <Spinner name="ball-clip-rotate" color="green"/>
 
+     <Spinner name="wordpress" fadeIn="half" />
 
 
- <Spinner name="ball-scale-ripple" />
- <Spinner name="ball-scale-ripple" color="goldenrod"/>
 
+     <Spinner name="wordpress" overrideSpinnerClassName="my-class-to-override" />
 
 
- <Spinner name="triangle-skew-spin" />
- <Spinner name="triangle-skew-spin" color="green"/>
 
+     <Spinner name="wordpress" className="my-class" />
 
 
- Spinner Options
- <Spinner name="wordpress" fadeIn="none" />
 
+     <Spinner name="wordpress" color="green" />
+     * @returns {*}
+     */
+  mask: function(name="cube-grid" ,color="") {
 
+    return <LoadingSpinner spinner name={name.toString()}  color={color.toString()}/>;
+  }
 
- <Spinner name="wordpress" fadeIn="quarter" />
-
-
-
- <Spinner name="wordpress" fadeIn="half" />
-
-
-
- <Spinner name="wordpress" overrideSpinnerClassName="my-class-to-override" />
-
-
-
- <Spinner name="wordpress" className="my-class" />
-
-
-
- <Spinner name="wordpress" color="green" />
- * @returns {*}
- */
-Mask.defaultProps = {
-    type: 'mask'
 };
 
 export default Mask;
