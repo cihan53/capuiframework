@@ -130,6 +130,7 @@ export default class CapController extends React.Component {
         super(props);
         this.init();
 
+        this.renderView =this.renderView.bind(this);
     }
 
 
@@ -396,6 +397,7 @@ export default class CapController extends React.Component {
 
             Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
 
+            console.log(this)
             return (<View {...data} {...this.props} Controller={this}/>);
         } else {
             return <Spinner/>;

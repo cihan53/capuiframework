@@ -72,6 +72,7 @@ let CapController = function (_React$Component) {
           loading: _this.loading
         });
         Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
+        console.log(_assertThisInitialized(_this));
         return React.createElement(View, _extends({}, data, _this.props, {
           Controller: _assertThisInitialized(_this)
         }));
@@ -153,6 +154,7 @@ let CapController = function (_React$Component) {
 
     _this.init();
 
+    _this.renderView = _this.renderView.bind(_assertThisInitialized(_this));
     return _this;
   }
 
