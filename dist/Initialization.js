@@ -76,7 +76,9 @@ const CAPFrameWork = e => {
       Confirm: Confirm
     },
     Mask: Utils.Mask,
-    Spinner: props => React.createElement(LoadingSpinner, props),
+    Spinner: props => React.createElement(LoadingSpinner, _extends({}, props, {
+      spinner: true
+    })),
     Validator: Validator,
     Panel: (props, options = {}) => React.createElement(Panel, _extends({}, props, {
       options: options

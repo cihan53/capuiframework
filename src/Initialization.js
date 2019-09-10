@@ -81,7 +81,7 @@ const CAPFrameWork = e => {
             Confirm: Confirm
         },
         Mask: Utils.Mask,
-        Spinner: (props) => <LoadingSpinner {...props} />,
+        Spinner: (props) => <LoadingSpinner {...props} spinner={true} />,
         Validator: Validator,
         Panel: (props, options = {}) => <Panel {...props} options={options}/>,
         /**
