@@ -15,7 +15,7 @@ import {Loadable, Spinner, Log, Raise, Logger} from "../index";
 // const queryString = require("query-string");
 
 
-/**
+/** 1
  * Kontroler Framework içerisinde sıkça kullanılan methodları tek bir yerde toplamak
  * ve kolay kullanım için geliştirilmiştir.
  *
@@ -310,7 +310,6 @@ export default class CapController extends React.Component {
         if (this._BreadCrumbStore != null)
             StoreManager.get(this._BreadCrumbStore).setItem(this.BreadCrumb);
     }
-
 
 
     // componentWillUpdate(nextProps, nextState) {
