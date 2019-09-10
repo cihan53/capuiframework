@@ -12,7 +12,8 @@ const ExportCSVButton = props => {
     data: DATA,
     headers: headers
   }, Utils.__t("Csv indir")));
-};
+}; // Create styles
+
 
 const styles = StyleSheet.create({
   page: {

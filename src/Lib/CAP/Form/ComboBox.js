@@ -55,7 +55,7 @@ export default class ComboBox extends Field {
 
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const currentIndex = 0;
         if (this.store && this.autoload)
             this.store.load({page: 0, start: currentIndex, size: this.limit})

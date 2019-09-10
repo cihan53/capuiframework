@@ -16,12 +16,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import PropTypes from "prop-types";
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import React from "react";
 
-let JsonInput = function (_React$Component) {
+let JsonInput =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(JsonInput, _React$Component);
 
   function JsonInput(props) {
@@ -57,6 +64,10 @@ let JsonInput = function (_React$Component) {
         this.placeholder = null;
       }
     }
+    /**
+     *
+     */
+
   }, {
     key: "getValues",
     value: function getValues() {

@@ -67,12 +67,13 @@ const Table = ({
     defaultSorted: defaultSorted,
     filter: filterFactory(),
     onTableChange: onTableChange,
+    // overlay: overlayFactory(<LoadingSpinner key={Utils.ShortId.generate()}/>),
     overlay: overlayFactory({
       spinner: true,
       background: 'rgba(192,192,192,0.3)'
     }),
     noDataIndication: () => React.createElement(EmptyTableDataIndication, null)
-  };
+  }; //cell edit
 
   if (cellEdit != null) {
     props.cellEdit = cellEditFactory(cellEdit);
@@ -99,7 +100,8 @@ const Table = ({
     lastPageTitle: Utils.__t("Son Sayfa"),
     paginationTotalRenderer: customTotal
   });
-  delete otherprops.pagination;
+  delete otherprops.pagination; // const ContextMenu = onContextMenu;
+
   return React.createElement(React.Fragment, null, otherprops.hasOwnProperty('buttons') ? React.createElement(ExportCSVButton, {
     data: store.data,
     columns: columns
@@ -119,10 +121,23 @@ Table.propTypes = {
   sizePerPage: PropTypes.number.isRequired,
   onTableChange: PropTypes.func.isRequired
 };
+/**
+ * eğer sutun filitreleme açık ise
+ * autoload false yapılmalı.
+ *
+ *
+ */
 
-let Grid = observer(_class = (_temp = function (_React$Component) {
+let Grid = observer(_class = (_temp =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(Grid, _React$Component);
 
+  /**
+   * Bu alan yeni eklendi ve buna göre diğer tüm değişiklikler sırası geldiğinde yapılamlı
+   * tüm ayarlar config nesnesinde toplanmalı
+   * @type {{xtype: string}}
+   */
   function Grid(props) {
     var _this;
 
@@ -140,11 +155,17 @@ let Grid = observer(_class = (_temp = function (_React$Component) {
 
     _this.handleTableChange = (type, {
       page,
+      // newest page
       sizePerPage,
+      // newest sizePerPage
       sortField,
+      // newest sort field
       sortOrder,
+      // newest sort order
       filters,
+      // an object which have current filter status per column
       data,
+      // when you enable remote sort, you may need to base on data to sort if data is filtered/searched
       cellEdit
     }) => {
       if (type != "cellEdit") {
@@ -162,10 +183,15 @@ let Grid = observer(_class = (_temp = function (_React$Component) {
       } else {
         if (_this.props.config.hasOwnProperty("cellEdit")) {
           if (_this.props.config.cellEdit.hasOwnProperty("afterSaveCell")) {
+            /**
+             * cellEdit
+             *    { rowId,   dataField,  newValue }
+             */
             _this.props.config.cellEdit.afterSaveCell(data, cellEdit);
           }
         }
-      }
+      } // CAP.Log(type,this )
+
     };
 
     _this._store = null;
@@ -202,13 +228,14 @@ let Grid = observer(_class = (_temp = function (_React$Component) {
         }
 
         if (!this.store) throw new Error("Undefined Store");
-        this.autoload = this.props.config.hasOwnProperty('autoload') ? this.props.config.autoload : true;
+        this.autoload = this.props.config.hasOwnProperty('autoload') ? this.props.config.autoload : true; //this.store.load();
       } else if (this.props.config.data) {
         this.data = this.props.config.data || [];
         this.autoload = false;
       } else {
         throw new Error("Undefined Store");
-      }
+      } //columns setting
+
     }
   }, {
     key: "configSet",
@@ -221,7 +248,8 @@ let Grid = observer(_class = (_temp = function (_React$Component) {
     value: function shouldComponentUpdate(newProps, newState) {
       if (this.props != newProps) this.init("propsChange");
       return this.props != newProps;
-    }
+    } //render before
+
   }, {
     key: "UNSAFE_componentWillMount",
     value: function UNSAFE_componentWillMount() {
@@ -245,7 +273,9 @@ let Grid = observer(_class = (_temp = function (_React$Component) {
     }
   }, {
     key: "componentDidCatch",
-    value: function componentDidCatch(error, info) {}
+    value: function componentDidCatch(error, info) {// Hatanızı bir hata bildirimi servisine de yollayabilirsiniz.
+      //logErrorToMyService(error, info)
+    }
   }, {
     key: "render",
     value: function render() {
@@ -258,15 +288,19 @@ let Grid = observer(_class = (_temp = function (_React$Component) {
         limit: this.limit,
         page: 0
       };
-      const data = this.store ? this.store.data : this.data;
-      let otherProps = {};
+      const data = this.store ? this.store.data : this.data; //other props
+
+      let otherProps = {}; //keyfield
+
       let keyField = this.store ? this.store.keyField : "id";
-      if (this.props.config.hasOwnProperty("keyField")) keyField = this.props.config.keyField;
+      if (this.props.config.hasOwnProperty("keyField")) keyField = this.props.config.keyField; //cell Editor
+
       let cellEdit = null;
 
       if (this.props.config.hasOwnProperty("cellEdit")) {
         cellEdit = this.props.config.cellEdit;
-      }
+      } //bunlar varsayılan props'lar bunlar haricindeki tüm prop'lar otherprops eklenecek
+
 
       const props = ["store", "keyField", "data", "currentPage", "sizePerPage", "columns", "totalSize", "onTableChange", "panelOptions", "xtype", "cellEdit", "tableContextMenuRef"];
       const keys = Object.keys(this.props.config);

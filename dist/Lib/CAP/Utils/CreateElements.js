@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 import { Xtypes } from "../../../Initialization";
 import Utils from "./Utils";

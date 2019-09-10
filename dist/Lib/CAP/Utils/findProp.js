@@ -1,3 +1,16 @@
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
+
+/**
+ *
+ * @param obj
+ * @param prop
+ * @param defval
+ * @returns {*}
+ */
 const findProp = function findProp(obj, prop, defval) {
   if (typeof defval == "undefined") defval = null;
   prop = prop.split(".");
@@ -9,6 +22,15 @@ const findProp = function findProp(obj, prop, defval) {
 
   return obj;
 };
+/**
+ *
+ * @param o
+ * @param prop
+ * @param val
+ * @param retprop
+ * @returns {*}
+ */
+
 
 function findByPropVal(o, prop, val, retprop) {
   if (o == null) return false;
@@ -31,6 +53,13 @@ function findByPropVal(o, prop, val, retprop) {
 
   return retprop ? result[retprop] : result;
 }
+/**
+ *
+ * @param o
+ * @param prop
+ * @returns {*}
+ */
+
 
 function findByPropKey(o, prop) {
   if (o == null) return false;

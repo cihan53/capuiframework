@@ -12,11 +12,147 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and set to use loose mode. ' + 'To use proposal-class-properties in spec mode with decorators, wait for ' + 'the next major version of decorators in stage 2.'); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import { action, observable, toJS, values } from "mobx";
 import Utils from "../Utils/Utils";
 import Validator from "../Utils/Validator";
-import DataProxy from "../Data/DataProxy";
-let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_temp = function () {
+import DataProxy from "../Data/DataProxy"; // import lodash from "lodash";
+// Load the core build.
+// var lodash = require("lodash/core");
+
+/*
+rules = {
+    accepted       : {message: 'The :attribute must be accepted.',                              rule: (val) => val === true },
+    alpha          : {message: 'The :attribute may only contain letters.',                      rule: (val) => validator.helpers.testRegex(val,/^[A-Z]*$/i) },
+    alpha_num      : {message: 'The :attribute may only contain letters and numbers.',          rule: (val) => validator.helpers.testRegex(val,/^[A-Z0-9]*$/i) },
+    alpha_num_dash : {message: 'The :attribute may only contain letters, numbers, and dashes.', rule: (val) => validator.helpers.testRegex(val,/^[A-Z0-9_-.]*$/i) },
+    card_exp       : {message: 'The :attribute must be a valid expiration date.',               rule: (val) => validator.helpers.testRegex(val,/^(([0]?[1-9]{1})|([1]{1}[0-2]{1}))\s?\/\s?(\d{2}|\d{4})$/) },
+    card_num       : {message: 'The :attribute must be a valid credit card number.',            rule: (val) => validator.helpers.testRegex(val,/^\d{4}\s?\d{4,6}\s?\d{4,5}\s?\d{0,8}$/) },
+    email          : {message: 'The :attribute must be a valid email address.',                 rule: (val) => validator.helpers.testRegex(val,/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i) },
+    gt             : {message: 'The :attribute must be greater than :gt.',                      rule: (val, options) => validator.helpers.testRegex(val,/^\d+.?\d*$/) ? parseFloat(val) > parseFloat(options[0]) : false, messageReplace: (message, options) => message.replace(':gt', options[0]) },
+    gte            : {message: 'The :attribute must be greater than or equal to :gte.',         rule: (val, options) => validator.helpers.testRegex(val,/^\d+.?\d*$/) ? parseFloat(val) >= parseFloat(options[0]) : false, messageReplace: (message, options) => message.replace(':gte', options[0]) },
+    in             : {message: 'The selected :attribute must be :values.',                      rule: (val, options) => options.indexOf(val) > -1, messageReplace: (message, options) => message.replace(':values', this._toSentence(options)) },
+    integer        : {message: 'The :attribute must be an integer.',                            rule: (val) => validator.helpers.testRegex(val,/^\d+$/)},
+    lt             : {message: 'The :attribute must be less than :lt.',                         rule: (val, options) => validator.helpers.testRegex(val,/^\d+.?\d*$/) ? parseFloat(val) < parseFloat(options[0]) : false, messageReplace: (message, options) => message.replace(':lt', options[0]) },
+    lte            : {message: 'The :attribute must be less than or equal to :lte.',            rule: (val, options) => validator.helpers.testRegex(val,/^\d+.?\d*$/) ? parseFloat(val) <= parseFloat(options[0]) : false, messageReplace: (message, options) => message.replace(':lte', options[0]) },
+    max            : {message: 'The :attribute may not be greater than :max characters.',       rule: (val, options) => val.length <= options[0], messageReplace: (message, options) => message.replace(':max', options[0]) },
+    min            : {message: 'The :attribute must be at least :min characters.',              rule: (val, options) => val.length >= options[0], messageReplace: (message, options) => message.replace(':min', options[0]) },
+    not_in         : {message: 'The selected :attribute must not be :values.',                  rule: (val, options) => options.indexOf(val) === -1, messageReplace: (message, options) => message.replace(':values', this._toSentence(options)) },
+    numeric        : {message: 'The :attribute must be a number.',                              rule: (val) => validator.helpers.testRegex(val,/^\d+.?\d*$/)},
+    phone          : {message: 'The :attribute must be a valid phone number.',                  rule: (val) => validator.helpers.testRegex(val,/(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)/)},
+    required       : {message: 'The :attribute field is required.',                             rule: (val) => validator.helpers.testRegex(val,/.+/) },
+    url            : {message: 'The :attribute must be a url.',                                 rule: (val) => validator.helpers.testRegex(val,/^(https?|ftp):\/\/(-\.)?([^\s/?\.#-]+\.?)+(\/[^\s]*)?$/i) },
+    ...customRules,
+};
+*/
+
+let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_temp =
+/*#__PURE__*/
+function () {
+  /**
+   *
+   * @type {{baseParams: {page: number, size: number, dir: string, desc: string}}}
+   * @private
+   */
+
+  /**
+   *
+   * @type {{postMultiPart: (function(*, *=): *), postJson: (function(*, *=): *), post: _Request.post, get: (function(*, *=): *), del: (function(*): *), deadline: number, postForm: (function(*, *=): *), timeout: number, put: (function(*, *=): *)}}
+   */
+
+  /**
+   * Request parameters
+   * @type {{page: number, size: number, dir: string, desc: string}}
+   */
+
+  /**
+   *
+   * @type {Map<any, any>}
+   */
+
+  /**
+   * Primary key
+   * @url parameter
+   * @type {string}
+   */
+
+  /**
+   *
+   * @type {string}
+   * @private
+   */
+
+  /**
+   * Page size Limit
+   * @type {number}
+   */
+
+  /**
+   * Ajax Request Base URL
+   * @type {string}
+   */
+
+  /**
+   * Rest api action type
+   * @type {{get: string, read: string, save: string, update: string, delete: string}}
+   */
+
+  /**
+   * Ajax request status
+   * @type {{read: boolean, save: boolean, update: boolean, delete: boolean}}
+   */
+
+  /**
+   * Attributes validation rules
+   * @type {Array}
+   */
+
+  /**
+   * Attributes
+   * @type {Array}
+   */
+
+  /**
+   * Cache URL
+   */
+
+  /**
+   *
+   * @type {Map<any, any>}
+   * @private
+   */
+
+  /**
+   * Record TotalCount
+   * @type {number}
+   */
+
+  /**
+   * Aktif sayfa
+   * @type {number}
+   */
+
+  /**
+   * errors
+   */
+
+  /**
+   * isValid
+   */
+
+  /**
+   *
+   * @type {string}
+   * @private
+   */
+
+  /**
+   *
+   */
   function BaseStore() {
     _classCallCheck(this, BaseStore);
 
@@ -79,6 +215,10 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
     });
     this.init();
   }
+  /**
+   *
+   */
+
 
   _createClass(BaseStore, [{
     key: "init",
@@ -105,11 +245,22 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
     value: function addError(error) {
       this.ValidateErrors = Object.assign(this.ValidateErrors, error);
     }
+    /**
+     *
+     * @param key
+     * @param record
+     */
+
   }, {
     key: "addRecord",
     value: function addRecord(key, record) {
       this._data.set(key, record);
     }
+    /**
+     *
+     * @param key
+     */
+
   }, {
     key: "removeRecord",
     value: function removeRecord(key) {
@@ -120,6 +271,10 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
     value: function abort() {
       this._Request.abort();
     }
+    /**
+     *
+     */
+
   }, {
     key: "reset",
     value: function reset() {
@@ -140,6 +295,10 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
       };
       return this;
     }
+    /**
+     *
+     */
+
   }, {
     key: "clear",
     value: function clear() {
@@ -151,45 +310,95 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
       this.page = 0;
       this.totalCount = 0;
       this.currentPage = 0;
-      this.actionStatus.set("get", false).set("read", false).set("load", false).set("save", false).set("update", false).set("delete", false);
+      this.actionStatus.set("get", false).set("read", false).set("load", false).set("save", false).set("update", false).set("delete", false); //this.parameters = Object.assign({}, this._defaultConfig.baseParams);
+
       return this;
     }
+    /**
+     *
+     * @param dir
+     * @param sort
+     */
+
   }, {
     key: "setDefaultSortDir",
     value: function setDefaultSortDir(dir, sort = "ASC") {
       this._defaultConfig.baseParams.dir = dir;
       this._defaultConfig.baseParams.sort = sort;
     }
+    /**
+     * Base Request Parameters Set
+     * @param newParameters
+     */
+
   }, {
     key: "setParameters",
     value: function setParameters(newParameters = {}) {
       this._parameters = Object.assign(this.parameters, newParameters);
     }
+    /**
+     *
+     * @param action
+     * @param status
+     */
+
   }, {
     key: "getActionStatus",
     value: function getActionStatus(action) {
       this.actionStatus.get(action);
     }
+    /**
+     *
+     * @param action
+     * @param status
+     */
+
   }, {
     key: "setActionStatus",
     value: function setActionStatus(action, status) {
       this.actionStatus.set(action, status);
-    }
+    } //region data filter
+
+    /**
+     *
+     * @param id
+     * @returns {any | undefined}
+     */
+
   }, {
     key: "findById",
     value: function findById(id) {
       return this._data.get(id);
     }
+    /**
+     *
+     * @param id
+     * @returns {any | undefined}
+     */
+
   }, {
     key: "find",
     value: function find(id) {
       return this._data.get(id);
     }
+    /**
+     *
+     * @param id
+     * @returns {any | undefined}
+     */
+
   }, {
     key: "findByModel",
     value: function findByModel(id) {
       return this._model.get(id);
     }
+    /**
+     *
+     * @param key
+     * @param value
+     * @returns {*}
+     */
+
   }, {
     key: "findByField",
     value: function findByField(key, value) {
@@ -200,18 +409,41 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
       });
 
       return find;
-    }
+    } //regionend
+
+    /**
+     * load
+     */
+
   }, {
     key: "load",
     value: function load(params = {}) {
+      /**
+       * clear request data
+       */
       this.clear();
+      /**
+       *
+       * @type {boolean}
+       */
+
       this.setActionStatus("read", true);
       this.setActionStatus("load", true);
+      /**
+       * Run Ajax Request
+       */
 
       if (!Utils.isEmpty(params)) {
+        //filter parametresi json ceviriliyor.
         if (params.filter) params.filter = JSON.stringify(params.filter);
         this.setParameters(params);
-      }
+      } // console.debug("Store Base Params :", this.parameters);
+
+      /**
+       *
+       * @type {string}
+       */
+
 
       let url = this.baseUrl + this.Action.read + "?" + this.stringify(this.parameters);
       if (!this.cacheUrl) url = url + "&rnd=" + Math.random();
@@ -221,7 +453,8 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
             this.addRecord(app[this.primaryKey], app);
           });
           this.totalCount = res.totalCount;
-        } else {}
+        } else {//throw new Error("Data Error: Data");
+        }
 
         return res;
       })).catch(action(err => {
@@ -232,9 +465,18 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
         this.setActionStatus("load", false);
       }));
     }
+    /**
+     * get record detail
+     * @param primaryKeyValue
+     * @returns {*|Promise<any>|Promise<T>}
+     */
+
   }, {
     key: "get",
     value: function get(primaryKeyValue, primaryKey = this.primaryKey) {
+      /**
+       * Set action status
+       */
       this.actionStatus.get = true;
       let url = this.baseUrl + this.Action.get;
       let params = {};
@@ -245,7 +487,8 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
         } else {
           params[primaryKey] = primaryKeyValue;
         }
-      }
+      } // let url = primaryKeyValue != null ? this.baseUrl + this.Action.get + "?" + primaryKey + "=" + primaryKeyValue : this.baseUrl + this.Action.get;
+
 
       return this._Request.get(url, params).then(action(res => {
         this._model.set(primaryKeyValue, res);
@@ -258,9 +501,19 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
         this.actionStatus.get = false;
       }));
     }
+    /**
+     * Record Save
+     * @param params
+     * @param isNewRecord
+     * @returns {*|Promise<any>|Promise<T>}
+     */
+
   }, {
     key: "save",
     value: function save(params, isNewRecord = true, postType = "json") {
+      /**
+       * Set action status
+       */
       this.actionStatus.save = true;
       return this._Request.post(this.baseUrl + this.Action.save, params, postType).then(action(res => {
         return res;
@@ -268,12 +521,25 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
         this.ErrorText = err.response && err.response.body && err.response.body.errors;
         throw err;
       })).finally(action(() => {
+        /**
+         * Set action status
+         */
         this.actionStatus.save = true;
       }));
     }
+    /**
+     *  Record Update
+     * @param params
+     * @param isNewRecord
+     * @returns {*|Promise<any>|Promise<T>}
+     */
+
   }, {
     key: "update",
     value: function update(params, postType = "json") {
+      /**
+       * Set action status
+       */
       this.actionStatus.update_ = true;
       return this._Request.post(this.baseUrl + this.Action.update, params, postType).then(action(res => {
         return res;
@@ -281,12 +547,24 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
         this.ErrorText = err.response && err.response.body && err.response.body.errors;
         throw err;
       })).finally(action(() => {
+        /**
+         * Set action status
+         */
         this.actionStatus.update_ = false;
       }));
     }
+    /**
+     * Record Delete
+     * @param params
+     * @returns {*|Promise<any>|Promise<T>}
+     */
+
   }, {
     key: "delete",
     value: function _delete(params, postType = "formdata") {
+      /**
+       * Set action status
+       */
       this.actionStatus.delete = false;
       return this._Request.post(this.baseUrl + this.Action.delete, params, postType).then(action(res => {
         return res;
@@ -294,9 +572,18 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
         this.ErrorText = err.response && err.response.body && err.response.body.errors;
         throw err;
       })).finally(action(() => {
+        /**
+         * Set action status
+         */
         this.actionStatus.delete = true;
       }));
-    }
+    } //region validate
+
+    /**
+     * Record Validation
+     * Save and Update Data validate
+     */
+
   }, {
     key: "validate",
     value: function validate(data, scenario = this._scenario) {
@@ -304,6 +591,7 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
       this._validator.errorMessages = {};
       this.Rules.forEach(function (val) {
         if (val.scenario == scenario) {
+          // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
           this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {
             message: val.message
           });
@@ -312,13 +600,22 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
 
           this._validator.message(val.name, data[val.name] !== undefined ? data[val.name] : "", val.rule, {
             message: val.message
-          });
+          }); // this._validator.message(val.name, Utils.has(data, val.name) ? data[val.name] : "", val.rule, false, val.msg);
+
         }
       }.bind(this));
       this.ValidateErrors = this._validator.getErrorMessages();
       this._isValid = this._validator.allValid();
       return this._isValid;
-    }
+    } //endregion
+    //region util
+
+    /**
+     * object to urlParams
+     * @param obj
+     * @returns {string}
+     */
+
   }, {
     key: "stringify",
     value: function stringify(obj) {
@@ -335,7 +632,8 @@ let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_t
 
         return encodeURIComponent(key) + "=" + encodeURIComponent(val);
       }.bind(this)).join("&") : "";
-    }
+    } //region
+
   }, {
     key: "Request",
     get: function () {

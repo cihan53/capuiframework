@@ -14,9 +14,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 
-let ErrorBoundary = function (_React$Component) {
+let ErrorBoundary =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(ErrorBoundary, _React$Component);
 
   function ErrorBoundary(props) {
@@ -34,14 +41,17 @@ let ErrorBoundary = function (_React$Component) {
   _createClass(ErrorBoundary, [{
     key: "componentDidCatch",
     value: function componentDidCatch(error, info) {
+      // Display fallback UI
       this.setState({
         hasError: true
-      });
+      }); // You can also log the error to an error reporting service
+      // logErrorToMyService(error, info);
     }
   }, {
     key: "render",
     value: function render() {
       if (this.state.hasError) {
+        // You can render any custom fallback UI
         return React.createElement("h1", null, "I listened to your problems, now listen to mine: ", this.state.exception);
       }
 

@@ -24,9 +24,12 @@ import PropTypes from "prop-types";
 import { Card, CardHeader, CardTitle, CardBody, CardFooter } from "reactstrap";
 import Utils from "../Utils/Utils";
 
-let Panel = observer(_class = (_temp = _class2 = function (_React$Component) {
+let Panel = observer(_class = (_temp = _class2 =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(Panel, _React$Component);
 
+  // key= Utils.ShortId.generate();
   function Panel(props) {
     var _this;
 
@@ -37,11 +40,19 @@ let Panel = observer(_class = (_temp = _class2 = function (_React$Component) {
     _this.childRender = _this.childRender.bind(_assertThisInitialized(_this));
     return _this;
   }
+  /**
+   *
+   * @param items
+   * @returns {any}
+   */
+
 
   _createClass(Panel, [{
     key: "childRender",
     value: function childRender(items = []) {
       return Utils.isArray(items) ? items.map((E, i) => {
+        //CAP.Log(this.key,E,i)
+        //E.key = this.key + "-child-item-" + i;
         if (E.hasOwnProperty("xtype")) return Utils.createElement(E);
         if (typeof E.$$typeof == "symbol") return React.createElement(React.Fragment, {
           key: E.key
@@ -51,6 +62,12 @@ let Panel = observer(_class = (_temp = _class2 = function (_React$Component) {
         });
       }) : null;
     }
+    /**
+     *
+     * @param children
+     * @returns {*}
+     */
+
   }, {
     key: "render",
     value: function render(children = null) {
@@ -62,13 +79,37 @@ let Panel = observer(_class = (_temp = _class2 = function (_React$Component) {
 
       if (this.props.config.hasOwnProperty("header")) {
         header = this.props.config.header;
-      }
+      } //items var ise
+      // if (children == null && this.props.items && this.props.items.length > 0)
+      // children = this.props.items.map((e, i) => {
+      //     e.key = this.key + "-child-item-" + i;
+      //     if (e.hasOwnProperty("xtype"))
+      //         return Utils.createElement(e);
+      //     return e;
+      // });
+      //config içinde items var ise
+      // if (children == null &&  this.props.config && this.props.config.items && this.props.config.items.length > 0)
+      // children = this.props.config.items.map((E, i) => {
+      //     E.key = this.key + "-child-item-" + i;
+      //     if (E.hasOwnProperty("xtype"))
+      //         return Utils.createElement(E);
+      //
+      //     if ((typeof  E.$$typeof) == "symbol")
+      //         return <React.Fragment key={E.key}>{E}</React.Fragment>;
+      //
+      //     return <E key={this.key + "-child-item-" + i}/>;
+      // });
+
 
       let optionsHeader = this.props.options.optionsHeader || this.props.config.optionsHeader || {};
       let optionsTitle = this.props.options.optionsTitle || this.props.config.optionsTitle || {};
       let optionsBody = this.props.options.optionsBody || this.props.config.optionsBody || {};
-      let optionsFooter = this.props.options.optionsFooter || this.props.config.optionsFooter || {};
-      delete this.props.options.optionsBody;
+      let optionsFooter = this.props.options.optionsFooter || this.props.config.optionsFooter || {}; //
+      // delete this.props.options.optionsHeader;
+      // delete this.props.options.optionsTitle;
+
+      delete this.props.options.optionsBody; // delete this.props.options.optionsFooter;
+
       return React.createElement(Card, _extends({
         key: this.key + "-card"
       }, this.props.options), header ? React.createElement(CardHeader, _extends({
@@ -103,6 +144,7 @@ Panel.propTypes = {
   config: PropTypes.object.isRequired,
   title: PropTypes.any,
   header: PropTypes.any,
+  // children: PropTypes.element,
   items: PropTypes.array,
   options: PropTypes.any
 };

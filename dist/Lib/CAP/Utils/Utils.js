@@ -14,6 +14,13 @@ import Base64Encode from "./Base64Encode";
 const isDebug = process.env.PRODUCTION ? false : true;
 
 const queryString = require("query-string");
+/**
+ *
+ * @param obj
+ * @returns {String}
+ */
+// eslint-disable-next-line
+
 
 String.prototype.allReplace = function (obj) {
   var retStr = this;
@@ -24,6 +31,12 @@ String.prototype.allReplace = function (obj) {
 
   return retStr;
 };
+/**
+ * uWord
+ * @returns {string}
+ */
+// eslint-disable-next-line
+
 
 String.prototype.capitalizeFirstLetter = function () {
   return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();

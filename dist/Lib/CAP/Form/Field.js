@@ -24,7 +24,9 @@ import Utils from "../Utils/Utils";
 import Validator from "../Utils/Validator";
 import StoreManager from "../../StoreManager";
 
-let Field = observer(_class = (_temp = _class2 = function (_React$Component) {
+let Field = observer(_class = (_temp = _class2 =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(Field, _React$Component);
 
   function Field(props) {
@@ -135,6 +137,7 @@ let Field = observer(_class = (_temp = _class2 = function (_React$Component) {
   rule: null,
   addon: true,
   layout: "",
+  // inline | row,
   store: null,
   options: {
     validateClass: "danger",
@@ -146,5 +149,6 @@ let Field = observer(_class = (_temp = _class2 = function (_React$Component) {
 
 export { Field as default };
 Field.propTypes = {
-  options: PropTypes.any
+  options: PropTypes.any // inputName: PropTypes.string.required
+
 };

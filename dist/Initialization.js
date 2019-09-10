@@ -1,5 +1,10 @@
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 import { observer } from "mobx-react/index";
 import MobxReactForm from 'mobx-react-form';
@@ -31,7 +36,8 @@ import BreadCrumb from "./Lib/CAP/Utils/BreadCrumb";
 import CButton from "./Lib/CAP/Form/Button";
 import AlertPanel from "./Lib/CAP/Panel/AlertPanel";
 import DatePicker from "./Lib/CAP/Form/DatePicker";
-import BaseStore from "./Lib/CAP/Store/BaseStore";
+import BaseStore from "./Lib/CAP/Store/BaseStore"; // without this line it didn't work
+
 import { DataProxy } from "./Lib/CAP/Data/DataProxy";
 import View from "./View/View";
 import Mask from "./Lib/CAP/Utils/Mask";
@@ -75,6 +81,13 @@ const CAPFrameWork = e => {
     Panel: (props, options = {}) => React.createElement(Panel, _extends({}, props, {
       options: options
     })),
+
+    /**
+     *
+     * @param config
+     * @returns {*}
+     * @constructor
+     */
     Grid: React.forwardRef((config, ref) => {
       return React.createElement(Grid, {
         ref: ref,
@@ -83,6 +96,11 @@ const CAPFrameWork = e => {
         config: config
       });
     }),
+
+    /**
+     *
+     * @type {{Field: {}}}
+     */
     FormPanel: props => {
       return React.createElement(FormPanel, _extends({
         ref: props.ref || null
@@ -90,6 +108,7 @@ const CAPFrameWork = e => {
     },
     AlertPanel: AlertPanel,
     Form: {
+      // JsonSchemaEditor:  (props) => <JsonSchemaEditor {...props}/> ,
       JsonSchemaEditor: React.forwardRef((props, ref) => React.createElement(JsonSchemaEditor, _extends({
         ref: ref
       }, props))),

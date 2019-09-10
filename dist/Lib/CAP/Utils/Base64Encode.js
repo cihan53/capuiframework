@@ -1,3 +1,10 @@
+/*
+ *  Copyright (c) 2019. Crypttech Yazılım
+ *  Author: Cihan Öztürk
+ *  Email: cihanozturk@crypttech.com
+ *
+ *
+ */
 import { TextEncoder } from "text-encoding";
 
 const base64js = require("base64-js");

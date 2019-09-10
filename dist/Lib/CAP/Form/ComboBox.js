@@ -16,6 +16,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 import { observer } from "mobx-react/index";
 import PropTypes from "prop-types";
@@ -24,7 +29,9 @@ import Field from "./Field";
 import Utils from "../Utils/Utils";
 import StoreManager from "../../StoreManager";
 
-let ComboBox = observer(_class = (_temp = function (_Field) {
+let ComboBox = observer(_class = (_temp =
+/*#__PURE__*/
+function (_Field) {
   _inherits(ComboBox, _Field);
 
   function ComboBox(props) {
@@ -67,8 +74,8 @@ let ComboBox = observer(_class = (_temp = function (_Field) {
       }
     }
   }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "UNSAFE_componentWillMount",
+    value: function UNSAFE_componentWillMount() {
       const currentIndex = 0;
       if (this.store && this.autoload) this.store.load({
         page: 0,
@@ -76,6 +83,11 @@ let ComboBox = observer(_class = (_temp = function (_Field) {
         size: this.limit
       });
     }
+    /**
+     *
+     * @param event
+     */
+
   }, {
     key: "onChange",
     value: function onChange(event) {
@@ -87,6 +99,12 @@ let ComboBox = observer(_class = (_temp = function (_Field) {
         throw Utils.Translate("Tanımlanmamış alan adı");
       }
     }
+    /**
+     *
+     * @param data
+     * @returns {*}
+     */
+
   }, {
     key: "generateItems",
     value: function generateItems(data) {
@@ -117,7 +135,8 @@ let ComboBox = observer(_class = (_temp = function (_Field) {
       if (config.allowBlank) {
         valid = false;
         invalid = false;
-      }
+      } // let allowedProps =["defaultValue","valid","invalid","type","name","id","placeholder"];
+
 
       let input = null;
       let optionItems = this.generateItems(this.store ? this.store.data : config.items);
@@ -173,5 +192,6 @@ Field.propTypes = {
   valueField: PropTypes.any,
   displayField: PropTypes.any,
   inputName: PropTypes.string.required,
-  options: PropTypes.any
+  options: PropTypes.any // data: PropTypes.any.required,
+
 };

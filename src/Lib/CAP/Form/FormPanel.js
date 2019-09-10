@@ -123,7 +123,7 @@ export default class FormPanel extends React.Component{
         });
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.createItems();
     }
 

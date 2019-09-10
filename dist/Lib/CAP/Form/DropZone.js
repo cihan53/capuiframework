@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Utils from "../Utils/Utils";
@@ -5,9 +10,11 @@ import Utils from "../Utils/Utils";
 function Dropzone(props) {
   let _acceptedFiles = props.acceptedFiles || null;
 
-  const maxSize = 1048576 * 100;
+  const maxSize = 1048576 * 100; //100MB
+
   const maxFiles = 5;
   const onDrop = useCallback(acceptedFiles => {
+    // Do something with the files
     _acceptedFiles = null;
     props.onDrop(acceptedFiles);
   }, []);
@@ -17,17 +24,25 @@ function Dropzone(props) {
     open,
     acceptedFiles
   } = useDropzone({
+    // Disable click and keydown behavior
     onDrop,
     minSize: 0,
     maxSize: maxSize,
     maxFiles: maxFiles,
     noClick: true,
-    noKeyboard: true
+    noKeyboard: true //accept:"application/zip, application/x-bzip, application/x-bzip2"
+
   });
 
   const files = (_acceptedFiles || acceptedFiles).map(file => React.createElement("li", {
     key: file.path
   }, file.path, " - ", file.size, " bytes"));
+  /**
+   * seçilen dosya listesi
+   * @param files
+   * @returns {*}
+   */
+
 
   const fileList = files => {
     return React.createElement("aside", null, React.createElement("h4", null, Utils.Translate('Seçilen dosyalar')), React.createElement("ul", null, files));
@@ -41,7 +56,8 @@ function Dropzone(props) {
     type: "button",
     onClick: open
   }, " ", props.dialogbuttontext, " ")), fileList(files));
-}
+} // Set default props
+
 
 Dropzone.defaultProps = {
   dragtext: Utils.Translate('Bir veya birden fazla dosya sürükleyip bırakın'),

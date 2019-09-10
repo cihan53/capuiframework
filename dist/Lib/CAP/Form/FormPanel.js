@@ -26,9 +26,12 @@ import { Button, Form } from "reactstrap";
 import Validator from "../Utils/Validator";
 import { Xtypes } from "../../../Initialization";
 
-let FormPanel = observer(_class = (_temp = _class2 = function (_React$Component) {
+let FormPanel = observer(_class = (_temp = _class2 =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(FormPanel, _React$Component);
 
+  // key= Utils.ShortId.generate();
   function FormPanel(props) {
     var _this;
 
@@ -63,6 +66,10 @@ let FormPanel = observer(_class = (_temp = _class2 = function (_React$Component)
       let values = this.getValues();
       this.props.onSubmit(values, this);
     }
+    /**
+     *
+     */
+
   }, {
     key: "isValid",
     value: function isValid() {
@@ -84,6 +91,10 @@ let FormPanel = observer(_class = (_temp = _class2 = function (_React$Component)
         message: val.message
       });
     }
+    /**
+     * form values
+     */
+
   }, {
     key: "getValues",
     value: function getValues() {
@@ -101,6 +112,10 @@ let FormPanel = observer(_class = (_temp = _class2 = function (_React$Component)
 
       return values;
     }
+    /**
+     *
+     */
+
   }, {
     key: "createItems",
     value: function createItems() {
@@ -111,21 +126,25 @@ let FormPanel = observer(_class = (_temp = _class2 = function (_React$Component)
         e.layout = this.props.layout || null;
 
         if (e.hasOwnProperty("xtype")) {
+          //return Utils.CreateComponent(e);
           const Cp = observer(message => {
             const Container = Xtypes[e.xtype];
             return React.createElement(Container, message);
-          });
+          }); // const Cp = Observer(Xtypes[e.xtype]);
+
           return React.createElement(Cp, {
             p: e
           });
         } else {
           return Utils.createElement(e);
-        }
+        } // return Utils.CreateComponent(e);
+        // return e;
+
       });
     }
   }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "UNSAFE_componentWillMount",
+    value: function UNSAFE_componentWillMount() {
       this.createItems();
     }
   }, {

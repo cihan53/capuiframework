@@ -14,10 +14,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 import { Button } from "reactstrap";
 
-let CButton = function (_React$Component) {
+let CButton =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(CButton, _React$Component);
 
   function CButton() {

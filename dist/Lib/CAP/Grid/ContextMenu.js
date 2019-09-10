@@ -17,7 +17,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 import React from "react";
 import Utils from "../Utils/Utils";
 
-let ContextMenu = function (_React$Component) {
+let ContextMenu =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(ContextMenu, _React$Component);
 
   function ContextMenu(...args) {
@@ -90,6 +92,7 @@ let ContextMenu = function (_React$Component) {
     };
 
     _this.show = (event, field, data) => {
+      //this.setState({visible:visible});
       _this._handleContextMenu(event, field, data);
     };
 
@@ -99,6 +102,7 @@ let ContextMenu = function (_React$Component) {
   _createClass(ContextMenu, [{
     key: "UNSAFE_componentDidMount",
     value: function UNSAFE_componentDidMount() {
+      // document.addEventListener("contextmenu", this._handleContextMenu);
       if (document.getElementById(this.props.container)) {
         document.getElementById(this.props.container).addEventListener("click", this._handleClick);
         document.getElementById(this.props.container).addEventListener("scroll", this._handleScroll);
@@ -115,6 +119,7 @@ let ContextMenu = function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
+      // document.removeEventListener("contextmenu", this._handleContextMenu);
       if (document.getElementById(this.props.container)) {
         document.getElementById(this.props.container).removeEventListener("click", this._handleClick);
         document.getElementById(this.props.container).removeEventListener("scroll", this._handleScroll);

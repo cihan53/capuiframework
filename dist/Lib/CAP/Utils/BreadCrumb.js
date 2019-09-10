@@ -16,6 +16,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 import { observer } from "mobx-react/index";
 import PropTypes from "prop-types";
@@ -23,7 +28,9 @@ import { AppBreadcrumb } from "@coreui/react";
 import Utils from "./Utils";
 import Field from "../Form/Field";
 
-let BreadCrumb = observer(_class = (_temp = function (_React$Component) {
+let BreadCrumb = observer(_class = (_temp =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(BreadCrumb, _React$Component);
 
   function BreadCrumb(props) {

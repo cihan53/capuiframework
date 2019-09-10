@@ -4,11 +4,19 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+/**
+ * Module dependencies.
+ */
 import superagentPromise from "superagent-promise";
 import _superagent from "superagent";
 const superagent = superagentPromise(_superagent, global.Promise);
+/**
+ * Extends the built-in dependency.
+ */
 
-let Ajax = function () {
+let Ajax =
+/*#__PURE__*/
+function () {
   function Ajax() {
     _classCallCheck(this, Ajax);
 

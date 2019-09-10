@@ -130,7 +130,7 @@ export default class CapController extends React.Component {
         super(props);
         this.init();
 
-        this.renderView =this.renderView.bind(this);
+        this.renderView = this.renderView.bind(this);
     }
 
 
@@ -397,7 +397,6 @@ export default class CapController extends React.Component {
 
             Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
 
-            console.log(this)
             return (<View {...data} {...this.props} Controller={this}/>);
         } else {
             return <Spinner/>;
@@ -600,9 +599,12 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    toUrl = (actionName, params = {}) => {
+    toUrl(actionName, params = {}) {
         return window.location = this.createUrl(actionName, params);
     }
+
+
+
 
 
     /**
@@ -611,7 +613,7 @@ export default class CapController extends React.Component {
      * @param params
      * @returns {*}
      */
-    toChange = (actionName, params = {}) => {
+    toChange(actionName, params = {}) {
         return this.props.history.push(this.createUrl(actionName, params, false));
     }
 }

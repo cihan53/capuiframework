@@ -16,12 +16,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import { observer } from "mobx-react/index";
 import { withRouter } from "react-router-dom";
 import CapController from "../Lib/CapController";
 import StoreManager from "../Lib/StoreManager";
 
-let DefaultController = withRouter(_class = observer(_class = function (_CapController) {
+let DefaultController = withRouter(_class = observer(_class =
+/*#__PURE__*/
+function (_CapController) {
   _inherits(DefaultController, _CapController);
 
   function DefaultController() {
@@ -32,6 +39,11 @@ let DefaultController = withRouter(_class = observer(_class = function (_CapCont
 
   _createClass(DefaultController, [{
     key: "actionIndex",
+
+    /**
+     *
+     * @returns {*}
+     */
     value: function actionIndex() {
       if (!StoreManager.get('AuthStore').isLogin()) {
         window.location = "/#/login";
@@ -40,6 +52,11 @@ let DefaultController = withRouter(_class = observer(_class = function (_CapCont
 
       return this.renderView("Index");
     }
+    /**
+     *
+     * @returns {*}
+     */
+
   }, {
     key: "actionLogin",
     value: function actionLogin() {

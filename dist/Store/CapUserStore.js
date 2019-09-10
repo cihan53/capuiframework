@@ -18,9 +18,19 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
 
+/*
+ *  Copyright (c) 2019. Crypttech Yazılım
+ *  Author: Cihan Öztürk
+ *  Email: cihanozturk@crypttech.com
+ *
+ *
+ */
 import { action, computed } from "mobx";
-import BaseStore from "../Lib/CAP/Store/BaseStore";
-let CapUserStore = (_class = function (_BaseStore) {
+import BaseStore from "../Lib/CAP/Store/BaseStore"; // import Request from "../Lib/Request";
+
+let CapUserStore = (_class =
+/*#__PURE__*/
+function (_BaseStore) {
   _inherits(CapUserStore, _BaseStore);
 
   function CapUserStore() {

@@ -16,7 +16,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 import DataProxy from "./DataProxy";
 
-let WebStocket = function (_DataProxy) {
+let WebStocket =
+/*#__PURE__*/
+function (_DataProxy) {
   _inherits(WebStocket, _DataProxy);
 
   function WebStocket() {
@@ -33,7 +35,9 @@ let WebStocket = function (_DataProxy) {
       if (global.localStorage) {
         try {
           ls = JSON.parse(global.localStorage.getItem(db)) || {};
-        } catch (e) {}
+        } catch (e) {
+          /*Ignore*/
+        }
       }
 
       return ls[key];
@@ -46,7 +50,9 @@ let WebStocket = function (_DataProxy) {
       if (global.localStorage) {
         try {
           ls = JSON.parse(global.localStorage.getItem(key)) || {};
-        } catch (e) {}
+        } catch (e) {
+          /*Ignore*/
+        }
       }
 
       return ls;

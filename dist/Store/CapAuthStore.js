@@ -22,11 +22,20 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and set to use loose mode. ' + 'To use proposal-class-properties in spec mode with decorators, wait for ' + 'the next major version of decorators in stage 2.'); }
 
+/*
+ *  Copyright (c) 2019. Crypttech Yazılım
+ *  Author: Cihan Öztürk
+ *  Email: cihanozturk@crypttech.com
+ *
+ *
+ */
 import { action, observable, reaction } from "mobx";
 import Utils from "../Lib/CAP/Utils/Utils";
 import BaseStore from "../Lib/CAP/Store/BaseStore";
 import { Logger } from "../index";
-export let CapAuthStore = (_class = (_temp = function (_BaseStore) {
+export let CapAuthStore = (_class = (_temp =
+/*#__PURE__*/
+function (_BaseStore) {
   _inherits(CapAuthStore, _BaseStore);
 
   function CapAuthStore(props) {

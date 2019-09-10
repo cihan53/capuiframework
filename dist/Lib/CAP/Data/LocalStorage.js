@@ -4,7 +4,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-let LocalStorage = function () {
+let LocalStorage =
+/*#__PURE__*/
+function () {
   function LocalStorage() {
     _classCallCheck(this, LocalStorage);
   }
@@ -17,7 +19,9 @@ let LocalStorage = function () {
       if (global.localStorage) {
         try {
           ls = JSON.parse(global.localStorage.getItem(db)) || {};
-        } catch (e) {}
+        } catch (e) {
+          /*Ignore*/
+        }
       }
 
       return ls[key];
@@ -30,7 +34,9 @@ let LocalStorage = function () {
       if (global.localStorage) {
         try {
           ls = JSON.parse(global.localStorage.getItem(key)) || {};
-        } catch (e) {}
+        } catch (e) {
+          /*Ignore*/
+        }
       }
 
       return ls;

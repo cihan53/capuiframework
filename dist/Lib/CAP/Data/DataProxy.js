@@ -1,5 +1,10 @@
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import Ajax from "./Ajax";
 import LocalStorage from "./LocalStorage";
 import ElasticSql from "./ElasticSql";

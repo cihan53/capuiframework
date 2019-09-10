@@ -23,7 +23,9 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import Utils from "../Utils/Utils";
 
-let DatePicker = function (_Field) {
+let DatePicker =
+/*#__PURE__*/
+function (_Field) {
   _inherits(DatePicker, _Field);
 
   function DatePicker() {

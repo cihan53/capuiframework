@@ -12,11 +12,20 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
 
 function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and set to use loose mode. ' + 'To use proposal-class-properties in spec mode with decorators, wait for ' + 'the next major version of decorators in stage 2.'); }
 
+/*
+ *  Copyright (c) 2019. Crypttech Yazılım
+ *  Author: Cihan Öztürk
+ *  Email: cihanozturk@crypttech.com
+ *
+ *
+ */
 import { action, observable, toJS } from "mobx";
 import Ajax from "./Ajax";
 import Utils from "../Utils/Utils";
 import DataProxy from "./DataProxy";
-let ElasticSql = (_class = (_temp = function () {
+let ElasticSql = (_class = (_temp =
+/*#__PURE__*/
+function () {
   function ElasticSql() {
     _classCallCheck(this, ElasticSql);
 
@@ -65,7 +74,8 @@ let ElasticSql = (_class = (_temp = function () {
 
     this._type = 'elasticsql';
     this.dataProxy = new DataProxy();
-    this.Ajax = this.dataProxy.createProxy('ajax');
+    this.Ajax = this.dataProxy.createProxy('ajax'); // this.oldEnd = superagent.prototype.end;
+
     this.init = this.init.bind(this);
   }
 
@@ -99,6 +109,7 @@ let ElasticSql = (_class = (_temp = function () {
   }, {
     key: "addWhere",
     value: function addWhere(where) {
+      // this._where += where;
       return this;
     }
   }, {
@@ -153,13 +164,16 @@ let ElasticSql = (_class = (_temp = function () {
     key: "conditions",
     value: function conditions(param, logic = "and") {
       if (Utils.isArray(param)) {
+        /**
+         * Eğer arary ise bütün itemları gez
+         */
         for (let index in param) {
-          let item = param[index];
+          let item = param[index]; //eğer item string ise
 
           if (Utils.isString(item)) {
             this._whereText += " " + logic + " " + item;
           } else {
-            let operator = "=";
+            let operator = "="; //Alt query var ise
 
             if (item["type"]) {
               if (item["type"] == "subset") {
@@ -174,7 +188,8 @@ let ElasticSql = (_class = (_temp = function () {
                   }
                 }
               }
-            }
+            } //operator var ise
+
 
             if (item["operator"]) {
               operator = item["operator"];
@@ -188,6 +203,11 @@ let ElasticSql = (_class = (_temp = function () {
           }
         }
       } else if (Utils.isString(param) && !CAP.Utils.isEmpty(param)) {
+        /**
+         * string bir değer var ise param içinde
+         * @type {string}
+         * @private
+         */
         this._whereText += " " + logic + " " + param;
       }
     }
@@ -201,12 +221,14 @@ let ElasticSql = (_class = (_temp = function () {
 
       this._joins.forEach(item => {
         this._sqlText += " " + item["type"] + " join " + item["table"] + " on " + item["on"].join(" and ");
-      });
+      }); //where block
+
 
       if (this._where != "") {
         this.conditions(this._where);
         this._sqlText += " where 1=1 " + this._whereText;
-      }
+      } //groupBy block
+
 
       if (this._groupBy) {
         let groupStr = " group by ";
@@ -217,7 +239,8 @@ let ElasticSql = (_class = (_temp = function () {
 
         groupStr = groupStr.substr(0, groupStr.length - 1);
         this._sqlText += groupStr;
-      }
+      } //orderBy block
+
 
       if (this._orderBy) {
         if (!Utils.isArray(this._orderBy)) {
@@ -232,7 +255,8 @@ let ElasticSql = (_class = (_temp = function () {
 
         orderStr = orderStr.substr(0, orderStr.length - 1);
         this._sqlText += orderStr;
-      }
+      } // limits
+
 
       if (this._limit) {
         this._sqlText += " limit " + this._limit["start"] + "," + this._limit["limit"];
@@ -273,12 +297,34 @@ let ElasticSql = (_class = (_temp = function () {
         this.isRunning = false;
       });
     }
+    /**
+     * get table schema
+     */
+
   }, {
     key: "schema",
     value: function schema() {
       let sql = "show " + this.table + "/_doc/_mapping";
       return this.execute(sql).then(e => this._maps = e);
     }
+    /**
+     * Show commands is just a wrapper for the mapping request.
+     But using it on the web interface give you information about what are the indices in your cluster, which types they contains and what is the mapping for each type.
+     The supported Commands:
+     1.Show * - shows all indices on cluster
+     on _sql?sql=show * you'll get all the mapping for all indices
+     on web interface you'll get a table of index to types image
+       2.Show myIndex - shows a specific index
+     on _sql?sql=show myIndex you'll get the mapping for this specific index
+     on web interface you'll get a table of type to fields for this specific index image
+       3.Show myIndex/myType - shows a specific type
+     on _sql?sql=show myIndex/myType you'll get the mapping for this specific type
+     on web interface you'll get a table of fields to mappings for this specific type
+     *
+     * @param index
+     * @returns {*}
+     */
+
   }, {
     key: "show",
     value: function show(index = null) {
@@ -301,6 +347,10 @@ let ElasticSql = (_class = (_temp = function () {
     set: function (value) {
       this._baseUrl = value;
     }
+    /**
+     * işlemi kes
+     */
+
   }, {
     key: "table",
     get: function () {

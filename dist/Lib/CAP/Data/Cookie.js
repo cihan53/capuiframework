@@ -16,7 +16,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 import DataProxy from "./DataProxy";
 
-let Cookie = function (_DataProxy) {
+let Cookie =
+/*#__PURE__*/
+function (_DataProxy) {
   _inherits(Cookie, _DataProxy);
 
   function Cookie() {
@@ -33,7 +35,9 @@ let Cookie = function (_DataProxy) {
       if (global.localStorage) {
         try {
           ls = JSON.parse(global.localStorage.getItem(db)) || {};
-        } catch (e) {}
+        } catch (e) {
+          /*Ignore*/
+        }
       }
 
       return ls[key];
@@ -46,7 +50,9 @@ let Cookie = function (_DataProxy) {
       if (global.localStorage) {
         try {
           ls = JSON.parse(global.localStorage.getItem(key)) || {};
-        } catch (e) {}
+        } catch (e) {
+          /*Ignore*/
+        }
       }
 
       return ls;

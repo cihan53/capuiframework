@@ -14,9 +14,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 
-let View = function (_React$Component) {
+let View =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(View, _React$Component);
 
   function View(props) {
@@ -42,9 +49,19 @@ let View = function (_React$Component) {
 
   _createClass(View, [{
     key: "view",
+
+    /**
+     * Public Method
+     * @returns {*}
+     */
     value: function view() {
       return React.createElement("p", null, "View/Path");
     }
+    /**
+     * Procted Method
+     * @returns {*}
+     */
+
   }, {
     key: "render",
     value: function render() {

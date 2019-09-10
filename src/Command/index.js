@@ -129,7 +129,7 @@ switch (command.toLocaleLowerCase()) {
       "        }\n" +
       "    }\n" +
       "\n" +
-      "    componentWillMount() {\n" +
+      "     UNSAFE_componentWillMount() {\n" +
       "\n" +
       "\n" +
       "    }\n" +

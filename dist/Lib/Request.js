@@ -1,3 +1,10 @@
+/*
+ *  Copyright (c) 2019. Crypttech Yazılım
+ *  Author: Cihan Öztürk
+ *  Email: cihanozturk@crypttech.com
+ *
+ *
+ */
 import superagentPromise from "superagent-promise";
 import _superagent from "superagent";
 import { TextEncoder } from "text-encoding";
@@ -11,8 +18,16 @@ function Base64Encode(str, encoding = "utf-8") {
   var bytes = new TextEncoder(encoding).encode(str);
   return base64js.fromByteArray(bytes);
 }
+/**
+ *
+ * @param err
+ * @returns {*}
+ */
+
 
 const handleErrors = (err, res) => {
+  // console.debug("Request Result",res )
+  // console.debug("Request Error", err )
   let errorText = "";
   let errorStatus = null;
 
@@ -40,16 +55,27 @@ const handleErrors = (err, res) => {
 
     if (res.error.url.indexOf("/securityService/") != -1) {
       AuthStore.logout().then(() => {
-        window.location = "/#/login";
+        window.location = "/#/login"; //window.location.reload();
       });
     }
   }
+  /**
+   * Yetkisiz giriş hatası
+   */
 
-  if (res && res.status != 200 && (res && res.status === 401 || err && err.status == 401)) {
+
+  if (res && res.status != 200 && ( //status 200 değil se
+  res && res.status === 401 || //response dönmüş ve kodu 401 ise
+  err && err.status == 401 //bir hata dönmüş ve kodu 401 ise
+  )) {
     AuthStore.logout().then(() => {
-      window.location = "/#/login";
+      window.location = "/#/login"; //window.location.reload();
     });
   }
+  /**
+   * Endpoint bulunamadı
+   */
+
 
   if (res && res.status === 404) {
     Utils.Alert({
@@ -60,6 +86,10 @@ const handleErrors = (err, res) => {
       autoDismiss: 5
     });
   }
+  /**
+   * Servis tarafında bir hata oluştur
+   */
+
 
   if (errorStatus == null && res && res.status === 500) {
     Utils.Alert({
@@ -72,6 +102,10 @@ const handleErrors = (err, res) => {
       autoDismiss: 5
     });
   }
+  /**
+   * İstek sırasında bir hata oluştu
+   */
+
 
   if (err) {
     Utils.Alert({
@@ -106,16 +140,28 @@ const handleErrors = (err, res) => {
 
   return err;
 };
+/**
+ *
+ * @param res
+ * @returns {*}
+ */
+
 
 const responseBody = res => {
   return res.body;
 };
+/**
+ *
+ * @param req
+ */
+
 
 const tokenPlugin = req => {
   req.set("Access-Control-Allow-Origin", "*");
 
   if (window.localStorage.getItem("accessToken")) {
-    var basic = Base64Encode(window.localStorage.getItem("accessToken") + ":");
+    var basic = Base64Encode(window.localStorage.getItem("accessToken") + ":"); //req.set('authorization', `Token ${CommonStore.token}`);
+
     req.set("Authorization", `Basic ${basic}`);
   }
 };
@@ -170,8 +216,10 @@ const Request = {
       } else {
         r.field(key, body[key]);
       }
-    });
-    r.retry(0);
+    }); //r.withCredentials();
+
+    r.retry(0); // or:
+
     r.use(tokenPlugin);
     r.on("error", handleErrors);
     return r.then(responseBody);

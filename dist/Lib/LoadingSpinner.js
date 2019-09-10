@@ -14,13 +14,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 import { Card, CardBody } from "reactstrap";
 import ProgressBar from "react-progress-bar-plus";
 
 var Spinner = require('react-spinkit');
 
-let LoadingSpinner = function (_React$Component) {
+let LoadingSpinner =
+/*#__PURE__*/
+function (_React$Component) {
   _inherits(LoadingSpinner, _React$Component);
 
   function LoadingSpinner(...args) {
