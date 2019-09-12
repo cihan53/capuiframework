@@ -50,7 +50,7 @@ function (_React$Component) {
         form: _this.props.name
       }, React.createElement("i", {
         className: "fa fa-dot-circle-o"
-      }), " ", Utils.Translate("Save"))];
+      }), " ", Utils.__t("Save"))];
     }
 
     _this.formRef = React.createRef();
@@ -119,7 +119,7 @@ function (_React$Component) {
   }, {
     key: "createItems",
     value: function createItems() {
-      this.children = this.props.items.map((e, i) => {
+      this.children = this.props.children || this.props.items.map((e, i) => {
         e.id = this.props.name + "-child-item-" + i;
         e.key = this.key + "-child-item-" + i;
         e.store = this.props.store || null;
@@ -150,19 +150,17 @@ function (_React$Component) {
   }, {
     key: "_renderItem",
     value: function _renderItem() {
-      const _Panel = new Panel(this.props);
-
-      return _Panel.render(this.children);
+      return React.createElement(Panel, this.props, this.children);
     }
   }, {
     key: "render",
     value: function render() {
-      return React.createElement(Form, {
+      return React.createElement(Panel, this.props, React.createElement(Form, {
         ref: this.formRef,
         id: this.props.name,
         name: this.props.name,
         onSubmit: e => this.submit(e)
-      }, this._renderItem());
+      }, this.children));
     }
   }]);
 

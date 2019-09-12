@@ -169,7 +169,7 @@ const Xtypes = {
   xformpanel: CAPFrameWork().FormPanel,
   xform: CAPFrameWork().Form,
   xjsoneditor: CAPFrameWork().Form.JsonSchemaEditor,
-  xfield: Field,
+  xfield: CAPFrameWork().Form.Field.Field,
   xnumberfield: CAPFrameWork().Form.Field.Number,
   xradiofield: CAPFrameWork().Form.Field.Radio,
   xcheckboxfield: CAPFrameWork().Form.Field.Checkbox,

@@ -1,5 +1,3 @@
-var _class, _class2, _temp;
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -24,7 +22,7 @@ import Utils from "../Utils/Utils";
 import Validator from "../Utils/Validator";
 import StoreManager from "../../StoreManager";
 
-let Field = observer(_class = (_temp = _class2 =
+let Field =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(Field, _React$Component);
@@ -42,8 +40,10 @@ function (_React$Component) {
     _this.isValid = _this.isValid.bind(_assertThisInitialized(_this));
     _this.rule = [];
     _this.valid = null;
-    _this.invalid = false;
-    _this.store = StoreManager.get('ModuleAdminStore');
+    _this.invalid = false; //TODO burası güncellenecek
+
+    _this.store = null; // StoreManager.get('ModuleAdminStore')
+
     let config = _this.props;
 
     if (!config.allowBlank) {
@@ -54,7 +54,6 @@ function (_React$Component) {
       _this.rule = Utils.concat(_this.rule, _this.props.rule.split("|"));
     }
 
-    setInterval(10000, _this.plus);
     return _this;
   }
 
@@ -62,12 +61,11 @@ function (_React$Component) {
     key: "isValid",
     value: function isValid(inputname) {
       return Validator.fieldValid(inputname);
-    }
-  }, {
-    key: "plus",
-    value: function plus() {
-      StoreManager.get("NotifyStore").count = StoreManager.get("NotifyStore").count + 1;
-    }
+    } // plus() {
+    //
+    //     StoreManager.get("NotifyStore").count = StoreManager.get("NotifyStore").count + 1;
+    // }
+
   }, {
     key: "onChange",
     value: function onChange(event) {
@@ -76,7 +74,7 @@ function (_React$Component) {
           this.store.setAttr(event.target.name, event.target.value);
         }
       } else {
-        throw Utils.Translate("Tanımlanmamış alan adı");
+        throw Utils.__t("Tanımlanmamış alan adı");
       }
     }
   }, {
@@ -92,7 +90,7 @@ function (_React$Component) {
           defaultValue: config.defaultValue,
           valid: this.valid,
           invalid: this.invalid,
-          type: config.options.type,
+          type: config.options.type || config.type,
           default: true,
           name: config.inputName,
           id: config.id,
@@ -102,7 +100,7 @@ function (_React$Component) {
         input = React.createElement(Input, {
           valid: this.valid,
           invalid: this.invalid,
-          type: config.options.type,
+          type: config.options.type || config.type,
           default: true,
           name: config.inputName,
           id: config.id,
@@ -127,7 +125,9 @@ function (_React$Component) {
   }]);
 
   return Field;
-}(React.Component), _class2.defaultProps = {
+}(React.Component);
+
+Field.defaultProps = {
   id: Utils.ShortId.generate(),
   inputName: "",
   label: "",
@@ -136,7 +136,7 @@ function (_React$Component) {
   allowBlank: true,
   rule: null,
   addon: true,
-  layout: "",
+  layout: "row",
   // inline | row,
   store: null,
   options: {
@@ -145,10 +145,11 @@ function (_React$Component) {
     labelCol: "2",
     type: "input"
   }
-}, _temp)) || _class;
-
+};
 export { Field as default };
 Field.propTypes = {
-  options: PropTypes.any // inputName: PropTypes.string.required
+  options: PropTypes.any,
+  layout: PropTypes.string,
+  inputName: PropTypes.string.Required // inputName: PropTypes.string.required
 
 };

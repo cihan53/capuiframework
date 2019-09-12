@@ -11,7 +11,7 @@ import {Xtypes} from "../../../Initialization";
 
 
 @observer
-export default class FormPanel extends React.Component{
+export default class FormPanel extends React.Component {
 
     // key= Utils.ShortId.generate();
     static defaultProps = {
@@ -43,7 +43,8 @@ export default class FormPanel extends React.Component{
 
         if (Utils.isEmpty(this.props.config.footer)) {
             this.props.config.footer = [
-                <Button type={"submit"} key={this.key + "-save-btn"} form={this.props.name}><i className="fa fa-dot-circle-o"/> {Utils.Translate("Save")}</Button>
+                <Button type={"submit"} key={this.key + "-save-btn"} form={this.props.name}><i
+                    className="fa fa-dot-circle-o"/> {Utils.__t("Save")}</Button>
             ];
         }
 
@@ -100,7 +101,7 @@ export default class FormPanel extends React.Component{
      *
      */
     createItems() {
-        this.children = this.props.items.map((e, i) => {
+        this.children = this.props.children || this.props.items.map((e, i) => {
             e.id = this.props.name + "-child-item-" + i;
             e.key = this.key + "-child-item-" + i;
             e.store = this.props.store || null;
@@ -120,24 +121,26 @@ export default class FormPanel extends React.Component{
             }
             // return Utils.CreateComponent(e);
             // return e;
-        });
+        }) ;
     }
 
     UNSAFE_componentWillMount() {
-        this.createItems();
+          this.createItems();
     }
 
-    _renderItem(){
-        const _Panel = new Panel(this.props);
-        return _Panel.render(this.children);
+    _renderItem() {
+        return <Panel {...this.props}>{this.children}</Panel>
     }
 
     render() {
 
+        return <Panel {...this.props}>
+            <Form ref={this.formRef} id={this.props.name} name={this.props.name} onSubmit={e => this.submit(e)}>
+                {this.children}
+            </Form>
+        </Panel>
 
-        return <Form ref={this.formRef} id={this.props.name} name={this.props.name} onSubmit={e => this.submit(e)}>
-            {this._renderItem()}
-        </Form>;
+
     }
 
 }
