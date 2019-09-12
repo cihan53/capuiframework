@@ -77,11 +77,7 @@ function (_Field) {
     key: "UNSAFE_componentWillMount",
     value: function UNSAFE_componentWillMount() {
       const currentIndex = 0;
-      if (this.store && this.autoload) this.store.load({
-        page: 0,
-        start: currentIndex,
-        size: this.limit
-      });
+      if (this.store && this.autoload) this.store.load();
     }
     /**
      *
@@ -188,10 +184,10 @@ function (_Field) {
 }(Field), _temp)) || _class;
 
 export { ComboBox as default };
-Field.propTypes = {
-  valueField: PropTypes.any,
-  displayField: PropTypes.any,
-  inputName: PropTypes.string.required,
+ComboBox.propTypes = {
+  valueField: PropTypes.string.isRequired,
+  displayField: PropTypes.string.isRequired,
+  inputName: PropTypes.string.isRequired,
   options: PropTypes.any // data: PropTypes.any.required,
 
 };

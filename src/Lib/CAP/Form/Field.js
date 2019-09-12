@@ -6,7 +6,6 @@ import Utils from "../Utils/Utils";
 import Validator from "../Utils/Validator";
 import StoreManager from "../../StoreManager";
 
-@observer
 export default class Field extends React.Component {
     static defaultProps = {
         id: Utils.ShortId.generate(),
@@ -17,7 +16,7 @@ export default class Field extends React.Component {
         allowBlank: true,
         rule: null,
         addon: true,
-        layout: "", // inline | row,
+        layout: "row", // inline | row,
         store: null,
         options: {
             validateClass: "danger",
@@ -37,7 +36,8 @@ export default class Field extends React.Component {
         this.valid = null;
         this.invalid = false;
 
-        this.store = StoreManager.get('ModuleAdminStore')
+        //TODO burası güncellenecek
+        this.store =null;// StoreManager.get('ModuleAdminStore')
 
         let config = this.props;
         if (!config.allowBlank) {
@@ -47,7 +47,6 @@ export default class Field extends React.Component {
         if (this.props.rule && this.props.rule != "") {
             this.rule = Utils.concat(this.rule, this.props.rule.split("|"))
         }
-        setInterval(10000,this.plus )
 
 
     }
@@ -57,10 +56,10 @@ export default class Field extends React.Component {
     }
 
 
-    plus() {
-
-        StoreManager.get("NotifyStore").count = StoreManager.get("NotifyStore").count + 1;
-    }
+    // plus() {
+    //
+    //     StoreManager.get("NotifyStore").count = StoreManager.get("NotifyStore").count + 1;
+    // }
 
     onChange(event) {
 
@@ -70,7 +69,7 @@ export default class Field extends React.Component {
                 this.store.setAttr(event.target.name, event.target.value);
             }
         } else {
-            throw Utils.Translate("Tanımlanmamış alan adı");
+            throw Utils.__t("Tanımlanmamış alan adı");
         }
     }
 
@@ -89,7 +88,7 @@ export default class Field extends React.Component {
             input = <Input defaultValue={config.defaultValue}
                            valid={this.valid}
                            invalid={this.invalid}
-                           type={config.options.type}
+                           type={config.options.type || config.type}
                            default
                            name={config.inputName}
                            id={config.id}
@@ -100,7 +99,7 @@ export default class Field extends React.Component {
             input = <Input
                            valid={this.valid}
                            invalid={this.invalid}
-                           type={config.options.type}
+                           type={config.options.type || config.type}
                            default
                            name={config.inputName}
                            id={config.id}
@@ -130,5 +129,7 @@ export default class Field extends React.Component {
 
 Field.propTypes = {
     options: PropTypes.any,
+    layout: PropTypes.string,
+    inputName: PropTypes.string.Required,
     // inputName: PropTypes.string.required
 };

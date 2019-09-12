@@ -58,7 +58,7 @@ export default class ComboBox extends Field {
     UNSAFE_componentWillMount() {
         const currentIndex = 0;
         if (this.store && this.autoload)
-            this.store.load({page: 0, start: currentIndex, size: this.limit})
+            this.store.load()
     }
 
 
@@ -159,10 +159,10 @@ export default class ComboBox extends Field {
 }
 
 
-Field.propTypes = {
-    valueField: PropTypes.any,
-    displayField: PropTypes.any,
-    inputName: PropTypes.string.required,
+ComboBox.propTypes = {
+    valueField: PropTypes.string.isRequired,
+    displayField: PropTypes.string.isRequired,
+    inputName: PropTypes.string.isRequired,
     options: PropTypes.any,
     // data: PropTypes.any.required,
 };

@@ -173,7 +173,7 @@ function () {
 
     this.primaryKey = "id";
     this._scenario = "default";
-    this._limit = 20;
+    this._size = 20;
     this._baseUrl = "";
     this._Action = {
       get: "get",
@@ -651,7 +651,7 @@ function () {
       this._scenario = value;
     }
   }, {
-    key: "limit",
+    key: "size",
     get: function () {
       return this._limit;
     },

@@ -92,7 +92,7 @@ export default class BaseStore {
      * Page size Limit
      * @type {number}
      */
-    _limit = 20;
+    _size = 20;
     /**
      * Ajax Request Base URL
      * @type {string}
@@ -224,11 +224,11 @@ export default class BaseStore {
     }
 
 
-    get limit() {
+    get size() {
         return this._limit;
     }
 
-    set limit(value) {
+    set size(value) {
         this._limit = value;
     }
 

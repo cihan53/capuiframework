@@ -76,7 +76,9 @@ const CAPFrameWork = e => {
       Confirm: Confirm
     },
     Mask: Utils.Mask,
-    Spinner: props => React.createElement(LoadingSpinner, props),
+    Spinner: props => React.createElement(LoadingSpinner, _extends({}, props, {
+      spinner: true
+    })),
     Validator: Validator,
     Panel: (props, options = {}) => React.createElement(Panel, _extends({}, props, {
       options: options
@@ -167,7 +169,7 @@ const Xtypes = {
   xformpanel: CAPFrameWork().FormPanel,
   xform: CAPFrameWork().Form,
   xjsoneditor: CAPFrameWork().Form.JsonSchemaEditor,
-  xfield: Field,
+  xfield: CAPFrameWork().Form.Field.Field,
   xnumberfield: CAPFrameWork().Form.Field.Number,
   xradiofield: CAPFrameWork().Form.Field.Radio,
   xcheckboxfield: CAPFrameWork().Form.Field.Checkbox,

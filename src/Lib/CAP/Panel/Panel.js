@@ -56,6 +56,7 @@ export default class Panel extends React.Component {
      * @returns {*}
      */
     render(children = null) {
+
         children = children || this.props.items.length > 0 ? this.childRender(this.props.items) : null;
         children = children || this.props.children || null;
 

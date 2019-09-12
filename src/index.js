@@ -58,6 +58,7 @@ const ConfirmBox = CAPFrameWork.Message.Confirm;
  */
 const Form = CAPFrameWork.Form;
 const FormPanel = CAPFrameWork.FormPanel;
+const FormField = Form.Field;
 const Button = CAPFrameWork.Form.Field.Button;
 /**
  * Action View
@@ -119,6 +120,7 @@ export {
     FormPanel,
     Panel,
     Form,
+    FormField,
     AlertPanel,
     Button,
     Loadable,
