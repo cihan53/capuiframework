@@ -27,3 +27,13 @@
 .dropzone.disabled {
   opacity: 0.6;
 }
+
+select:required:invalid {
+  color: gray;
+}
+option[value=""][disabled] {
+  display: none;
+}
+option {
+  color: black;
+}

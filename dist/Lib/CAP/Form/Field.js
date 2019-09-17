@@ -14,6 +14,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
 import React from "react";
 import { observer } from "mobx-react/index";
 import PropTypes from "prop-types";
@@ -54,6 +59,9 @@ function (_React$Component) {
       _this.rule = Utils.concat(_this.rule, _this.props.rule.split("|"));
     }
 
+    _this.state = {
+      value: null
+    };
     return _this;
   }
 
@@ -61,21 +69,31 @@ function (_React$Component) {
     key: "isValid",
     value: function isValid(inputname) {
       return Validator.fieldValid(inputname);
-    } // plus() {
+    } // onChange(event) {
     //
-    //     StoreManager.get("NotifyStore").count = StoreManager.get("NotifyStore").count + 1;
+    //     if (this.store.Attributes.hasOwnProperty(event.target.name)) {
+    //
+    //         if (!this.isValid(event.target.name, event.target.value)) {
+    //             this.store.setAttr(event.target.name, event.target.value);
+    //         }
+    //     } else {
+    //         throw Utils.__t("Tanımlanmamış alan adı");
+    //     }
     // }
+
+    /**
+     *
+     * @param event
+     */
 
   }, {
     key: "onChange",
     value: function onChange(event) {
-      if (this.store.Attributes.hasOwnProperty(event.target.name)) {
-        if (!this.isValid(event.target.name, event.target.value)) {
-          this.store.setAttr(event.target.name, event.target.value);
-        }
-      } else {
-        throw Utils.__t("Tanımlanmamış alan adı");
-      }
+      let value = this.state.value;
+      this.setState({
+        value: event.target.value
+      });
+      if (this.props.hasOwnProperty("onChange")) this.props.onChnage(this);
     }
   }, {
     key: "render",

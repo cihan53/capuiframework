@@ -8,29 +8,59 @@ import React from "react";
 import {observer} from "mobx-react/index";
 import PropTypes from "prop-types";
 import {Col, FormFeedback, FormGroup, Input, Label, FormText} from "reactstrap";
-import Field from "./Field";
 import Utils from "../Utils/Utils";
 import StoreManager from "../../StoreManager";
 
 
 @observer
-export default class ComboBox extends Field {
+export default class ComboBox extends React.Component {
+
+    static defaultProps = {
+        id: Utils.ShortId.generate(),
+        inputName: "",
+        label: "",
+        defaultValue: "",
+        placeholder: "",
+        allowBlank: true,
+        rule: null,
+        addon: true,
+        layout: "row", // inline | row,
+        store: null,
+        options: {
+            validateClass: "danger",
+            col: "10",
+            labelCol: "2",
+            type: "input"
+        }
+    };
 
     autoload = true;
     data = [];
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            selected: {}
+        }
+
+
         this.store = null;
         this.key = this.props.key || Utils.ShortId.generate();
         this.generateItems = this.generateItems.bind(this);
         this.init()
+        this.load = this.load.bind(this);
+        this.getValue = this.getValue.bind(this);
+        this.getSelected = this.getSelected.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.selectField = React.createRef();
+
     }
 
     init() {
 
         if (this.props.store) {
-            if (typeof  this.props.store == "string") {
+            if (typeof this.props.store == "string") {
                 this.store = StoreManager.get(this.props.store) || null;
             } else {
                 let storeName = this.props.store.name;
@@ -58,26 +88,26 @@ export default class ComboBox extends Field {
     UNSAFE_componentWillMount() {
         const currentIndex = 0;
         if (this.store && this.autoload)
-            this.store.load()
+            this.load()
     }
 
-
-
+    /**
+     *
+     * @returns {void|any}
+     */
+    load() {
+        return this.props.store.load ? this.props.store.load(this) : this.store.load();
+    }
 
     /**
      *
      * @param event
      */
     onChange(event) {
+        if (this.props.hasOwnProperty("onChange"))
+            this.props.onChange(event,this);
 
-        if (this.store.Attributes.hasOwnProperty(event.target.name)) {
-
-            if (!this.isValid(event.target.name, event.target.value)) {
-                this.store.setAttr(event.target.name, event.target.value);
-            }
-        } else {
-            throw Utils.Translate("Tanımlanmamış alan adı");
-        }
+        this.setState({selected: event.target.selected});
     }
 
     /**
@@ -87,16 +117,27 @@ export default class ComboBox extends Field {
      */
     generateItems(data) {
 
-        if(this.store){
+        if (this.store) {
             return data.map((opt, index) => {
-                return <option key={this.key + "-combobox-item-" + index} value={opt[this.props.valueField]}>{opt[this.props.displayField]}</option>
+                return <option key={this.key + "-combobox-item-" + index}
+                               value={opt[this.props.valueField]}>{opt[this.props.displayField]}</option>
             });
-        }else{
+        } else {
             return data.map((opt, index) => {
                 return <option key={this.key + "-combobox-item-" + index} value={opt.value}>{opt.name}</option>
             });
         }
 
+    }
+
+
+    getSelected() {
+        return this.state.selected
+    }
+
+
+    getValue() {
+        return this.state.selected
     }
 
     render() {
@@ -118,7 +159,8 @@ export default class ComboBox extends Field {
         let optionItems = this.generateItems(this.store ? this.store.data : config.items);
 
         if (config.store == null) {
-            input = <Input defaultValue={config.defaultValue}
+            input = <Input ref={this.selectField}
+                           defaultValue={config.defaultValue}
                            valid={valid}
                            invalid={invalid}
                            type={"select"}
@@ -126,21 +168,29 @@ export default class ComboBox extends Field {
                            name={config.inputName}
                            id={config.id || this.key}
                            placeholder={config.placeholder}
-            >{optionItems}</Input>;
+                           onChange={this.onChange}
+            >
+                <option value={""}>{Utils.__t("Seçiniz")}</option>
+                {optionItems}
+            </Input>;
         } else {
 
 
-            input = <Input defaultValue={config.defaultValue || ""}
+            input = <Input ref={this.selectField}
+                           defaultValue={config.defaultValue || ""}
                            valid={valid}
                            invalid={invalid}
                            type={"select"}
                            default
                            name={config.inputName}
                            id={config.id || config.inputName + "-form-field"}
-                           value={this.store.Attributes[config.valueField]}
+                           //value={this.store.Attributes[config.valueField]}
+                           // value={this.state.selected}
                            placeholder={config.placeholder}
                            onChange={this.onChange}
-            >{optionItems}</Input>
+            >
+                <option value={""}>{Utils.__t("Seçiniz")}</option>
+                {optionItems}</Input>
         }
 
 
@@ -152,7 +202,7 @@ export default class ComboBox extends Field {
             {config.label && config.layout != "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
             {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
-            {errorMessage ? <FormFeedback valid tooltip>{errorMessage}</FormFeedback> : void(0)}
+            {errorMessage ? <FormFeedback valid tooltip>{errorMessage}</FormFeedback> : void (0)}
             {config.text && config.text != "" ? <FormText>{config.text}</FormText> : void (0)}
         </FormGroup>;
     }

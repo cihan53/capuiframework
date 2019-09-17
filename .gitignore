@@ -81,7 +81,7 @@ fabric.properties
 .idea/sonarlint
 
 *.js.bak
-.env.local
+Examples/.env.local
 
 # End of https://www.gitignore.io/api/webstorm
 node_modules
@@ -91,3 +91,4 @@ node_modules
 /.idea/modules.xml
 /.idea/vcs.xml
 /yarn-error.log
+/Examples/

@@ -24,6 +24,7 @@ import StoreManager from "./Lib/StoreManager";
 import Alert from "./Lib/CAP/Message/Alert";
 import Confirm from "./Lib/CAP/Message/Confirm";
 import Field from "./Lib/CAP/Form/Field";
+import Text from "./Lib/CAP/Form/Text";
 import CapController from "./Lib/CapController";
 import JsonInput from "./Lib/CAP/Form/JsonInput";
 import ComboBox from "./Lib/CAP/Form/ComboBox";
@@ -121,14 +122,17 @@ const CAPFrameWork = e => {
       Field: {
         base: {},
         Button: CButton,
-        Field: Field,
+        // Field: Field,
         Number: {},
         Radio: {},
         Checkbox: {},
         Multiselect: c => React.createElement(Multiselect, c),
-        ComboBox: observer(props => {
-          return React.createElement(ComboBox, props);
-        }),
+        ComboBox: React.forwardRef((props, ref) => React.createElement(ComboBox, _extends({
+          ref: ref
+        }, props))),
+        // ComboBox: observer((props) => {
+        //     return <ComboBox {...props}/>
+        // }),
         DatePicker: DatePicker,
         Display: {},
         File: {},
@@ -138,9 +142,11 @@ const CAPFrameWork = e => {
         Picker: {},
         Spinner: {},
         Tag: {},
-        Text: observer(props => React.createElement(Field, _extends({
-          type: "text"
+        Text: React.forwardRef((props, ref) => React.createElement(Text, _extends({
+          type: "text",
+          ref: ref
         }, props))),
+        // observer((props) => <Field type={"text"} {...props}/>),
         TextArea: {},
         Time: {},
         DropZone: DropZone,
