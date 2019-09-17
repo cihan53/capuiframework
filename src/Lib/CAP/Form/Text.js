@@ -61,10 +61,8 @@ export default class Text extends React.Component {
             input = <Col sm={config.options.col}>{input}</Col>;
 
         return <FormGroup row={config.layout == "row"}>
-            {config.label && config.layout != "row" ?
-                <Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
-            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"}
-                                                             sm={config.options.labelCol}>{config.label}</Label> : ""}
+            {config.label && config.layout != "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
             {errorMessage ? <FormFeedback valid tooltip>{errorMessage}</FormFeedback> : void (0)}
             {config.text && config.text != "" ? <FormText>{config.text}</FormText> : void (0)}
