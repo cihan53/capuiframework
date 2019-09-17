@@ -89,11 +89,10 @@ function (_React$Component) {
   }, {
     key: "onChange",
     value: function onChange(event) {
-      let value = this.state.value;
+      if (this.props.hasOwnProperty("onChange")) this.props.onChange(event, this);
       this.setState({
-        value: event.target.value
+        selected: event.target.selected
       });
-      if (this.props.hasOwnProperty("onChange")) this.props.onChnage(this);
     }
   }, {
     key: "render",

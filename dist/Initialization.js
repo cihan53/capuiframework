@@ -43,6 +43,7 @@ import { DataProxy } from "./Lib/CAP/Data/DataProxy";
 import View from "./View/View";
 import Mask from "./Lib/CAP/Utils/Mask";
 import LoadingSpinner from "./Lib/LoadingSpinner";
+import Col from "./Lib/CAP/Layout/Col";
 moment.locale('tr');
 const BaseController = CapController;
 window.moment = moment();
@@ -154,7 +155,8 @@ const CAPFrameWork = e => {
       }
     },
     View: {
-      View: View
+      View: View,
+      Col: Col
     },
     Log: console.log,
     Debug: console.debug,

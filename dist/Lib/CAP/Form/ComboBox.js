@@ -1,4 +1,4 @@
-var _class, _temp;
+var _class, _class2, _temp;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28,7 +28,7 @@ import { Col, FormFeedback, FormGroup, Input, Label, FormText } from "reactstrap
 import Utils from "../Utils/Utils";
 import StoreManager from "../../StoreManager";
 
-let ComboBox = observer(_class = (_temp =
+let ComboBox = observer(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(ComboBox, _React$Component);
@@ -53,6 +53,7 @@ function (_React$Component) {
     _this.load = _this.load.bind(_assertThisInitialized(_this));
     _this.getValue = _this.getValue.bind(_assertThisInitialized(_this));
     _this.getSelected = _this.getSelected.bind(_assertThisInitialized(_this));
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     _this.selectField = React.createRef();
     return _this;
   }
@@ -103,11 +104,10 @@ function (_React$Component) {
   }, {
     key: "onChange",
     value: function onChange(event) {
-      let selected = this.state.selected;
+      if (this.props.hasOwnProperty("onChange")) this.props.onChange(event, this);
       this.setState({
         selected: event.target.selected
       });
-      if (this.props.hasOwnProperty("onChange")) this.props.onChnage(this);
     }
     /**
      *
@@ -170,9 +170,9 @@ function (_React$Component) {
           type: "select",
           default: true,
           name: config.inputName,
-          value: this.state.selected,
           id: config.id || this.key,
-          placeholder: config.placeholder
+          placeholder: config.placeholder,
+          onChange: this.onChange
         }, React.createElement("option", {
           value: ""
         }, Utils.__t("Seçiniz")), optionItems);
@@ -186,8 +186,8 @@ function (_React$Component) {
           default: true,
           name: config.inputName,
           id: config.id || config.inputName + "-form-field" //value={this.store.Attributes[config.valueField]}
+          // value={this.state.selected}
           ,
-          value: this.state.selected,
           placeholder: config.placeholder,
           onChange: this.onChange
         }, React.createElement("option", {
@@ -213,7 +213,25 @@ function (_React$Component) {
   }]);
 
   return ComboBox;
-}(React.Component), _temp)) || _class;
+}(React.Component), _class2.defaultProps = {
+  id: Utils.ShortId.generate(),
+  inputName: "",
+  label: "",
+  defaultValue: "",
+  placeholder: "",
+  allowBlank: true,
+  rule: null,
+  addon: true,
+  layout: "row",
+  // inline | row,
+  store: null,
+  options: {
+    validateClass: "danger",
+    col: "10",
+    labelCol: "2",
+    type: "input"
+  }
+}, _temp)) || _class;
 
 export { ComboBox as default };
 ComboBox.propTypes = {
