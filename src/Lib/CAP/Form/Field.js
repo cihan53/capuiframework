@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
+
 import React from "react";
 import {observer} from "mobx-react/index";
 import PropTypes from "prop-types";
@@ -37,7 +43,7 @@ export default class Field extends React.Component {
         this.invalid = false;
 
         //TODO burası güncellenecek
-        this.store =null;// StoreManager.get('ModuleAdminStore')
+        this.store = null;// StoreManager.get('ModuleAdminStore')
 
         let config = this.props;
         if (!config.allowBlank) {
@@ -48,6 +54,10 @@ export default class Field extends React.Component {
             this.rule = Utils.concat(this.rule, this.props.rule.split("|"))
         }
 
+        this.state = {
+            value: null
+        }
+
 
     }
 
@@ -55,22 +65,27 @@ export default class Field extends React.Component {
         return Validator.fieldValid(inputname)
     }
 
-
-    // plus() {
+    // onChange(event) {
     //
-    //     StoreManager.get("NotifyStore").count = StoreManager.get("NotifyStore").count + 1;
+    //     if (this.store.Attributes.hasOwnProperty(event.target.name)) {
+    //
+    //         if (!this.isValid(event.target.name, event.target.value)) {
+    //             this.store.setAttr(event.target.name, event.target.value);
+    //         }
+    //     } else {
+    //         throw Utils.__t("Tanımlanmamış alan adı");
+    //     }
     // }
 
+    /**
+     *
+     * @param event
+     */
     onChange(event) {
+        if (this.props.hasOwnProperty("onChange"))
+            this.props.onChange(event,this);
 
-        if (this.store.Attributes.hasOwnProperty(event.target.name)) {
-
-            if (!this.isValid(event.target.name, event.target.value)) {
-                this.store.setAttr(event.target.name, event.target.value);
-            }
-        } else {
-            throw Utils.__t("Tanımlanmamış alan adı");
-        }
+        this.setState({selected: event.target.selected});
     }
 
     render() {
@@ -97,15 +112,15 @@ export default class Field extends React.Component {
         } else {
 
             input = <Input
-                           valid={this.valid}
-                           invalid={this.invalid}
-                           type={config.options.type || config.type}
-                           default
-                           name={config.inputName}
-                           id={config.id}
-                           value={value}
-                           placeholder={config.placeholder}
-                           onChange={this.onChange}
+                valid={this.valid}
+                invalid={this.invalid}
+                type={config.options.type || config.type}
+                default
+                name={config.inputName}
+                id={config.id}
+                value={value}
+                placeholder={config.placeholder}
+                onChange={this.onChange}
             />;
         }
         if (config.layout == "row")
@@ -114,7 +129,8 @@ export default class Field extends React.Component {
 
         return <FormGroup row={config.layout == "row"}>
             {config.label && config.layout != "row" ? <Label htmlFor={config.id}>{config.label}</Label> : ""}
-            {config.label && config.layout == "row" ? <Label htmlFor={config.id} sm={config.options.labelCol}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ?
+                <Label htmlFor={config.id} sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
 
             {/*{Validator.message(config.inputName, value, this.rule.join("|"))}*/}

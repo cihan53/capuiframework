@@ -23,6 +23,7 @@ import StoreManager from "./Lib/StoreManager";
 import Alert from "./Lib/CAP/Message/Alert";
 import Confirm from "./Lib/CAP/Message/Confirm";
 import Field from "./Lib/CAP/Form/Field";
+import Text from "./Lib/CAP/Form/Text";
 import CapController from "./Lib/CapController";
 import JsonInput from "./Lib/CAP/Form/JsonInput";
 import ComboBox from "./Lib/CAP/Form/ComboBox";
@@ -40,6 +41,7 @@ import {DataProxy} from "./Lib/CAP/Data/DataProxy";
 import View from "./View/View";
 import Mask from "./Lib/CAP/Utils/Mask";
 import LoadingSpinner from "./Lib/LoadingSpinner";
+import Col from "./Lib/CAP/Layout/Col";
 
 
 moment.locale('tr')
@@ -113,14 +115,17 @@ const CAPFrameWork = e => {
             Field: {
                 base: {},
                 Button: CButton,
-                Field: Field,
+                // Field: Field,
                 Number: {},
                 Radio: {},
                 Checkbox: {},
                 Multiselect: (c) => <Multiselect {...c}/>,
-                ComboBox: observer((props) => {
-                    return <ComboBox {...props}/>
-                }),
+                ComboBox: React.forwardRef((props, ref) => (
+                    <ComboBox ref={ref} {...props}/>
+                )),
+                // ComboBox: observer((props) => {
+                //     return <ComboBox {...props}/>
+                // }),
                 DatePicker: DatePicker,
                 Display: {},
                 File: {},
@@ -130,7 +135,7 @@ const CAPFrameWork = e => {
                 Picker: {},
                 Spinner: {},
                 Tag: {},
-                Text: observer((props) => <Field type={"text"} {...props}/>),
+                Text:React.forwardRef((props, ref) => (  <Text type={"text"} ref={ref} {...props}/> )), // observer((props) => <Field type={"text"} {...props}/>),
                 TextArea: {},
                 Time: {},
                 DropZone: DropZone,
@@ -140,7 +145,8 @@ const CAPFrameWork = e => {
             }
         },
         View: {
-            View: View
+            View: View,
+            Col :Col
         },
         Log: console.log,
         Debug: console.debug,

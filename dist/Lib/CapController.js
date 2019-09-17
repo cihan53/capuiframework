@@ -27,7 +27,7 @@ import Utils from "./CAP/Utils/Utils";
 import StoreManager from "./StoreManager";
 import { Loadable, Spinner, Log, Raise, Logger } from "../index"; // const queryString = require("query-string");
 
-/**
+/** 1
  * Kontroler Framework içerisinde sıkça kullanılan methodları tek bir yerde toplamak
  * ve kolay kullanım için geliştirilmiştir.
  *

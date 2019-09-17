@@ -1,4 +1,4 @@
-var _class, _temp;
+var _class, _class2, _temp;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -25,14 +25,13 @@ import React from "react";
 import { observer } from "mobx-react/index";
 import PropTypes from "prop-types";
 import { Col, FormFeedback, FormGroup, Input, Label, FormText } from "reactstrap";
-import Field from "./Field";
 import Utils from "../Utils/Utils";
 import StoreManager from "../../StoreManager";
 
-let ComboBox = observer(_class = (_temp =
+let ComboBox = observer(_class = (_temp = _class2 =
 /*#__PURE__*/
-function (_Field) {
-  _inherits(ComboBox, _Field);
+function (_React$Component) {
+  _inherits(ComboBox, _React$Component);
 
   function ComboBox(props) {
     var _this;
@@ -42,12 +41,20 @@ function (_Field) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ComboBox).call(this, props));
     _this.autoload = true;
     _this.data = [];
+    _this.state = {
+      selected: {}
+    };
     _this.store = null;
     _this.key = _this.props.key || Utils.ShortId.generate();
     _this.generateItems = _this.generateItems.bind(_assertThisInitialized(_this));
 
     _this.init();
 
+    _this.load = _this.load.bind(_assertThisInitialized(_this));
+    _this.getValue = _this.getValue.bind(_assertThisInitialized(_this));
+    _this.getSelected = _this.getSelected.bind(_assertThisInitialized(_this));
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
+    _this.selectField = React.createRef();
     return _this;
   }
 
@@ -77,7 +84,17 @@ function (_Field) {
     key: "UNSAFE_componentWillMount",
     value: function UNSAFE_componentWillMount() {
       const currentIndex = 0;
-      if (this.store && this.autoload) this.store.load();
+      if (this.store && this.autoload) this.load();
+    }
+    /**
+     *
+     * @returns {void|any}
+     */
+
+  }, {
+    key: "load",
+    value: function load() {
+      return this.props.store.load ? this.props.store.load(this) : this.store.load();
     }
     /**
      *
@@ -87,13 +104,10 @@ function (_Field) {
   }, {
     key: "onChange",
     value: function onChange(event) {
-      if (this.store.Attributes.hasOwnProperty(event.target.name)) {
-        if (!this.isValid(event.target.name, event.target.value)) {
-          this.store.setAttr(event.target.name, event.target.value);
-        }
-      } else {
-        throw Utils.Translate("Tanımlanmamış alan adı");
-      }
+      if (this.props.hasOwnProperty("onChange")) this.props.onChange(event, this);
+      this.setState({
+        selected: event.target.selected
+      });
     }
     /**
      *
@@ -106,7 +120,6 @@ function (_Field) {
     value: function generateItems(data) {
       if (this.store) {
         return data.map((opt, index) => {
-          console.log(opt, index);
           return React.createElement("option", {
             key: this.key + "-combobox-item-" + index,
             value: opt[this.props.valueField]
@@ -120,6 +133,16 @@ function (_Field) {
           }, opt.name);
         });
       }
+    }
+  }, {
+    key: "getSelected",
+    value: function getSelected() {
+      return this.state.selected;
+    }
+  }, {
+    key: "getValue",
+    value: function getValue() {
+      return this.state.selected;
     }
   }, {
     key: "render",
@@ -140,6 +163,7 @@ function (_Field) {
 
       if (config.store == null) {
         input = React.createElement(Input, {
+          ref: this.selectField,
           defaultValue: config.defaultValue,
           valid: valid,
           invalid: invalid,
@@ -147,21 +171,28 @@ function (_Field) {
           default: true,
           name: config.inputName,
           id: config.id || this.key,
-          placeholder: config.placeholder
-        }, optionItems);
+          placeholder: config.placeholder,
+          onChange: this.onChange
+        }, React.createElement("option", {
+          value: ""
+        }, Utils.__t("Seçiniz")), optionItems);
       } else {
         input = React.createElement(Input, {
+          ref: this.selectField,
           defaultValue: config.defaultValue || "",
           valid: valid,
           invalid: invalid,
           type: "select",
           default: true,
           name: config.inputName,
-          id: config.id || config.inputName + "-form-field",
-          value: this.store.Attributes[config.valueField],
+          id: config.id || config.inputName + "-form-field" //value={this.store.Attributes[config.valueField]}
+          // value={this.state.selected}
+          ,
           placeholder: config.placeholder,
           onChange: this.onChange
-        }, optionItems);
+        }, React.createElement("option", {
+          value: ""
+        }, Utils.__t("Seçiniz")), optionItems);
       }
 
       if (config.layout == "row") input = React.createElement(Col, {
@@ -182,7 +213,25 @@ function (_Field) {
   }]);
 
   return ComboBox;
-}(Field), _temp)) || _class;
+}(React.Component), _class2.defaultProps = {
+  id: Utils.ShortId.generate(),
+  inputName: "",
+  label: "",
+  defaultValue: "",
+  placeholder: "",
+  allowBlank: true,
+  rule: null,
+  addon: true,
+  layout: "row",
+  // inline | row,
+  store: null,
+  options: {
+    validateClass: "danger",
+    col: "10",
+    labelCol: "2",
+    type: "input"
+  }
+}, _temp)) || _class;
 
 export { ComboBox as default };
 ComboBox.propTypes = {
