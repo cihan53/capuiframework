@@ -56,7 +56,7 @@ export default class Text extends React.Component {
     render() {
         let config = this.props;
         let errorMessage = this.state.error;
-        let input =  <Input name={config.inputName} value={this.props.value}/>;
+        let input =  <Input name={config.inputName} value={this.props.value} onChange={this.onChange}/>;
         if (config.layout == "row")
             input = <Col sm={config.options.col}>{input}</Col>;
 
