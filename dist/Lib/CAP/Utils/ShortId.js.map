@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/Lib/CAP/Utils/ShortId.js"],"names":["shortid","require"],"mappings":"AAAA,MAAMA,OAAO,GAAGC,OAAO,CAAC,UAAD,CAAvB;;AACA,eAAeD,OAAf","sourcesContent":["const shortid = require(\"short-id\");\r\nexport default shortid;"],"file":"ShortId.js"}
