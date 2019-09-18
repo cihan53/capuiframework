@@ -66,7 +66,8 @@ function (_React$Component) {
       let errorMessage = this.state.error;
       let input = React.createElement(Input, {
         name: config.inputName,
-        value: this.props.value
+        value: this.props.value,
+        onChange: this.onChange
       });
       if (config.layout == "row") input = React.createElement(Col, {
         sm: config.options.col

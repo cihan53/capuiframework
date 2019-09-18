@@ -49,7 +49,6 @@ export default class Text extends React.Component {
     onChange(event) {
         if (this.props.hasOwnProperty("onChange"))
             this.props.onChange(event,this);
-
         this.setState({selected: event.target.selected});
     }
 
