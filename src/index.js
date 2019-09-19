@@ -8,7 +8,6 @@ import createClass from "create-react-class";
 import ReactDOM from "react-dom";
 import CAPFrameWork, {Xtypes} from "./Initialization";
 
-// import {CapBaseStore as BaseStore} from "./Lib/CapBaseStore";
 
 //React bileşenleri
 // window.React = React;
