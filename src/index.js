@@ -12,7 +12,6 @@ import CAPFrameWork, {Xtypes} from "./Initialization";
 // window.ReactCreateClass = createClass;
 // window.ReactDOM = ReactDOM;
 window.CAPFrameWork = CAPFrameWork;
-
 const CAP = CAPFrameWork;
 const DataProxy = CAPFrameWork.Data.Proxy;
 const BaseStore = CAPFrameWork.BaseStore;
