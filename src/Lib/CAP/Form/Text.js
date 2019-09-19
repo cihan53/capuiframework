@@ -18,6 +18,7 @@ export default class Text extends React.Component {
         inputName: "",
         label: "",
         defaultValue: "",
+        value: "",
         placeholder: "",
         allowBlank: true,
         rule: null,
@@ -36,9 +37,11 @@ export default class Text extends React.Component {
         super(props)
         this.rule = [];
         this.state = {
-            value: this.props.defaultValue || null,
+            value: this.props.value || null,
             error: null
         }
+
+        this.onChange = this.onChange.bind(this);
 
     }
 
@@ -48,21 +51,25 @@ export default class Text extends React.Component {
      */
     onChange(event) {
         if (this.props.hasOwnProperty("onChange"))
-            this.props.onChange(event,this);
-
+            this.props.onChange(event, this);
         this.setState({value: event.target.value});
     }
 
     render() {
+
+        console.log("Input State ", this.state)
+        console.log("Input props ", this.props)
         let config = this.props;
         let errorMessage = this.state.error;
-        let input =  <Input name={config.inputName} value={this.state.value} onChange={this.onChange}/>;
+        let input = <Input name={config.inputName} value={this.state.value || ""} onChange={this.onChange}/>;
         if (config.layout == "row")
             input = <Col sm={config.options.col}>{input}</Col>;
 
         return <FormGroup row={config.layout == "row"}>
-            {config.label && config.layout != "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
-            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
+            {config.label && config.layout != "row" ?
+                <Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"}
+                                                             sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
             {errorMessage ? <FormFeedback valid tooltip>{errorMessage}</FormFeedback> : void (0)}
             {config.text && config.text != "" ? <FormText>{config.text}</FormText> : void (0)}
