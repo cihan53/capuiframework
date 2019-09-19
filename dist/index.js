@@ -4,16 +4,12 @@
  * Email: cihanozturk@crypttech.com
  */
 // import React from "react";
-import CAPFrameWork, { Xtypes } from "./Initialization"; // import {CapBaseStore as BaseStore} from "./Lib/CapBaseStore";
-//React bileşenleri
+import CAPFrameWork, { Xtypes } from "./Initialization"; //React bileşenleri
 // window.React = React;
 // window.ReactCreateClass = createClass;
 // window.ReactDOM = ReactDOM;
-//Sistem araçları
-//window.Utils = Util;
 
-window.CAPFrameWork = CAPFrameWork; // CAP.Log(BaseStore)
-
+window.CAPFrameWork = CAPFrameWork;
 const CAP = CAPFrameWork;
 const DataProxy = CAPFrameWork.Data.Proxy;
 const BaseStore = CAPFrameWork.BaseStore;

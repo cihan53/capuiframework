@@ -6,9 +6,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -40,9 +40,10 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Text).call(this, props));
     _this.rule = [];
     _this.state = {
-      value: null,
+      value: _this.props.value || null,
       error: null
     };
+    _this.onChange = _this.onChange.bind(_assertThisInitialized(_this));
     return _this;
   }
   /**
@@ -56,17 +57,19 @@ function (_React$Component) {
     value: function onChange(event) {
       if (this.props.hasOwnProperty("onChange")) this.props.onChange(event, this);
       this.setState({
-        selected: event.target.selected
+        value: event.target.value
       });
     }
   }, {
     key: "render",
     value: function render() {
+      console.log("Input State ", this.state);
+      console.log("Input props ", this.props);
       let config = this.props;
       let errorMessage = this.state.error;
       let input = React.createElement(Input, {
         name: config.inputName,
-        value: this.props.value,
+        value: this.state.value || "",
         onChange: this.onChange
       });
       if (config.layout == "row") input = React.createElement(Col, {
@@ -94,6 +97,7 @@ Text.defaultProps = {
   inputName: "",
   label: "",
   defaultValue: "",
+  value: "",
   placeholder: "",
   allowBlank: true,
   rule: null,
