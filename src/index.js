@@ -4,8 +4,6 @@
  * Email: cihanozturk@crypttech.com
  */
 // import React from "react";
-import createClass from "create-react-class";
-import ReactDOM from "react-dom";
 import CAPFrameWork, {Xtypes} from "./Initialization";
 
 
