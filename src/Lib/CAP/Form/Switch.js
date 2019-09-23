@@ -9,6 +9,7 @@ import {AppSwitch} from "@coreui/react";
 import PropTypes from "prop-types";
 import Utils from "../Utils/Utils";
 
+
 export default class SwitchField extends React.Component {
     static defaultProps = {
         id: Utils.ShortId.generate(),
