@@ -5,12 +5,10 @@
  */
 
 import React from "react";
-import {observer} from "mobx-react/index";
 import PropTypes from "prop-types";
-import {Col, FormFeedback, FormGroup, Input, Label, FormText} from "reactstrap";
+import {Col, FormFeedback, FormGroup, FormText, Input, Label} from "reactstrap";
 import Utils from "../Utils/Utils";
 import Validator from "../Utils/Validator";
-import StoreManager from "../../StoreManager";
 
 export default class Field extends React.Component {
     static defaultProps = {

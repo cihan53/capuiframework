@@ -21,6 +21,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
  */
 import React from "react";
 import { AppSwitch } from "@coreui/react";
+import PropTypes from "prop-types";
 import Utils from "../Utils/Utils";
 
 let SwitchField =
@@ -56,7 +57,11 @@ SwitchField.defaultProps = {
   onChange: (e, v) => {},
   variant: "pill",
   className: "mx-1",
-  color: "primary"
+  color: "primary",
+  label: {
+    on: Utils.__t("On"),
+    off: Utils.__t("Off")
+  }
 };
 export { SwitchField as default };
 SwitchField.propTypes = {
