@@ -17,11 +17,19 @@ export default class SwitchField extends React.Component {
         variant: "pill",
         className: "mx-1",
         color: "primary",
+        label:{
+            on:Utils.__t("On")  ,
+            off:Utils.__t("Off")
+        }
     };
 
     render() {
-        return <AppSwitch defaultChecked={this.props.defaultChecked} onChange={this.props.onChange}
-                          className={this.props.className} variant={this.props.variant} color={this.props.color}/>
+        return <AppSwitch defaultChecked={this.props.defaultChecked}
+                          onChange={this.props.onChange}
+                          className={this.props.className}
+                          variant={this.props.variant}
+                          color={this.props.color}
+        />
     }
 }
 
