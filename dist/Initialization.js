@@ -44,6 +44,7 @@ import View from "./View/View";
 import Mask from "./Lib/CAP/Utils/Mask";
 import LoadingSpinner from "./Lib/LoadingSpinner";
 import Col from "./Lib/CAP/Layout/Col";
+import SwitchField from "./Lib/CAP/Form/Switch";
 moment.locale('tr');
 const BaseController = CapController;
 window.moment = moment();
@@ -127,6 +128,9 @@ const CAPFrameWork = e => {
         Number: {},
         Radio: {},
         Checkbox: {},
+        SwitchField: React.forwardRef((props, ref) => React.createElement(SwitchField, _extends({
+          ref: ref
+        }, props))),
         Multiselect: c => React.createElement(Multiselect, c),
         ComboBox: React.forwardRef((props, ref) => React.createElement(ComboBox, _extends({
           ref: ref
@@ -183,6 +187,7 @@ const Xtypes = {
   xcheckboxfield: CAPFrameWork().Form.Field.Checkbox,
   xcheckboxmultiselect: CAPFrameWork().Form.Field.CheckboxMultiSelect,
   xcomboxfield: CAPFrameWork().Form.Field.ComboBox,
+  xswitchfield: CAPFrameWork().Form.Field.SwitchField,
   xdatefield: CAPFrameWork().Form.Field.Date,
   xdisplayfield: CAPFrameWork().Form.Field.Display,
   xfilefield: CAPFrameWork().Form.Field.File,

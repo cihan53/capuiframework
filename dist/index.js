@@ -50,6 +50,7 @@ const ConfirmBox = CAPFrameWork.Message.Confirm;
 const Form = CAPFrameWork.Form;
 const FormPanel = CAPFrameWork.FormPanel;
 const FormField = Form.Field;
+const SwitchField = Form.Field.SwitchField;
 const Button = CAPFrameWork.Form.Field.Button;
 /**
  * Action View
@@ -96,4 +97,4 @@ const Logger = CAPFrameWork.Logger;
 const Debug = CAPFrameWork.Debug;
 export default { ...CAPFrameWork
 };
-export { CAP, DataProxy, BreadCrumb, MessageBox, ConfirmBox, BaseController, Date, Mask, Spinner, ShortId, Grid, Request, StoreManager, BaseStore, ClassNames, FormPanel, Panel, Form, FormField, AlertPanel, Button, Loadable, PropTypes, Xtypes, View, Col, Utils, Raise, Log, Debug, Logger };
+export { CAP, DataProxy, BreadCrumb, MessageBox, ConfirmBox, BaseController, Date, Mask, Spinner, ShortId, Grid, Request, StoreManager, BaseStore, ClassNames, FormPanel, Panel, Form, FormField, SwitchField, AlertPanel, Button, Loadable, PropTypes, Xtypes, View, Col, Utils, Raise, Log, Debug, Logger };
