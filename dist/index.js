@@ -59,6 +59,7 @@ const Button = CAPFrameWork.Form.Field.Button;
 
 const View = CAPFrameWork.View.View;
 const Col = CAPFrameWork.View.Col;
+const Row = CAPFrameWork.View.Row;
 /**
  *
  * @type {Panel}
@@ -97,4 +98,4 @@ const Logger = CAPFrameWork.Logger;
 const Debug = CAPFrameWork.Debug;
 export default { ...CAPFrameWork
 };
-export { CAP, DataProxy, BreadCrumb, MessageBox, ConfirmBox, BaseController, Date, Mask, Spinner, ShortId, Grid, Request, StoreManager, BaseStore, ClassNames, FormPanel, Panel, Form, FormField, SwitchField, AlertPanel, Button, Loadable, PropTypes, Xtypes, View, Col, Utils, Raise, Log, Debug, Logger };
+export { CAP, DataProxy, BreadCrumb, MessageBox, ConfirmBox, BaseController, Date, Mask, Spinner, ShortId, Grid, Request, StoreManager, BaseStore, ClassNames, FormPanel, Panel, Form, FormField, SwitchField, AlertPanel, Button, Loadable, PropTypes, Xtypes, View, Col, Row, Utils, Raise, Log, Debug, Logger };
