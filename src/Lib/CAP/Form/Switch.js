@@ -36,5 +36,5 @@ export default class SwitchField extends React.Component {
 }
 
 SwitchField.propTypes = {
-    onChange: PropTypes.fn,
+    onChange: PropTypes.func,
 };

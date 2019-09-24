@@ -65,5 +65,5 @@ SwitchField.defaultProps = {
 };
 export { SwitchField as default };
 SwitchField.propTypes = {
-  onChange: PropTypes.fn
+  onChange: PropTypes.func
 };
