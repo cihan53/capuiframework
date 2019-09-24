@@ -58,6 +58,7 @@ const Button = CAPFrameWork.Form.Field.Button;
  */
 const View = CAPFrameWork.View.View;
 const Col = CAPFrameWork.View.Col;
+const Row = CAPFrameWork.View.Row;
 /**
  *
  * @type {Panel}
@@ -122,6 +123,7 @@ export {
     Xtypes,
     View,
     Col,
+    Row,
     Utils,
     Raise,
     Log,

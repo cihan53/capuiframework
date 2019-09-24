@@ -43,6 +43,7 @@ import Mask from "./Lib/CAP/Utils/Mask";
 import LoadingSpinner from "./Lib/LoadingSpinner";
 import Col from "./Lib/CAP/Layout/Col";
 import SwitchField from "./Lib/CAP/Form/Switch";
+import Row from "./Lib/CAP/Layout/Row";
 
 
 moment.locale('tr')
@@ -150,7 +151,8 @@ const CAPFrameWork = e => {
         },
         View: {
             View: View,
-            Col :Col
+            Col :Col,
+            Row:Row
         },
         Log: console.log,
         Debug: console.debug,
