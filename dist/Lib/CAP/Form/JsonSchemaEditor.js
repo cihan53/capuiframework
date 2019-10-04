@@ -367,12 +367,13 @@ function (_React$Component) {
     }
 
     _this.schema.schema.options.form_name_root = _this.props.root;
+    console.log("JSON editor ", _this.props);
     return _this;
   }
 
   _createClass(JsonSchemaEditor, [{
-    key: "UNSAFE_componentDidMount",
-    value: function UNSAFE_componentDidMount() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       this.newEditor(this.props.schema, this.props.values);
     }
   }, {
@@ -384,6 +385,7 @@ function (_React$Component) {
   }, {
     key: "newEditor",
     value: function newEditor(newSchema, values = {}) {
+      console.log("JSON editor newSchema", newSchema);
       if (this.jsoneditor) this.jsoneditor.destroy();
       this.schema.schema = Object.assign(this.schema.schema, newSchema);
       this.schema.startval = values;

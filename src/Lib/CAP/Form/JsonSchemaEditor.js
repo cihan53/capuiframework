@@ -325,10 +325,9 @@ export default class JsonSchemaEditor extends React.Component {
 
 
     this.schema.schema.options.form_name_root=this.props.root;
-
   }
 
-  UNSAFE_componentDidMount() {
+  componentDidMount() {
     this.newEditor(this.props.schema, this.props.values);
   }
 
@@ -339,16 +338,14 @@ export default class JsonSchemaEditor extends React.Component {
 
 
   newEditor(newSchema, values = {}) {
-    if (this.jsoneditor) this.jsoneditor.destroy();
 
+
+    if (this.jsoneditor) this.jsoneditor.destroy();
       this.schema.schema = Object.assign(this.schema.schema, newSchema);
       this.schema.startval = values;
 
-
     this.jsoneditor = new JsonEditor(this.containerelement.current, this.schema);
-
     if(this.props.onChange){
-
       this.jsoneditor.on('change', this.props.onChange);
     }
 

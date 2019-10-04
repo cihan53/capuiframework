@@ -115,9 +115,12 @@ const CAPFrameWork = e => {
     AlertPanel: AlertPanel,
     Form: {
       // JsonSchemaEditor:  (props) => <JsonSchemaEditor {...props}/> ,
-      JsonSchemaEditor: React.forwardRef((props, ref) => React.createElement(JsonSchemaEditor, _extends({
-        ref: ref
-      }, props))),
+      JsonSchemaEditor: React.forwardRef((props, ref) => {
+        console.log(props, ref);
+        return React.createElement(JsonSchemaEditor, _extends({
+          ref: ref
+        }, props));
+      }),
       JsonInput: React.forwardRef((props, ref) => React.createElement(JsonInput, _extends({
         ref: ref
       }, props))),
