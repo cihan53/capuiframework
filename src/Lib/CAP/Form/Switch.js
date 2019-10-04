@@ -26,6 +26,7 @@ export default class SwitchField extends React.Component {
     };
 
     render() {
+
         return <AppSwitch defaultChecked={this.props.defaultChecked}
                           onChange={this.props.onChange}
                           className={this.props.className}
