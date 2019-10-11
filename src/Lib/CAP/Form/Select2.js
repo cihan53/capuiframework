@@ -6,11 +6,14 @@
 
 import React from "react";
 import {AppSwitch} from "@coreui/react";
+import Field from "./Field";
 import PropTypes from "prop-types";
 import Utils from "../Utils/Utils";
 import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import {observer} from "mobx-react";
+import StoreManager from "../../StoreManager";
 
 export const colourOptions = [
     {value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true},
@@ -166,21 +169,37 @@ const options = [
  * guncelle
  * @type {*[]}
  */
-const defaultOptions = [];
 
 const createOption = (label) => ({
     label,
     value: label.toLowerCase().replace(/\W/g, ''),
 });
 
+const defaultOptions = [
+    createOption('One'),
+    createOption('Two'),
+    createOption('Three'),
+];
 
-export default class Select2 extends React.Component {
+@observer
+export default class Select2 extends Field {
     static defaultProps = {
         id: Utils.ShortId.generate(),
-        defaultChecked: false,
-        variant: "pill",
-        className: "mx-1",
-        color: "primary",
+        inputName: "",
+        label: "",
+        defaultValue: "",
+        placeholder: "",
+        allowBlank: true,
+        rule: null,
+        addon: true,
+        layout: "row", // inline | row,
+        store: null,
+        options: {
+            validateClass: "danger",
+            col: "10",
+            labelCol: "2",
+            type: "input"
+        }
     };
 
     constructor(props) {
@@ -191,16 +210,72 @@ export default class Select2 extends React.Component {
             value: this.props.value || undefined,
         };
 
-        this.loadOptions = this.loadOptions.bind(this);
+        // this.loadOptions = this.loadOptions.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
+        this.init();
     }
 
-    loadOptions = (inputValue, callback) => {
-        if (this.props.hasOwnProperty("loadOptions"))
-            this.props.loadOptions(inputValue, callback)
+    init() {
+
+        if (this.props.store) {
+            if (typeof this.props.store == "string") {
+                this.store = StoreManager.get(this.props.store) || null;
+            } else {
+                let storeName = this.props.store.name;
+                let baseParams = this.props.store.baseParams || null;
+                let defaultSort = this.props.store.defaultSort || null;
+                this.store = StoreManager.get(storeName) || null;
+                if (this.store && baseParams)
+                    this.store.setParameters(baseParams);
+
+                if (this.store && defaultSort) {
+                    this.store.setDefaultSortDir(defaultSort.dir, defaultSort.sort);
+                }
+            }
+
+
+            if (!this.store)
+                throw new Error(Utils.__t("Data Store Tanımsız"));
+
+
+            this.autoload = this.props.hasOwnProperty('autoload') ? this.props.autoload : true;
+        }
+
     }
+
+    UNSAFE_componentWillMount() {
+        const currentIndex = 0;
+        if (this.store && this.autoload)
+            this.load()
+    }
+
+    /**
+     *
+     * @returns {void|any}
+     */
+    load() {
+        return this.props.store.load ? this.props.store.load(this) : this.store.load();
+    }
+
+
+    generateItems(data) {
+
+        if (this.store) {
+            return data.map((opt, index) => {
+                return {label: opt[this.props.displayField], value: opt[this.props.valueField]}
+            })
+        }
+
+        return data;
+    }
+
+
+    // loadOptions = (inputValue, callback) => {
+    //     if (this.props.hasOwnProperty("loadOptions"))
+    //         this.props.loadOptions(inputValue, callback)
+    // }
 
     handleChange = (newValue, actionMeta) => {
 
@@ -223,15 +298,26 @@ export default class Select2 extends React.Component {
         this.props.handleCreate(inputValue)
     };
 
-    render() {
+    itemRender() {
         const {isLoading, options, value} = this.state;
-        console.log(this.state)
-        return <AsyncCreatableSelect
-            {...this.props}
-            isLoading={isLoading}
-            options={options}
-            value={value}
-        />
+        let config = this.props;
+        let optionItems = this.generateItems(this.store ? this.store.data : config.items);
+
+        return <React.Fragment>
+            <AsyncCreatableSelect
+                isLoading={isLoading}
+                options={options}
+                value={value}
+                defaultOptions={optionItems}
+                {...this.props}
+            />
+
+        </React.Fragment>
+    }
+
+    render() {
+        console.log("Render")
+        return super.render();
     }
 }
 
@@ -250,6 +336,7 @@ export default class Select2 extends React.Component {
  */
 
 Select2.propTypes = {
+    defaultOptions: PropTypes.array,
     getValue: PropTypes.func,
     hasValue: PropTypes.bool,
     isMulti: PropTypes.bool,
@@ -258,7 +345,9 @@ Select2.propTypes = {
     options: PropTypes.any,
     selectProps: PropTypes.any,
     emotion: PropTypes.any,
-    loadOptions: PropTypes.func,
+    loadOptions: PropTypes.any,
     onChange: PropTypes.func,
     onCreateOption: PropTypes.func,
+    displayField: PropTypes.string,
+    valueField: PropTypes.string,
 };

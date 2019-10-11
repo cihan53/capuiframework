@@ -44,6 +44,7 @@ export default class Field extends React.Component {
         this.store = null;// StoreManager.get('ModuleAdminStore')
 
         let config = this.props;
+        console.log(this.props)
         if (!config.allowBlank) {
             this.rule.push("required")
         }
@@ -56,6 +57,14 @@ export default class Field extends React.Component {
             value: null
         }
 
+
+        this.itemRender = this.itemRender.bind(this);
+        this.init();
+
+
+    }
+
+    init() {
 
     }
 
@@ -81,20 +90,19 @@ export default class Field extends React.Component {
      */
     onChange(event) {
         if (this.props.hasOwnProperty("onChange"))
-            this.props.onChange(event,this);
+            this.props.onChange(event, this);
 
         this.setState({selected: event.target.selected});
     }
 
-    render() {
 
+    itemRender() {
         let config = this.props;
         let input = null;
         let value = "";
-
-
         if (this.store != null)
             value = this.store.getAttr[config.inputName] || "";
+
 
 
         if (this.store == null) {
@@ -121,21 +129,29 @@ export default class Field extends React.Component {
                 onChange={this.onChange}
             />;
         }
-        if (config.layout == "row")
-            input = <Col sm={config.options.col}>{input}</Col>
 
+        return {input};
+    }
+
+    render() {
+
+        let config = this.props;
+        let errorMessage = this.state.error;
+        let input = this.itemRender();
+
+        input = <React.Fragment>
+            {input}
+            {errorMessage ? <FormFeedback valid tooltip>{errorMessage}</FormFeedback> : void (0)}
+            {config.text && config.text != "" ? <FormText>{config.text}</FormText> : void (0)}
+        </React.Fragment>
+
+        if (config.layout == "row")
+            input = <Col sm={config.options.col}>{input}</Col>;
 
         return <FormGroup row={config.layout == "row"}>
-            {config.label && config.layout != "row" ? <Label htmlFor={config.id}>{config.label}</Label> : ""}
-            {config.label && config.layout == "row" ?
-                <Label htmlFor={config.id} sm={config.options.labelCol}>{config.label}</Label> : ""}
+            {config.label && config.layout != "row" ?<Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
-
-            {/*{Validator.message(config.inputName, value, this.rule.join("|"))}*/}
-            <FormFeedback>
-                {this.rule.length > 0 ? Validator.message(config.inputName, value, this.rule.join("|")) : ""}
-            </FormFeedback>
-            {config.text && config.text != "" ? <FormText>{config.text}</FormText> : ""}
         </FormGroup>;
     }
 }

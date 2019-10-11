@@ -48,6 +48,7 @@ function (_React$Component) {
     _this.store = null; // StoreManager.get('ModuleAdminStore')
 
     let config = _this.props;
+    console.log(_this.props);
 
     if (!config.allowBlank) {
       _this.rule.push("required");
@@ -60,10 +61,17 @@ function (_React$Component) {
     _this.state = {
       value: null
     };
+    _this.itemRender = _this.itemRender.bind(_assertThisInitialized(_this));
+
+    _this.init();
+
     return _this;
   }
 
   _createClass(Field, [{
+    key: "init",
+    value: function init() {}
+  }, {
     key: "isValid",
     value: function isValid(inputName) {
       return Validator.fieldValid(inputName);
@@ -93,8 +101,8 @@ function (_React$Component) {
       });
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "itemRender",
+    value: function itemRender() {
       let config = this.props;
       let input = null;
       let value = "";
@@ -125,17 +133,31 @@ function (_React$Component) {
         });
       }
 
+      return {
+        input
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      let config = this.props;
+      let errorMessage = this.state.error;
+      let input = this.itemRender();
+      input = React.createElement(React.Fragment, null, input, errorMessage ? React.createElement(FormFeedback, {
+        valid: true,
+        tooltip: true
+      }, errorMessage) : void 0, config.text && config.text != "" ? React.createElement(FormText, null, config.text) : void 0);
       if (config.layout == "row") input = React.createElement(Col, {
         sm: config.options.col
       }, input);
       return React.createElement(FormGroup, {
         row: config.layout == "row"
       }, config.label && config.layout != "row" ? React.createElement(Label, {
-        htmlFor: config.id
+        htmlFor: config.id || config.inputName + "-form-field"
       }, config.label) : "", config.label && config.layout == "row" ? React.createElement(Label, {
-        htmlFor: config.id,
+        htmlFor: config.id || config.inputName + "-form-field",
         sm: config.options.labelCol
-      }, config.label) : "", input, React.createElement(FormFeedback, null, this.rule.length > 0 ? Validator.message(config.inputName, value, this.rule.join("|")) : ""), config.text && config.text != "" ? React.createElement(FormText, null, config.text) : "");
+      }, config.label) : "", input);
     }
   }]);
 
