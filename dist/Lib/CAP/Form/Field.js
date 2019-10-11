@@ -65,8 +65,8 @@ function (_React$Component) {
 
   _createClass(Field, [{
     key: "isValid",
-    value: function isValid(inputname) {
-      return Validator.fieldValid(inputname);
+    value: function isValid(inputName) {
+      return Validator.fieldValid(inputName);
     } // onChange(event) {
     //
     //     if (this.store.Attributes.hasOwnProperty(event.target.name)) {

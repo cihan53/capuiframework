@@ -44,6 +44,7 @@ import LoadingSpinner from "./Lib/LoadingSpinner";
 import Col from "./Lib/CAP/Layout/Col";
 import SwitchField from "./Lib/CAP/Form/Switch";
 import Row from "./Lib/CAP/Layout/Row";
+import Select2 from "./Lib/CAP/Form/Select2";
 
 
 moment.locale('tr')
@@ -127,6 +128,9 @@ const CAPFrameWork = e => {
                 Multiselect: (c) => <Multiselect {...c}/>,
                 ComboBox: React.forwardRef((props, ref) => (
                     <ComboBox ref={ref} {...props}/>
+                )),
+                Select2: React.forwardRef((props, ref) => (
+                    <Select2 ref={ref} {...props}/>
                 )),
                 // ComboBox: observer((props) => {
                 //     return <ComboBox {...props}/>

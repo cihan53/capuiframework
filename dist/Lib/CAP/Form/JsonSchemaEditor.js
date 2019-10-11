@@ -367,7 +367,6 @@ function (_React$Component) {
     }
 
     _this.schema.schema.options.form_name_root = _this.props.root;
-    console.log("JSON editor ", _this.props);
     return _this;
   }
 
@@ -385,7 +384,6 @@ function (_React$Component) {
   }, {
     key: "newEditor",
     value: function newEditor(newSchema, values = {}) {
-      console.log("JSON editor newSchema", newSchema);
       if (this.jsoneditor) this.jsoneditor.destroy();
       this.schema.schema = Object.assign(this.schema.schema, newSchema);
       this.schema.startval = values;

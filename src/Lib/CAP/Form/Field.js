@@ -59,8 +59,8 @@ export default class Field extends React.Component {
 
     }
 
-    isValid(inputname) {
-        return Validator.fieldValid(inputname)
+    isValid(inputName) {
+        return Validator.fieldValid(inputName)
     }
 
     // onChange(event) {
