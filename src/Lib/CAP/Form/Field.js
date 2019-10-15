@@ -150,7 +150,7 @@ export default class Field extends React.Component {
 
         return <FormGroup row={config.layout == "row"}>
             {config.label && config.layout != "row" ?<Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
-            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ?<Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
             {input}
         </FormGroup>;
     }

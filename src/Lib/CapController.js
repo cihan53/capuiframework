@@ -407,7 +407,6 @@ export default class CapController extends React.Component {
 
         Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
         if (!loadmask) {
-
             let View = Loadable({
                 loader: () => import(
                     /* webpackMode: "lazy" */
@@ -415,9 +414,7 @@ export default class CapController extends React.Component {
                 loading: this.loading
 
             });
-
             Logger.debug(`@ThemeViewsPath/${controller}/${view}`);
-
             return (<View {...data} {...this.props} Controller={this}/>);
         } else {
             return <Spinner/>;

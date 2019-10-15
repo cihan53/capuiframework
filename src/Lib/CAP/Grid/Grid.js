@@ -245,8 +245,8 @@ export default class Grid extends React.Component {
                 page: page,
                 start: currentIndex,
                 size: sizePerPage,
-                sortField: sortField,
-                sortOrder: sortOrder,
+                field: sortField,
+                desc: sortOrder,
                 filters: filters
             });
         } else {

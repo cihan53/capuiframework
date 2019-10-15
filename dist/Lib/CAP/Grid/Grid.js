@@ -176,8 +176,8 @@ function (_React$Component) {
           page: page,
           start: currentIndex,
           size: sizePerPage,
-          sortField: sortField,
-          sortOrder: sortOrder,
+          field: sortField,
+          desc: sortOrder,
           filters: filters
         });
       } else {
