@@ -188,7 +188,7 @@ function (_Field) {
       } = this.state;
       let config = this.props;
       let optionItems = this.generateItems(this.store ? this.store.data : config.items);
-      return React.createElement(React.Fragment, null, this.props.isClearable ? React.createElement(AsyncCreatableSelect, _extends({
+      return React.createElement(React.Fragment, null, this.props.isClearable || !this.props.hasOwnProperty('isClearable') ? React.createElement(AsyncCreatableSelect, _extends({
         isLoading: isLoading,
         options: options,
         value: value,

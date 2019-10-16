@@ -190,7 +190,7 @@ export default class Select2 extends Field {
         let optionItems = this.generateItems(this.store ? this.store.data : config.items);
 
         return <React.Fragment>
-            {this.props.isClearable ?
+            {this.props.isClearable || !this.props.hasOwnProperty('isClearable') ?
                 <AsyncCreatableSelect
                     isLoading={isLoading}
                     options={options}
