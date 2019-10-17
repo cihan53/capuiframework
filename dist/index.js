@@ -54,6 +54,7 @@ const SwitchField = Form.Field.SwitchField;
 const FormGroup = Form.Field.FormGroup;
 const Button = Form.Field.Button;
 const Multiselect = Form.Field.Multiselect;
+const TextField = Form.Field.text;
 const DatePicker = Form.Field.DatePicker;
 /**
  * Action View
@@ -101,4 +102,4 @@ const Logger = CAPFrameWork.Logger;
 const Debug = CAPFrameWork.Debug;
 export default { ...CAPFrameWork
 };
-export { CAP, DataProxy, BreadCrumb, MessageBox, ConfirmBox, BaseController, Date, Mask, Spinner, ShortId, Grid, Request, StoreManager, BaseStore, ClassNames, FormPanel, Panel, Form, FormField, SwitchField, FormGroup, Multiselect, DatePicker, AlertPanel, Button, Loadable, PropTypes, Xtypes, View, Col, Row, Utils, Raise, Log, Debug, Logger };
+export { CAP, DataProxy, BreadCrumb, MessageBox, ConfirmBox, BaseController, Date, Mask, Spinner, ShortId, Grid, Request, StoreManager, BaseStore, ClassNames, FormPanel, Panel, Form, FormField, SwitchField, FormGroup, Multiselect, DatePicker, TextField, AlertPanel, Button, Loadable, PropTypes, Xtypes, View, Col, Row, Utils, Raise, Log, Debug, Logger };

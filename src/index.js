@@ -54,6 +54,7 @@ const SwitchField = Form.Field.SwitchField;
 const FormGroup = Form.Field.FormGroup;
 const Button = Form.Field.Button;
 const Multiselect = Form.Field.Multiselect;
+const TextField = Form.Field.text;
 const DatePicker = Form.Field.DatePicker;
 /**
  * Action View
@@ -122,6 +123,7 @@ export {
     FormGroup,
     Multiselect,
     DatePicker,
+    TextField,
     AlertPanel,
     Button,
     Loadable,
