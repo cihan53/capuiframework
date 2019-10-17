@@ -51,7 +51,10 @@ const Form = CAPFrameWork.Form;
 const FormPanel = CAPFrameWork.FormPanel;
 const FormField = Form.Field;
 const SwitchField = Form.Field.SwitchField;
-const Button = CAPFrameWork.Form.Field.Button;
+const FormGroup = Form.Field.FormGroup;
+const Button = Form.Field.Button;
+const Multiselect = Form.Field.Multiselect;
+const DatePicker = Form.Field.DatePicker;
 /**
  * Action View
  * @type {View}
@@ -116,6 +119,9 @@ export {
     Form,
     FormField,
     SwitchField,
+    FormGroup,
+    Multiselect,
+    DatePicker,
     AlertPanel,
     Button,
     Loadable,

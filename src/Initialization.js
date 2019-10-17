@@ -45,6 +45,7 @@ import Col from "./Lib/CAP/Layout/Col";
 import SwitchField from "./Lib/CAP/Form/Switch";
 import Row from "./Lib/CAP/Layout/Row";
 import Select2 from "./Lib/CAP/Form/Select2";
+import FormGroup from "./Lib/CAP/Form/FormGroup";
 
 
 moment.locale('tr')
@@ -117,6 +118,7 @@ const CAPFrameWork = e => {
             form: MobxReactForm,
             Field: {
                 base: {},
+                FormGroup:FormGroup,
                 Button: CButton,
                 // Field: Field,
                 Number: {},
