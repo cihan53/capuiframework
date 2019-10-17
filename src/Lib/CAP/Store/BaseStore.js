@@ -74,7 +74,7 @@ export default class BaseStore {
      *
      * @type {Map<any, any>}
      */
-    @observable.struct _model = new Map();
+    @observable _model = new Map();
 
     /**
      * Primary key
@@ -275,8 +275,12 @@ export default class BaseStore {
     }
 
 
-    get model() {
+    get modelValue() {
         return toJS(values(this._model));
+    }
+
+    get model() {
+        return this._model;
     }
 
     set model(value) {

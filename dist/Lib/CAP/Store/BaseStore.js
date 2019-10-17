@@ -1,4 +1,4 @@
-var _dec, _dec2, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _temp;
+var _dec, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _temp;
 
 function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -50,7 +50,7 @@ rules = {
 };
 */
 
-let BaseStore = (_dec = observable.struct, _dec2 = observable.ref, (_class = (_temp =
+let BaseStore = (_dec = observable.ref, (_class = (_temp =
 /*#__PURE__*/
 function () {
   /**
@@ -691,9 +691,14 @@ function () {
       this._data = value;
     }
   }, {
-    key: "model",
+    key: "modelValue",
     get: function () {
       return toJS(values(this._model));
+    }
+  }, {
+    key: "model",
+    get: function () {
+      return this._model;
     },
     set: function (value) {
       this._model = value;
@@ -769,14 +774,14 @@ function () {
   initializer: function () {
     return Object.assign({}, this._defaultConfig.baseParams);
   }
-}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "_model", [_dec], {
+}), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "_model", [observable], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: function () {
     return new Map();
   }
-}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "_actionStatus", [_dec2], {
+}), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "_actionStatus", [_dec], {
   configurable: true,
   enumerable: true,
   writable: true,
