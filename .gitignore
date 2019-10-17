@@ -92,3 +92,4 @@ node_modules
 /.idea/vcs.xml
 /yarn-error.log
 /Examples/
+/.idea/
