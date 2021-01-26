@@ -1,0 +1,111 @@
+/*
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
+
+import React from "react";
+import {observer} from "mobx-react/index";
+import PropTypes from "prop-types";
+import {Col, FormFeedback, FormGroup, Input, Label, FormText} from "reactstrap";
+import Utils from "../Utils/Utils";
+import Validator from "../Utils/Validator";
+import StoreManager from "../../StoreManager";
+
+export default class Text extends React.Component {
+    static defaultProps = {
+        id: Utils.ShortId.generate(),
+        inputName: "",
+        label: "",
+        defaultValue: "",
+        value: "",
+        placeholder: "",
+        allowBlank: true,
+        rule: null,
+        addon: true,
+        layout: "row", // inline | row,
+        store: null,
+        options: {
+            validateClass: "danger",
+            col: "10",
+            labelCol: "2",
+            type: "input"
+        }
+    };
+
+    constructor(props) {
+        super(props)
+        this.rule = [];
+        this.state = {
+            value: this.props.value || null,
+            error: null
+        }
+
+        this.onChange = this.onChange.bind(this);
+
+    }
+
+
+    // shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //
+    //     console.log(nextProps)
+    //     console.log(nextState)
+    //     return true;
+    // }
+
+
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log(prevProps,"uppdpdppdp")
+    // }
+
+    /**
+     *
+     * @param event
+     */
+    onChange(event) {
+        if (this.props.hasOwnProperty("onChange"))
+            this.props.onChange(event, this);
+        this.setState({value: event.target.value});
+    }
+
+    render() {
+
+
+        // console.log("text field", this.props)
+
+        let config = this.props;
+        let inputConfig = Object.assign({},this.props );
+        delete inputConfig.label;
+        delete inputConfig.layout;
+        delete inputConfig.text;
+        delete inputConfig.inputName;
+        delete inputConfig.allowBlank;
+        delete inputConfig.rule;
+        delete inputConfig.addon;
+        delete inputConfig.store;
+        delete inputConfig.options;
+        delete inputConfig.defaultValue ;
+        delete inputConfig.error ;
+
+        let errorMessage = this.props.error || this.state.error ;
+        let input = <Input {...inputConfig}  name={config.inputName} value={this.state.value || ""}  onChange={this.onChange}/>;
+        if (config.layout == "row"){
+            input = <Col sm={config.options.col}>{input}
+                {errorMessage ? <FormFeedback >{errorMessage}</FormFeedback> : void (0)}
+                {config.text && config.text != "" ? <FormText>{config.text}</FormText> : void (0)}
+            </Col>;
+        }else{
+            input = <React.Fragment>{input}
+                {errorMessage ? <FormFeedback >{errorMessage}</FormFeedback> : void (0)}
+                {config.text && config.text != "" ? <FormText>{config.text}</FormText> : void (0)}</React.Fragment>
+        }
+
+
+        return <FormGroup row={config.layout == "row"}>
+            {config.label && config.layout != "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"}>{config.label}</Label> : ""}
+            {config.label && config.layout == "row" ? <Label htmlFor={config.id || config.inputName + "-form-field"} sm={config.options.labelCol}>{config.label}</Label> : ""}
+            {input}
+        </FormGroup>;
+    }
+}
+

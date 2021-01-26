@@ -1,0 +1,111 @@
+/*!
+ * Copyright (c) 2019. Crypttech Yazılım
+ * Author: Cihan Öztürk
+ * Email: cihanozturk@crypttech.com
+ */
+.panel-wizard-container {
+
+  .wrap{
+    background-color: white;
+    padding: 2.5rem;
+  }
+
+  ol.panel-wizard {
+    margin: 0;
+    padding-bottom: 2.2rem;
+    list-style-type: none;
+  }
+
+  ol.panel-wizard li {
+    display: inline-block;
+    text-align: center;
+    line-height: 4.5rem;
+    padding: 0 0.7rem;
+    cursor: pointer;
+  }
+
+  ol.panel-wizard li div {
+    padding: 0 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .panel-wizard li div {
+      display: none;
+    }
+  }
+
+  .panel-wizard em {
+    display: none;
+    font-weight: 700;
+    padding-left: 1rem;
+  }
+
+  @media (max-width: 650px) {
+    .panel-wizard em {
+      display: inline;
+    }
+  }
+
+  ol.panel-wizard li.panel-wizard-todo {
+    color: silver;
+    border-bottom: 4px solid silver;
+  }
+
+  ol.panel-wizard li.panel-wizard-doing {
+    color: black;
+    border-bottom: 4px solid #33c3F0;
+  }
+
+  ol.panel-wizard li.panel-wizar-done {
+    color: black;
+    border-bottom: 4px solid #33c3f0;
+  }
+
+  ol.panel-wizard li:after {
+    content: "\00a0\00a0";
+  }
+
+  ol.panel-wizard li:before {
+    position: relative;
+    bottom: -3.7rem;
+    float: left;
+    left: 50%;
+  }
+
+  ol.panel-wizard li.panel-wizard-todo:before {
+    content: "\039F";
+    color: silver;
+    background-color: white;
+    width: 1.2em;
+    line-height: 1.4em;
+  }
+
+  ol.panel-wizard li.panel-wizard-todo:hover:before {
+    color: #0fa0ce;
+  }
+
+  ol.panel-wizard li.panel-wizard-doing:before {
+    content: "\2022";
+    color: silver;
+    background-color: #33c3f0;
+    width: 1.2em;
+    line-height: 1.4em;
+  }
+
+  ol.panel-wizard li.panel-wizard-doing:hover:before {
+    color: #0fa0ce;
+  }
+
+
+  ol.panel-wizard li.panel-wizard-done:before {
+    content: "\2713";
+    color: silver;
+    background-color: #33c3f0;
+    width: 1.2em;
+    line-height: 1.4em;
+  }
+
+  ol.panel-wizard li.panel-wizard-doing:hover:before {
+    color: #0fa0ce;
+  }
+}

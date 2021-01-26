@@ -1,0 +1,126 @@
+// Variable overrides
+
+:root {
+  --blue: #20a8d8;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #f86c6b;
+  --orange: #f8cb00;
+  --yellow: #ffc107;
+  --green: #4dbd74;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #73818f;
+  --gray-dark: #2f353a;
+  --primary: #0c83e2;
+  --secondary: #727b84;
+  --success: #409444;
+  --info: #009aae;
+  --warning: #ffe715;
+  --danger: #f44336;
+  --light: #f8f9fa;
+  --dark: #23272b;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+
+//Boostrap
+
+$body-bg:#f1f1f1!default;
+$body-color: #72777a!default;
+$gray-100 : #fefefe!default;
+$gray-200 : #ced4da!default;
+$gray-600: #6c757d !default;
+$gray-700: #6c757d !default;
+$gray-900: #6c757d !default;
+
+
+$border-radius:               .3rem !default;
+$border-radius-lg:            .35rem !default;
+$border-radius-sm:            .2rem !default;
+$border-color:                        #ced4da!default;
+
+$white: #fff;
+$primary: #0c83e2;
+$secondary: #727b84;
+$success: #409444;
+$info: #009aae;
+$warning: #ffe715;
+$danger: #f44336;
+$light: #f8f9fa;
+$dark: #23272b;
+
+//button
+
+$color-hover: $white;
+$active-background : #0c83e2;
+$active-border: #0c7cd5;
+
+
+
+//Navbar
+$navbar-bg:                           $gray-100 !default;
+$navbar-active-color:                 #29363d !default;
+$navbar-color:                        #29363d !default;
+$navbar-hover-color:                  #29363d !default;
+
+// Sidebar
+$sidebar-bg:                          $gray-100 !default;
+$sidebar-color:                       #29363d !default;
+
+// Sidebar Navigation
+$sidebar-nav-color:                   #29363d !default;
+$sidebar-nav-dropdown-color:          #29363d !default;
+$sidebar-nav-link-hover-color:        #29363d !default;
+$sidebar-nav-link-active-color:       #29363d !default;
+$sidebar-nav-link-color:              #29363d !default;
+$sidebar-nav-link-hover-bg:           #f0f3f5 !default;
+$sidebar-nav-link-active-bg:          #f0f3f5 !default;
+$sidebar-nav-title-padding-y:         .75rem !default;
+$sidebar-nav-title-padding-x:         1rem !default;
+$sidebar-nav-title-color:             $gray-100 !default;
+$sidebar-nav-link-padding-y:          .75rem !default;
+$sidebar-nav-link-padding-x:          1rem !default;
+$sidebar-nav-link-bg:                 transparent !default;
+$sidebar-nav-link-icon-color:         $gray-600 !default;
+$sidebar-nav-link-borders:            0 !default;
+
+
+
+//Card
+
+$card-border-color:                   #e9ecef!default;
+
+//table
+
+$table-cell-padding:          .75rem !default;
+$table-cell-padding-sm:       .3rem !default;
+
+$table-bg:                    transparent !default;
+//$table-accent-bg:             rgba($black, .05) !default;
+//$table-hover-bg:              rgba($black, .075) !default;
+//$table-active-bg:             $table-hover-bg !default;
+
+//$table-border-width:          $border-width !default;
+$table-border-color:          #e8e6e6 !default;
+
+$table-head-bg:               $gray-200 !default;
+$table-head-color:            $gray-700 !default;
+
+$table-dark-bg:               $gray-900 !default;
+//$table-dark-accent-bg:        rgba($white, .05) !default;
+//$table-dark-hover-bg:         rgba($white, .075) !default;
+$table-dark-border-color:     lighten($gray-900, 7.5%) !default;
+$table-dark-color:            $body-bg !default;
+
+$table-striped-order:         odd !default;
+
+//$table-caption-color:         $text-muted !default;
